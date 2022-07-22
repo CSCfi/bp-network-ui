@@ -12,12 +12,12 @@
       </b-button>
     </template>
     <b-dropdown-item aria-role="list-item" :focusable="false" custom>
-      <div class="modal-card" style="width: 335px">
-        <section class="modal-card-body">
+      <div class="modal-card" style="width: 250px">
+        <div class="modal-card-body">
           <b-switch v-model="toggleAgeLess" @input="toggleSwitch('less')"
             >Age less than
           </b-switch>
-          <span class="ageSelector">
+          <div class="ageSelector">
             <b-button
               type="is-ghost"
               class="buttonWithImage"
@@ -38,8 +38,11 @@
               <img class="image" src="../assets/minus.png" />
             </b-button>
 
-            {{ ageLess }}
-
+            <input
+              class="ageField"
+              v-model="ageLess"
+              :disabled="!toggleAgeLess"
+            />
             <b-button
               v-if="toggleAgeLess"
               type="is-ghost"
@@ -59,13 +62,13 @@
             >
               <img class="image" src="../assets/plus.png" />
             </b-button>
-          </span>
-        </section>
+          </div>
+        </div>
         <section class="modal-card-body">
           <b-switch v-model="toggleAgeMore" @input="toggleSwitch('more')"
             >Ages more than
           </b-switch>
-          <span class="ageSelector">
+          <div class="ageSelector">
             <b-button
               type="is-ghost"
               class="buttonWithImage"
@@ -85,7 +88,11 @@
             >
               <img class="image" src="../assets/minus.png" />
             </b-button>
-            {{ ageMore }}
+            <input
+              class="ageField"
+              v-model="ageMore"
+              :disabled="!toggleAgeMore"
+            />
             <b-button
               v-if="toggleAgeMore"
               type="is-ghost"
@@ -105,20 +112,15 @@
             >
               <img class="image" src="../assets/plus.png" />
             </b-button>
-          </span>
+          </div>
         </section>
+
         <section class="modal-card-body">
-          <span>
-            <b-switch
-              v-model="toggleAgeBetween"
-              @input="toggleSwitch('between')"
-              >Ages between
-            </b-switch>
-          </span>
-        </section>
-        <section class="modal-card-body">
-          <span>
-            <span class="ageSelector">
+          <b-switch v-model="toggleAgeBetween" @input="toggleSwitch('between')"
+            >Ages between
+          </b-switch>
+          <div>
+            <div class="ageSelector">
               <b-button
                 type="is-ghost"
                 class="buttonWithImage"
@@ -140,8 +142,12 @@
               >
                 <img class="image" src="../assets/minus.png" />
               </b-button>
-              {{ ageFrom }}
 
+              <input
+                class="ageField"
+                v-model="ageFrom"
+                :disabled="!toggleAgeBetween"
+              />
               <b-button
                 v-if="toggleAgeBetween"
                 type="is-ghost"
@@ -163,9 +169,9 @@
               >
                 <img class="image" src="../assets/plus.png" />
               </b-button>
-            </span>
-            to
-            <span class="ageSelector">
+            </div>
+            <p class="and">and</p>
+            <div class="ageSelector">
               <b-button
                 type="is-ghost"
                 class="buttonWithImage"
@@ -187,7 +193,12 @@
               >
                 <img class="image" src="../assets/minus.png" />
               </b-button>
-              {{ ageTo }}
+
+              <input
+                class="ageField"
+                v-model="ageTo"
+                :disabled="!toggleAgeBetween"
+              />
               <b-button
                 v-if="toggleAgeBetween"
                 type="is-ghost"
@@ -209,11 +220,11 @@
               >
                 <img class="image" src="../assets/plus.png" />
               </b-button>
-              <p v-if="ageFrom >= ageTo && toggleAgeBetween">
-                Starting age needs to be less than max age
-              </p>
-            </span>
-          </span>
+            </div>
+            <p v-if="ageFrom >= ageTo && toggleAgeBetween">
+              Starting age needs to be less than max age
+            </p>
+          </div>
         </section>
         <b-dropdown-item class="modal-card-foot" custom>
           <b-dropdown-item :focusable="false" custom>
@@ -312,11 +323,21 @@ export default {
 </script>
 
 <style>
+.buttonWithImage {
+  padding-bottom: 10px;
+}
+.and {
+  margin-left: 60px;
+}
+.ageField {
+  width: 30px;
+}
 .ageSelector {
-  width: 100px;
+  margin-top: 10px;
+  width: 150px;
   height: 43px;
   padding-top: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 15px;
   background: #f2f0f7;
   border-radius: 8px;
 }
