@@ -8,7 +8,7 @@
             class="column"
             title="ELIXIR Beacon Network website internal navigation"
           >
-            <p class="footer-heading">ELIXIR Beacon Network</p>
+            <p class="footer-heading">Big Picture Beacon Network</p>
             <ul>
               <li>
                 <router-link
@@ -51,100 +51,6 @@
                 >
               </li>
             </ul>
-          </div>
-          <div class="column" title="Affiliated external links">
-            <p class="footer-heading">More About Beacon</p>
-            <ul>
-              <li>
-                <a
-                  data-testid="beaconProject"
-                  href="https://beacon-project.io/"
-                  title="Information regarding the GA4GH/ELIXIR Beacon project"
-                  >Beacon Project</a
-                >
-              </li>
-              <li>
-                <a
-                  data-testid="elixirSite"
-                  href="https://elixir-europe.org/"
-                  title="ELIXIR Europe website"
-                  >ELIXIR Europe</a
-                >
-              </li>
-              <li>
-                <a
-                  data-testid="ga4gh"
-                  href="https://www.ga4gh.org/"
-                  title="GA4GH website"
-                  >GA4GH</a
-                >
-              </li>
-              <li>
-                <a
-                  data-testid="ga4ghDiscovery"
-                  href="https://ga4gh-discovery.github.io/"
-                  title="Information regarding the GA4GH/ELIXIR Beacon Network project"
-                  >GA4GH Discovery</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Lower Footer -->
-    <div class="footerContainer">
-      <div class="content">
-        <div class="columns">
-          <div class="column">
-            <p>
-              <img class="flag" alt="EU Flag" src="../assets/eu-flag-bw.jpg" />
-              ELIXIR is partly funded by the European Commission within the
-              Research Infrastructures programme of Horizon 2020.
-            </p>
-          </div>
-          <div class="column contact">
-            <p class="address">
-              ELIXIR Beacon Network is operated by
-              <a
-                href="http://www.elixir-europe.org/"
-                title="Go to ELIXIR Europe"
-                >ELIXIR Hub</a
-              >
-              |
-              <a
-                href="mailto:bn-contact@elixir-europe.org"
-                title="Contact the ELIXIR Beacon Network operator"
-                >bn-contact@elixir-europe.org</a
-              >
-              <br />
-              ELIXIR Beacon Network is provided by
-              <a
-                href="http://www.elixir-finland.org/en/frontpage/"
-                title="Go to ELIXIR Finland, the ELIXIR Beacon Network provider"
-                >ELIXIR Finland</a
-              >
-              |
-              <a
-                href="https://www.csc.fi/"
-                title="Go to CSC, the ELIXIR Beacon Network provider"
-                >CSC</a
-              >
-            </p>
-            <p class="legal">
-              Copyright © ELIXIR 2019 - {{ new Date().getFullYear() }} |
-              <router-link
-                to="/tos"
-                title="Read the Terms of Service of ELIXIR Beacon Network"
-                >Terms of Service</router-link
-              >
-              |
-              <router-link
-                to="/privacy"
-                title="Read the Privacy Policy of ELIXIR Beacon Network"
-                >Privacy Policy</router-link
-              >
-            </p>
           </div>
         </div>
       </div>
