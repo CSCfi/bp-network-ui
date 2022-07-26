@@ -53,26 +53,3 @@ describe("Footer.vue internal links", () => {
     expect(wrapper.vm.$route.fullPath).toBe("/accessibility");
   });
 });
-describe("Footer.vue external links", () => {
-  // External links cannot be viewed and therefore these just check the href value
-  it('"Beacon Project" router-link works', async () => {
-    expect(wrapper.find("[data-testid=beaconProject]").attributes().href).toBe(
-      "https://beacon-project.io/"
-    );
-  });
-  it('"ELIXIR Europe" router-link works', async () => {
-    expect(wrapper.find("[data-testid=elixirSite]").attributes().href).toBe(
-      "https://elixir-europe.org/"
-    );
-  });
-  it('"GA4GH" router-link works', async () => {
-    expect(wrapper.find("[data-testid=ga4gh]").attributes().href).toBe(
-      "https://www.ga4gh.org/"
-    );
-  });
-  it('"GA4GH Discovery" router-link works', async () => {
-    expect(wrapper.find("[data-testid=ga4ghDiscovery]").attributes().href).toBe(
-      "https://ga4gh-discovery.github.io/"
-    );
-  });
-});
