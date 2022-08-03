@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <h1 style="display: none">ELIXIR Beacon Network</h1>
+    <h1 style="display: none">Bp Beacon Network</h1>
+
     <b-navbar
       id="nav"
       :class="[
@@ -8,8 +9,11 @@
       ]"
       :spaced="true"
       transparent
-      ><template #brand> Logo here </template>
-      <template #start> Other spot for logo </template>
+    >
+      <template #brand>
+        <router-link to="/" class="logoImage">
+          <img src="./assets/logo1.png" /> </router-link
+      ></template>
       <template #end>
         <b-navbar-item
           class="navbarButton"
@@ -63,6 +67,7 @@
         </b-navbar-item>
       </template>
     </b-navbar>
+
     <router-view />
     <BottomFooter />
   </div>
@@ -160,6 +165,14 @@ export default {
 }
 .navbarButton {
   color: #1c007b !important;
+}
+.logoImage {
+  position: absolute;
+  left: 2.5%;
+  right: 82.22%;
+  top: 6.17%;
+  bottom: 72.84%;
+  width: 220px;
 }
 </style>
 
