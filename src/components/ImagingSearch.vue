@@ -348,6 +348,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .headerText {
+  padding-top: 43.5px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 800;
