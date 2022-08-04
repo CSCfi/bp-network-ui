@@ -1,6 +1,7 @@
 <template>
   <div class="container" style="margin-bottom: 24px">
     <div class="searchComponents">
+      <b class="headerText">Search millions of digital pathology slides</b>
       <section class="searchBarField">
         <form @submit.prevent="onSubmit">
           <div class="stretch searchbar">
@@ -346,6 +347,26 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.headerText {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 29px;
+  line-height: 35px;
+  /* identical to box height */
+
+  text-align: center;
+
+  /* White */
+
+  color: #ffffff;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
 h2 {
   font-size: 2em;
 }
