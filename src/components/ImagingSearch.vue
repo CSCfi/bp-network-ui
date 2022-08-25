@@ -33,7 +33,7 @@
         <div class="dropDownButtonGroup">
           <div class="dropDown1">
             <div>Biological species</div>
-            <b-dropdown aria-role="list" v-model="biologicalOptions">
+            <b-dropdown aria-role="list" v-model="biologicalValue">
               <template #trigger="{ active }">
                 <b-button
                   class="dropdownButton"
@@ -41,21 +41,20 @@
                   type="is-secondary"
                   :icon-right="active ? 'menu-up' : 'menu-down'"
                 >
-                  <p v-if="biologicalOptions.length == 0">Select</p>
-                  <p v-else>{{ biologicalOptions }}</p>
+                  <p v-if="biologicalValue.length == 0">Select</p>
+                  <p v-else>{{ biologicalValue }}</p>
                 </b-button>
               </template>
-              <b-dropdown-item value="Male" aria-role="listitem"
-                >Male</b-dropdown-item
-              >
-              <b-dropdown-item value="Female" aria-role="listitem"
-                >Female</b-dropdown-item
-              >
+              <p v-for="item in biologicalOptions" :key="item">
+                <b-dropdown-item :value="item" aria-role="listitem">{{
+                  item
+                }}</b-dropdown-item>
+              </p>
             </b-dropdown>
           </div>
           <div class="dropDown">
             <div>Anatomical</div>
-            <b-dropdown aria-role="list" v-model="anatomicalOptions">
+            <b-dropdown aria-role="list" v-model="anatomicalValue">
               <template #trigger="{ active }">
                 <b-button
                   class="dropdownButton"
@@ -63,16 +62,15 @@
                   type="is-secondary"
                   :icon-right="active ? 'menu-up' : 'menu-down'"
                 >
-                  <p v-if="anatomicalOptions.length == 0">Select</p>
-                  <p v-else>{{ anatomicalOptions }}</p>
+                  <p v-if="anatomicalValue.length == 0">Select</p>
+                  <p v-else>{{ anatomicalValue }}</p>
                 </b-button>
               </template>
-              <b-dropdown-item value="Male" aria-role="listitem"
-                >Male</b-dropdown-item
-              >
-              <b-dropdown-item value="Female" aria-role="listitem"
-                >Female</b-dropdown-item
-              >
+              <p v-for="item in anatomicalOptions" :key="item">
+                <b-dropdown-item :value="item" aria-role="listitem">{{
+                  item
+                }}</b-dropdown-item>
+              </p>
             </b-dropdown>
           </div>
           <div class="dropDown">
@@ -158,8 +156,11 @@ export default {
       errorTooltip: false,
       sexOptions: [],
       ageOptions: [],
+      anatomicalValue: [],
       anatomicalOptions: [],
       biologicalOptions: [],
+      biologicalValue: [],
+      aggregator: process.env.VUE_APP_AGGREGATOR_URL,
     };
   },
   methods: {
@@ -238,10 +239,84 @@ export default {
 
       vm.validated = true;
     },
+    queryAPI: function () {
+      var vm = this;
+      vm.anatomicalOptions = []; // Clear table
+      vm.biologicalOptions = [];
+      vm.filterValue = [];
+      vm.filteringTerms = [];
+      if (process.env.VUE_APP_DEVELOPMENT) {
+        var wss = vm.aggregator.replace("http", "ws"); // change aggregator http url to ws
+      } else {
+        var wss = vm.aggregator.replace("https", "wss"); // change aggregator https url to wss
+      }
+
+      // Query params parsing from string https://stackoverflow.com/a/6566471/8166034
+      // Copy the query object and remove the unwanted keys, so that we can use
+      // the pristine query object in BasicSearch and AdvancedSearch
+      var queryParamsObj = Object.assign({}, this.$route.query);
+      // Remove the `searchType` and `coordType` keys, which are not sent to Beacons
+      delete queryParamsObj.searchType;
+      delete queryParamsObj.coordType;
+
+      var websocket = new WebSocket(`${wss}query?${"getSearchTerms=true"}`);
+      websocket.onopen = function () {
+        // The connection was opened
+        vm.isLoading = true;
+      };
+      websocket.onclose = function () {
+        // The connection was closed
+        vm.isLoading = false;
+      };
+      websocket.onmessage = function (event) {
+        // New message arrived
+        // check if a beacon with the same id exists already
+        // prevent results appearing 2 times.
+        // this can occur when aggregators query the same beacons
+        if (JSON.parse(event.data).response != undefined) {
+          JSON.parse(event.data).response[0].anatomicalSite.forEach((data) => {
+            data.specimen.attributes.attribute.forEach((element) => {
+              if (element.tag == "anatomical_site") {
+                var exists = false;
+                vm.anatomicalOptions.forEach((option) => {
+                  if (option == element.value) {
+                    exists = true;
+                  }
+                });
+                if (!exists) {
+                  vm.anatomicalOptions.push(element.value);
+                }
+              }
+            });
+          });
+
+          JSON.parse(event.data).response[1].biologicalBeing.forEach((data) => {
+            data.biologicalBeing.attributes.attribute.forEach((element) => {
+              if (element.tag == "animal_species") {
+                var exists = false;
+                vm.biologicalOptions.forEach((option) => {
+                  if (option == element.value) {
+                    exists = true;
+                  }
+                });
+                if (!exists) {
+                  vm.biologicalOptions.push(element.value);
+                }
+              }
+            });
+          });
+        }
+      };
+      websocket.onerror = function () {
+        // There was an error with your WebSocket
+        vm.isLoading = false;
+      };
+    },
   },
   beforeMount() {
     // If user reloads page, this places the current query params from the address bar into the search bar
     // Check searchType
+
     if (this.$route.query.searchType == "basic") {
       // Continue to parse the object into a string
       this.query = `${this.$route.query.referenceName} : ${
@@ -250,6 +325,7 @@ export default {
         this.$route.query.alternateBases
       }`;
     }
+    this.queryAPI();
   },
 };
 </script>
