@@ -3,10 +3,13 @@
     <div class="column">
       <span class="resultHeader">Search results for:</span>
       <span v-for="(item, index) in this.$route.query" :key="index">
-        <span class="resultBox" v-if="typeof item == 'string'">
+        <span class="resultBox" v-if="typeof item == 'string' && item != ''">
           {{ item }}
         </span>
-        <span class="resultBox" v-else>
+        <span
+          class="resultBox"
+          v-else-if="typeof item == 'object' && item != ''"
+        >
           Age <span v-for="i in item" :key="i"> {{ i }}</span>
         </span>
       </span>
