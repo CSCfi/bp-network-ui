@@ -223,12 +223,17 @@ export default {
     },
     buildQueryObj: function () {
       var vm = this;
-
+      var sex = "";
+      if (vm.sexOptions == "Male") {
+        sex = "m";
+      } else if (vm.sexOptions == "Female") {
+        sex = "f";
+      }
       var queryObj = {
         searchTerm: vm.query,
         biologicalSpecies: vm.biologicalValue,
         anatomicalSite: vm.anatomicalValue,
-        sex: vm.sexOptions,
+        sex: sex,
         age: vm.ageOptions,
       };
 
