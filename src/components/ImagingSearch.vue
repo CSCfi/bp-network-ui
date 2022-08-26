@@ -168,8 +168,8 @@ export default {
       this.query = "";
       this.sexOptions = [];
       this.ageOptions = [];
-      this.biologicalOptions = [];
-      this.anatomicalOptions = [];
+      this.biologicalValue = [];
+      this.anatomicalValue = [];
       this.$refs.ageSelector.clearAgeForm();
     },
     setAgeOptions: function (ageOptionsArray) {
@@ -226,8 +226,8 @@ export default {
 
       var queryObj = {
         searchTerm: vm.query,
-        biologicalSpecies: vm.biologicalOptions,
-        anatomicalSite: vm.anatomicalOptions,
+        biologicalSpecies: vm.biologicalValue,
+        anatomicalSite: vm.anatomicalValue,
         sex: vm.sexOptions,
         age: vm.ageOptions,
       };
