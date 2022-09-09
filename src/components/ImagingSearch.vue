@@ -3,7 +3,7 @@
     <div class="searchComponents">
       <section class="searchBarField">
         <form @submit.prevent="onSubmit">
-          <b-tooltip class="stretch searchbar" animated label="Search bar">
+          <div class="stretch searchbar">
             <label for="searchBar">Search Terms</label>
             <b-input
               class="stretch searchbar"
@@ -15,7 +15,7 @@
               v-model="query"
               title="Variant search term"
             ></b-input>
-          </b-tooltip>
+          </div>
 
           <b-message
             v-if="errorTooltip"
@@ -193,10 +193,10 @@ export default {
       if (vm.validated) {
         // Query string
         var queryObj = {};
-        queryObj.searchType = "basic";
         queryObj.assemblyId = vm.assembly;
         queryObj = Object.assign(queryObj, vm.buildQueryObj());
         // Change view to results and send GET query string
+        console.log(queryObj);
         this.$router.push(
           {
             path: "results",
@@ -227,14 +227,24 @@ export default {
       if (vm.sexOptions == "Male") {
         sex = "m";
       } else if (vm.sexOptions == "Female") {
-        sex = "f";
+        sex = "w";
       }
+      var ageOption = [];
+      var age = [];
+      vm.ageOptions.forEach((option) => {
+        if (option == "<" || option == ">" || option == "-") {
+          ageOption.push(option);
+        } else {
+          age.push(option);
+        }
+      });
       var queryObj = {
         searchTerm: vm.query,
         biologicalSpecies: vm.biologicalValue,
         anatomicalSite: vm.anatomicalValue,
         sex: sex,
-        age: vm.ageOptions,
+        ageOption: ageOption,
+        age: age,
       };
 
       return queryObj;
@@ -322,14 +332,13 @@ export default {
     // If user reloads page, this places the current query params from the address bar into the search bar
     // Check searchType
 
-    if (this.$route.query.searchType == "basic") {
-      // Continue to parse the object into a string
-      this.query = `${this.$route.query.referenceName} : ${
-        parseInt(this.$route.query.start, 10) + 1
-      } ${this.$route.query.referenceBases} > ${
-        this.$route.query.alternateBases
-      }`;
-    }
+    // Continue to parse the object into a string
+    this.query = `${this.$route.query.referenceName} : ${
+      parseInt(this.$route.query.start, 10) + 1
+    } ${this.$route.query.referenceBases} > ${
+      this.$route.query.alternateBases
+    }`;
+
     this.queryAPI();
   },
 };

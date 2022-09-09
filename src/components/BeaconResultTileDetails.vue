@@ -7,17 +7,19 @@
         class="show-more"
         :title="!display ? 'Show detailed response' : 'Hide detailed response'"
       >
-        {{
-          !display
-            ? "Display " + results.length + " result(s)"
-            : "Hide result(s)"
-        }}
+        {{ !display ? "View details" : "Hide details" }}
       </b-button>
+      <b-button class="accessButton"> Apply access </b-button>
       <div v-if="display" class="details-rows">
-        <b-table :data="results" :striped="true" class="column details-table">
+        <b-table
+          :data="results[0]"
+          :striped="true"
+          class="column details-table"
+        >
           <b-table-column label="Access">
-            <template v-slot:default="results">
-              <b-tag
+            placeholder
+            <!-- <template v-slot:default="results">
+               <b-tag
                 class="accessibility-green-tag"
                 v-if="checkForPublicDatasets(results.row)"
                 title="Dataset is in public access"
@@ -36,64 +38,17 @@
                 ><b>Controlled</b></b-tag
               >
               <b-tag class="access-tag" type="is-light" v-else>Unknown</b-tag>
-            </template>
+            </template> -->
           </b-table-column>
           <b-table-column label="Dataset" title="Unique identifier of dataset">
-            <template v-slot:default="results">
-              {{ results.row.datasetId }}
-              <span v-if="results.row.externalUrl"
-                ><a
-                  v-bind:href="results.row.externalUrl"
-                  title="Link to this dataset's location"
-                >
-                  dataset location</a
-                ></span
-              >
-            </template>
+            placeholder
           </b-table-column>
           <b-table-column
-            label="Variant"
-            title="Reference and alternate bases of this variant"
+            label="Images"
+            title="Amount of corresponding images in dataset"
           >
-            <template v-slot:default="results">
-              <span class="word-wrap">
-                {{ results.row.referenceBases }} >
-                {{ results.row.alternateBases }}
-              </span>
-            </template>
-          </b-table-column>
-          <b-table-column label="VT" title="Variant Type">
-            <template v-slot:default="results">
-              {{ results.row.variantType }}
-            </template>
-          </b-table-column>
-          <b-table-column
-            label="Region"
-            title="Start and end coordinates of this variant"
-          >
-            <template v-slot:default="results">
-              <div
-                v-if="
-                  results.row.referenceName &&
-                  results.row.start &&
-                  results.row.end
-                "
-              >
-                {{ results.row.referenceName }}:{{ results.row.start + 1 }}-{{
-                  results.row.end + 1
-                }}
-              </div>
-              <div v-else title="Some information is missing">?</div>
-            </template>
-          </b-table-column>
-          <b-table-column label="AC" title="Allele Count">
-            <template v-slot:default="results">
-              {{ results.row.variantCount ? results.row.variantCount : "" }}
-            </template>
-          </b-table-column>
-          <b-table-column label="AF" title="Allele Frequency">
-            <template v-slot:default="results">
-              {{ results.row.frequency ? results.row.frequency : "" }}
+            <template>
+              {{ results.length }}
             </template>
           </b-table-column>
         </b-table>
@@ -146,14 +101,32 @@ export default {
 </script>
 
 <style scoped>
+.accessButton {
+  display: block;
+  margin: 0 auto;
+  margin-right: 30px;
+  margin-top: -65px;
+  margin-bottom: 25px;
+  color: white !important;
+  background-color: #1c007b !important;
+  border-color: #1c007b !important;
+
+  border-width: 1.5px !important;
+}
+.accessButton:hover {
+  color: #1c007b !important;
+  background-color: #f2f0f7 !important;
+  border-color: #1c007b !important;
+  border-width: 1.5px !important;
+}
 .word-wrap {
   word-break: break-all;
 }
 .show-more {
   display: block;
   margin: 0 auto;
-  margin-right: 30px;
-  margin-top: -75px;
+  margin-right: 180px;
+  margin-top: -65px;
   margin-bottom: 25px;
   color: #1c007b;
   background-color: #f2f0f7 !important;

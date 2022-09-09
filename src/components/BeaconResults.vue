@@ -10,7 +10,7 @@
           class="resultBox"
           v-else-if="typeof item == 'object' && item != ''"
         >
-          Age <span v-for="i in item" :key="i"> {{ i }}</span>
+          <span v-for="i in item" :key="i"> {{ i }}</span>
         </span>
       </span>
     </div>
@@ -19,30 +19,20 @@
       <div v-if="isLoading" class="loading-indicator spinner">
         <Loading></Loading>
       </div>
-
       <div v-for="(resp, index) in response" :key="index">
         <!-- beaconV1 tile -->
-
-        <section v-if="!checkIfV2(resp) && resp.exists">
+        <section v-if="resp.exists">
           <BeaconResultTile
             :title="'Response from Beacon ' + resp.beaconId"
-            :key="resp.beaconId"
             :exists="resp.exists"
             v-bind:beaconId="resp.beaconId"
           ></BeaconResultTile>
-          <div
-            v-if="
-              resp.datasetAlleleResponses &&
-              resp.datasetAlleleResponses.length > 0
-            "
-          >
-            <BeaconResultTileDetails
-              :key="resp.beaconId"
-              v-bind:results="resp.datasetAlleleResponses"
-              :beaconId="resp.beaconId"
-              :beaconVersion="1"
-            ></BeaconResultTileDetails>
-          </div>
+
+          <BeaconResultTileDetails
+            :key="resp.beaconId"
+            v-bind:results="resp.images"
+            :beaconId="resp.beaconId"
+          ></BeaconResultTileDetails>
         </section>
         <section v-if="!checkIfV2(resp) && resp.exists == false && !hits">
           <BeaconResultTile
@@ -56,43 +46,6 @@
             :key="resp.beaconId"
             :exists="resp.exists"
             v-bind:beaconId="resp.beaconId"
-          ></BeaconResultTile>
-        </section>
-        <!-- beaconV2 tile -->
-        <section v-if="checkIfV2(resp) && resp.response.exists">
-          <BeaconResultTile
-            :title="'Response from Beacon ' + resp.meta.beaconId"
-            :key="resp.meta.beaconId"
-            :exists="resp.response.exists"
-            v-bind:beaconId="resp.meta.beaconId"
-          ></BeaconResultTile>
-          <div
-            v-if="resp.response.results && resp.response.numTotalResults > 0"
-          >
-            <BeaconResultTileDetailsV2
-              :key="resp.meta.beaconId"
-              v-bind:results="resp.response.results"
-              :beaconId="resp.meta.beaconId"
-              :beaconVersion="2"
-            ></BeaconResultTileDetailsV2>
-          </div>
-        </section>
-        <section
-          v-if="checkIfV2(resp) && resp.response.exists == false && !hits"
-        >
-          <BeaconResultTile
-            :key="resp.meta.beaconId"
-            :exists="resp.response.exists"
-            v-bind:beaconId="resp.meta.beaconId"
-          ></BeaconResultTile>
-        </section>
-        <section
-          v-if="checkIfV2(resp) && resp.response.exists == null && errors"
-        >
-          <BeaconResultTile
-            :key="resp.meta.beaconId"
-            :exists="resp.response.exists"
-            v-bind:beaconId="resp.meta.beaconId"
           ></BeaconResultTile>
         </section>
       </div>
@@ -121,7 +74,6 @@ export default {
   components: {
     BeaconResultTile,
     BeaconResultTileDetails,
-    BeaconResultTileDetailsV2,
     Loading,
   },
   data() {
@@ -250,7 +202,7 @@ export default {
         queryParamsString +=
           key + "=" + encodeURIComponent(queryParamsObj[key]);
       }
-      queryParamsString += "&filters=filter";
+
       // Create websocket
       var websocket = new WebSocket(`${wss}query?${queryParamsString}`);
       websocket.onopen = function () {
@@ -267,6 +219,7 @@ export default {
         // check if a beacon with the same id exists already
         // prevent results appearing 2 times.
         // this can occur when aggregators query the same beacons
+        console.log(JSON.parse(event.data));
         if (JSON.parse(event.data) != null) {
           //checks if response is filteringTerms or not
           if (JSON.parse(event.data).filteringTerms != undefined) {
@@ -415,6 +368,7 @@ export default {
   beforeMount() {
     this.queryAPI();
     this.setSearchToLocaStorage();
+    console.log(this.response);
   },
 };
 </script>
