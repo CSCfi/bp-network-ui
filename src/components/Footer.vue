@@ -66,16 +66,16 @@ export default {
 
 <style lang="scss" scoped>
 .footer {
-  background: #3e3e3e;
+  background: #f2f0f7;
   color: white;
   padding: 0;
 
   margin-top: auto;
 }
 .footer .footerContainer.centered h5 {
-  color: white;
+  color: #1c007b;
   padding-bottom: 5px;
-  border-bottom: solid 1px white;
+  border-bottom: solid 1px #1c007b;
   width: 50%;
   min-width: 300px;
 }
@@ -89,13 +89,13 @@ export default {
   padding: 0;
 }
 .footer .footerContainer.centered ul li a {
-  color: white;
+  color: #1c007b;
 }
 .footer .footerContainer.centered ul li a:hover {
   color: #f47d21;
 }
 .footer a {
-  color: #0bf;
+  color: #1c007b;
 }
 .footer a:hover {
   color: #f47d21;
@@ -129,7 +129,7 @@ export default {
   margin: 5px 10px 0 0;
 }
 .footer-heading {
-  color: #fff;
+  color: #1c007b;
   border-bottom: solid 1px #fff;
   font-weight: 700;
   font-size: 16px;
