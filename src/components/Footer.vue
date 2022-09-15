@@ -8,49 +8,76 @@
             class="column"
             title="ELIXIR Beacon Network website internal navigation"
           >
-            <p class="footer-heading">Big Picture Beacon Network</p>
-            <ul>
-              <li>
-                <router-link
-                  data-testid="quide"
-                  to="/guide"
-                  title="A guide on how to user the Beacon Network user interface"
-                  >How to use Beacon Network</router-link
-                >
-              </li>
-              <li>
-                <router-link
-                  data-testid="join"
-                  to="/join"
-                  title="How to register a new Beacon to ELIXIR Beacon Network"
-                  >Join the Network</router-link
-                >
-              </li>
-              <li>
-                <router-link
-                  data-testid="docs"
-                  to="/docs"
-                  title="Technical documentation for web and API developers"
-                  >For Developers</router-link
-                >
-              </li>
-              <li>
-                <router-link
-                  data-testid="apiDocs"
-                  to="/docsapi"
-                  title="Technical documentation of advanced API usage"
-                  >API Documentation</router-link
-                >
-              </li>
-              <li>
-                <router-link
-                  data-testid="accessibility"
-                  to="/accessibility"
-                  title="Accessibility statement"
-                  >Accessibility Statement</router-link
-                >
-              </li>
-            </ul>
+            <div class="footer_container">
+              <div>
+                <ul class="list">
+                  <li>
+                    <router-link
+                      class="is-underlined"
+                      data-testid="quide"
+                      to="/guide"
+                      title="About us"
+                      >About us</router-link
+                    >
+                  </li>
+                  <li>
+                    <router-link
+                      class="is-underlined"
+                      data-testid="join"
+                      to="/join"
+                      title="Contact"
+                      >Contact</router-link
+                    >
+                  </li>
+                  <li>
+                    <router-link
+                      class="is-underlined"
+                      data-testid="docs"
+                      to="/docs"
+                      title="Help"
+                      >Help</router-link
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="right_container">
+                <ul class="list">
+                  <li>
+                    <router-link
+                      class="is-underlined"
+                      data-testid="apiDocs"
+                      to="/docsapi"
+                      title="Accessibility"
+                      >Accessibility</router-link
+                    >
+                  </li>
+                  <li>
+                    <router-link
+                      class="is-underlined"
+                      data-testid="accessibility"
+                      to="/accessibility"
+                      title="Datasets"
+                      >Datasets</router-link
+                    >
+                  </li>
+                  <li>
+                    <router-link
+                      class="is-underlined"
+                      data-testid="accessibility"
+                      to="/accessibility"
+                      title="Link to webpage"
+                      >Link to webpage</router-link
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="footerText">
+                Bigpicture will set up the first European, ethical- and General
+                Data Protection Regulation-compliant, quality-controlled and
+                community-based platform, in which both large-scale data and
+                Artificial Intelligence (AI) algorithms will coexist.
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -65,12 +92,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.footer {
-  background: #f2f0f7;
-  color: white;
-  padding: 0;
+.footerText {
+  color: #1c007b;
+  padding-left: 300px;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
 
-  margin-top: auto;
+  width: 120px;
+  height: 100px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.footer_container {
+  display: flex;
 }
 .footer .footerContainer.centered h5 {
   color: #1c007b;
@@ -92,7 +135,7 @@ export default {
   color: #1c007b;
 }
 .footer .footerContainer.centered ul li a:hover {
-  color: #f47d21;
+  color: #004d8c;
 }
 .footer a {
   color: #1c007b;
