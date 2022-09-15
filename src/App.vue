@@ -11,7 +11,7 @@
       ><template #brand> Logo here </template>
       <template #start> Other spot for logo </template>
       <template #end>
-        <b-navbar-item
+        <!-- <b-navbar-item
           class="navbarButton"
           href="/datasets"
           v-if="$route.path != '/datasets' && $route.path != '/history'"
@@ -60,7 +60,7 @@
           title="Log out from ELIXIR Beacon Network"
         >
           <b-button class="loginButton" :href="logout_url">Log Out</b-button>
-        </b-navbar-item>
+        </b-navbar-item> -->
       </template>
     </b-navbar>
     <router-view />
