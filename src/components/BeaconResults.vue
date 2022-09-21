@@ -121,26 +121,28 @@ export default {
       if (this.$route.query.biologicalSpecies != "") {
         this.searchValues.push(this.$route.query.biologicalSpecies);
       }
-      if (
-        typeof Object.keys(this.$route.query.age).length > 1 &&
-        this.$route.query.ageOption != ""
-      ) {
-        this.searchValues.push(
-          "Ages between " +
-            this.$route.query.age[0] +
-            " " +
-            this.$route.query.ageOption +
-            " " +
-            this.$route.query.age[1]
-        );
-      } else if (
-        this.$route.query.age != "" &&
-        this.$route.query.ageOption != ""
-      ) {
-        if (this.$route.query.ageOption == "<") {
-          this.searchValues.push("Age less than " + this.$route.query.age);
-        } else {
-          this.searchValues.push("Age higher than " + this.$route.query.age);
+      if (typeof this.$route.query.age === "object") {
+        if (
+          typeof Object.keys(this.$route.query.age).length > 1 &&
+          this.$route.query.ageOption != ""
+        ) {
+          this.searchValues.push(
+            "Ages between " +
+              this.$route.query.age[0] +
+              " " +
+              this.$route.query.ageOption +
+              " " +
+              this.$route.query.age[1]
+          );
+        } else if (
+          this.$route.query.age != "" &&
+          this.$route.query.ageOption != ""
+        ) {
+          if (this.$route.query.ageOption == "<") {
+            this.searchValues.push("Age less than " + this.$route.query.age);
+          } else {
+            this.searchValues.push("Age higher than " + this.$route.query.age);
+          }
         }
       }
       console.log(this.searchValues);
