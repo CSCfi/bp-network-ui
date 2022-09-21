@@ -42,7 +42,7 @@
                   type="is-secondary"
                   :icon-right="active ? 'menu-up' : 'menu-down'"
                 >
-                  <p v-if="biologicalValue.length == 0">Select</p>
+                  <p v-if="biologicalValue.length == 0">All</p>
                   <p v-else>{{ biologicalValue }}</p>
                 </b-button>
               </template>
@@ -63,7 +63,7 @@
                   type="is-secondary"
                   :icon-right="active ? 'menu-up' : 'menu-down'"
                 >
-                  <p v-if="anatomicalValue.length == 0">Select</p>
+                  <p v-if="anatomicalValue.length == 0">All</p>
                   <p v-else>{{ anatomicalValue }}</p>
                 </b-button>
               </template>
@@ -84,7 +84,7 @@
                   type="is-secondary"
                   :icon-right="active ? 'menu-up' : 'menu-down'"
                 >
-                  <p v-if="sexOptions.length == 0">Select</p>
+                  <p v-if="sexOptions.length == 0">All</p>
                   <p v-else>{{ sexOptions }}</p>
                 </b-button>
               </template>
