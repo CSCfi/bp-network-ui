@@ -8,29 +8,6 @@
         </span>
 
         <span class="media-content"> beacon description</span>
-        <span class="media-right">
-          <small class="contactInfoBar"
-            ><a
-              v-bind:href="data.organization.url"
-              :title="
-                'Visit ' + data.organization.name + ' organisation website'
-              "
-              >Visit Us</a
-            >
-            ·
-            <a
-              v-bind:href="data.url"
-              :title="'Visit ' + data.name + ' Beacon API'"
-              >Beacon API</a
-            >
-            ·
-            <a
-              v-bind:href="data.contactUrl"
-              :title="data.organization.name + '\'s contact address'"
-              >Contact Us</a
-            >
-          </small>
-        </span>
       </article>
     </span>
   </span>
