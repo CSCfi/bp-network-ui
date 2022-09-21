@@ -127,15 +127,6 @@
             >Clear Fields
           </b-button>
         </span>
-        <span class="searchBtn">
-          <b-button
-            v-on:click="exampleSearch()"
-            type="is-primary"
-            size="is-medium"
-            data-testid="exampleButton"
-            >Example search
-          </b-button>
-        </span>
       </div>
     </div>
   </div>
