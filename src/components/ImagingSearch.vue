@@ -111,6 +111,7 @@
       <div class="searchButtonField">
         <span>
           <b-button
+            class="searchButton"
             v-on:click="imagingSearch()"
             type="is-primary"
             size="is-medium"
@@ -118,8 +119,10 @@
             >Search</b-button
           ></span
         >
-        <span class="searchBtn">
+        <span class="resetSpan">
           <b-button
+            icon-left="refresh"
+            class="resetButton"
             v-on:click="clearFields()"
             type="is-primary"
             size="is-medium"
@@ -388,11 +391,6 @@ h2 {
   width: 188px;
 }
 
-@media screen and (min-width: 1025px) {
-  .searchbar-footer span#advancedSearch {
-  }
-}
-
 @media screen and (max-width: 1024px) {
   .searchbar-footer {
     display: flex;
@@ -422,13 +420,19 @@ select {
   padding-top: 20px;
   padding-bottom: 30px;
 }
-.searchBtn {
+.resetSpan {
   padding-left: 30px;
 }
-.button.is-primary {
+.resetButton.is-primary {
+  background-color: #1c007b;
+}
+.resetButton.is-primary:hover {
+  background-color: #1c007b;
+}
+.searchButton.is-primary {
   background-color: #ff447c;
 }
-.button.is-primary:hover {
+.searchButton.is-primary:hover {
   background-color: #ff2567;
   border-color: #000000;
   border-width: 1px;
