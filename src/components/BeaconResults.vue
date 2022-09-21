@@ -252,7 +252,6 @@ export default {
         // check if a beacon with the same id exists already
         // prevent results appearing 2 times.
         // this can occur when aggregators query the same beacons
-        console.log(JSON.parse(event.data));
         if (JSON.parse(event.data) != null) {
           //checks if response is filteringTerms or not
           if (JSON.parse(event.data).filteringTerms != undefined) {
@@ -403,8 +402,6 @@ export default {
   beforeMount() {
     this.queryAPI();
     this.setSearchToLocaStorage();
-    this.searchValues = [];
-    this.parseSearchValues();
   },
 };
 </script>
