@@ -7,7 +7,7 @@
         type="is-secondary"
         :icon-right="active ? 'menu-up' : 'menu-down'"
       >
-        <p v-if="ageOpt.length == 0">Select</p>
+        <p v-if="ageOpt.length == 0">All</p>
         <p v-else>{{ ageOpt[0] }}</p>
       </b-button>
     </template>
