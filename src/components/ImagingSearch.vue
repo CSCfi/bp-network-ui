@@ -218,7 +218,7 @@ export default {
     },
     buildQueryObj: function () {
       var vm = this;
-      var sex = "";
+      var sex;
       if (vm.sexOptions == "Male") {
         sex = "m";
       } else if (vm.sexOptions == "Female") {
@@ -328,11 +328,12 @@ export default {
     // Check searchType
 
     // Continue to parse the object into a string
-    this.query = `${this.$route.query.referenceName} : ${
-      parseInt(this.$route.query.start, 10) + 1
-    } ${this.$route.query.referenceBases} > ${
-      this.$route.query.alternateBases
-    }`;
+
+    if (this.$route.query != undefined) {
+      if (!Object.keys(this.$route.query).length === 0) {
+        this.query = this.$route.query.searchTerm;
+      }
+    }
 
     this.queryAPI();
   },

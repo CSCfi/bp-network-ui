@@ -107,7 +107,6 @@ export default {
   },
   methods: {
     parseSearchValues: function () {
-      console.log(this.$route.query);
       if (this.$route.query.searchTerm != "") {
         this.searchValues.push(this.$route.query.searchTerm);
       }
@@ -145,7 +144,6 @@ export default {
           }
         }
       }
-      console.log(this.searchValues);
     },
     filterResults: function (filters) {
       var queryParamsObj = Object.assign({}, this.$route.query);
@@ -300,6 +298,8 @@ export default {
             if (!found && !found_nobeaconid) vm.response.push(nobeaconid);
           }
         }
+        vm.searchValues = [];
+        vm.parseSearchValues();
       };
       websocket.onerror = function () {
         // There was an error with your WebSocket
