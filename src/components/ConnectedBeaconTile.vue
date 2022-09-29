@@ -1,29 +1,19 @@
 <template>
-  <div class="tile is-parent is-6">
+  <div class="tile is-parent is-15">
     <div class="tile is-child box">
       <article class="media">
         <div class="media-left">
-          <figure class="image is-96x96">
-            <img
-              :src="beacon.organization.logoUrl"
-              :alt="beacon.organization.name + ' organization logo'"
-            />
-          </figure>
-        </div>
-
-        <div class="media-body">
-          <div class="content" id="versionTag">
-            <b-taglist attached>
-              <b-tag type="is-dark">Beacon API</b-tag>
-              <b-tag type="is-success">v{{ beacon.type.version }}</b-tag>
-            </b-taglist>
-          </div>
           <div class="content">
             <p class="title is-size-5">{{ beacon.organization.name }}</p>
             <p class="subtitle is-6">{{ beacon.name }}</p>
             <p class="subtitle is-6">{{ beacon.description }}</p>
           </div>
+        </div>
 
+        <div class="media-body">
+          Beacon API Web Server based on the GA4GH Beacon API
+        </div>
+        <div class="media-right">
           <small
             ><a
               v-bind:href="beacon.organization.url"
@@ -43,7 +33,16 @@
               v-bind:href="beacon.contactUrl"
               :title="beacon.organization.name + '\'s contact address'"
               >Contact Us</a
-            ></small
+            >
+          </small>
+          <b-button
+            :data-testid="beaconId"
+            @click="displayResults"
+            class="show-more"
+            :title="
+              !display ? 'Show detailed response' : 'Hide detailed response'
+            "
+            >View details</b-button
           >
         </div>
       </article>
@@ -59,5 +58,8 @@ export default {
 <style scoped>
 #versionTag {
   margin-right: auto;
+}
+a {
+  color: #1c007b;
 }
 </style>
