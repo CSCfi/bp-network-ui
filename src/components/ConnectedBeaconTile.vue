@@ -11,10 +11,12 @@
         </div>
 
         <div class="media-body">
-          Beacon API Web Server based on the GA4GH Beacon API
+          <div class="beaconDetail">
+            Beacon API Web Server based on the GA4GH Beacon API
+          </div>
         </div>
         <div class="media-right">
-          <small
+          <small class="links"
             ><a
               v-bind:href="beacon.organization.url"
               :title="
@@ -35,13 +37,7 @@
               >Contact Us</a
             >
           </small>
-          <b-button
-            :data-testid="beaconId"
-            @click="displayResults"
-            class="show-more"
-            :title="
-              !display ? 'Show detailed response' : 'Hide detailed response'
-            "
+          <b-button class="view_details" :title="'Show detailed response'"
             >View details</b-button
           >
         </div>
@@ -59,7 +55,16 @@ export default {
 #versionTag {
   margin-right: auto;
 }
+.beaconDetail {
+  margin-left: 100px;
+}
 a {
   color: #1c007b;
+}
+.links {
+  margin-left: 50px;
+}
+.view_details {
+  margin-left: 50px;
 }
 </style>
