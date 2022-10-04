@@ -136,7 +136,6 @@ export default {
     checkIfV2Inresponse: function () {
       this.response.forEach((response) => {
         if (response.meta != undefined) {
-          console.log("here");
           return true;
         }
       });
@@ -157,7 +156,6 @@ export default {
       return response;
     },
     sortNumbers(a, b, isAsc) {
-      // console.log(a, b);
       if (isAsc) {
         return (
           a.datasetAlleleResponses.length > b.datasetAlleleResponses.length
@@ -211,7 +209,6 @@ export default {
         // check if a beacon with the same id exists already
         // prevent results appearing 2 times.
         // this can occur when aggregators query the same beacons
-        console.log(JSON.parse(event.data));
         if (JSON.parse(event.data) != null) {
           //checks if response is filteringTerms or not
           if (JSON.parse(event.data).filteringTerms != undefined) {
@@ -360,7 +357,6 @@ export default {
   beforeMount() {
     this.queryAPI();
     this.setSearchToLocaStorage();
-    console.log(this.response);
   },
 };
 </script>
