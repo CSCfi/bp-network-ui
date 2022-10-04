@@ -1,6 +1,7 @@
 <template>
   <div class="container" style="margin-bottom: 24px">
     <div class="searchComponents">
+      <b class="headerText">Search millions of digital pathology slides</b>
       <section class="searchBarField">
         <form @submit.prevent="onSubmit">
           <div class="stretch searchbar">
@@ -41,7 +42,7 @@
                   type="is-secondary"
                   :icon-right="active ? 'menu-up' : 'menu-down'"
                 >
-                  <p v-if="biologicalValue.length == 0">Select</p>
+                  <p v-if="biologicalValue.length == 0">All</p>
                   <p v-else>{{ biologicalValue }}</p>
                 </b-button>
               </template>
@@ -62,7 +63,7 @@
                   type="is-secondary"
                   :icon-right="active ? 'menu-up' : 'menu-down'"
                 >
-                  <p v-if="anatomicalValue.length == 0">Select</p>
+                  <p v-if="anatomicalValue.length == 0">All</p>
                   <p v-else>{{ anatomicalValue }}</p>
                 </b-button>
               </template>
@@ -83,7 +84,7 @@
                   type="is-secondary"
                   :icon-right="active ? 'menu-up' : 'menu-down'"
                 >
-                  <p v-if="sexOptions.length == 0">Select</p>
+                  <p v-if="sexOptions.length == 0">All</p>
                   <p v-else>{{ sexOptions }}</p>
                 </b-button>
               </template>
@@ -110,6 +111,7 @@
       <div class="searchButtonField">
         <span>
           <b-button
+            class="searchButton"
             v-on:click="imagingSearch()"
             type="is-primary"
             size="is-medium"
@@ -117,22 +119,15 @@
             >Search</b-button
           ></span
         >
-        <span class="searchBtn">
+        <span class="resetSpan">
           <b-button
+            icon-left="refresh"
+            class="resetButton"
             v-on:click="clearFields()"
             type="is-primary"
             size="is-medium"
             data-testid="clearButton"
             >Clear Fields
-          </b-button>
-        </span>
-        <span class="searchBtn">
-          <b-button
-            v-on:click="exampleSearch()"
-            type="is-primary"
-            size="is-medium"
-            data-testid="exampleButton"
-            >Example search
           </b-button>
         </span>
       </div>
@@ -223,7 +218,7 @@ export default {
     },
     buildQueryObj: function () {
       var vm = this;
-      var sex = "";
+      var sex;
       if (vm.sexOptions == "Male") {
         sex = "m";
       } else if (vm.sexOptions == "Female") {
@@ -333,11 +328,12 @@ export default {
     // Check searchType
 
     // Continue to parse the object into a string
-    this.query = `${this.$route.query.referenceName} : ${
-      parseInt(this.$route.query.start, 10) + 1
-    } ${this.$route.query.referenceBases} > ${
-      this.$route.query.alternateBases
-    }`;
+
+    if (this.$route.query != undefined) {
+      if (!Object.keys(this.$route.query).length === 0) {
+        this.query = this.$route.query.searchTerm;
+      }
+    }
 
     this.queryAPI();
   },
@@ -346,6 +342,27 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.headerText {
+  padding-top: 43.5px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 29px;
+  line-height: 35px;
+  /* identical to box height */
+
+  text-align: center;
+
+  /* White */
+
+  color: #ffffff;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
 h2 {
   font-size: 2em;
 }
@@ -373,11 +390,6 @@ h2 {
 }
 .dropdownButton {
   width: 188px;
-}
-
-@media screen and (min-width: 1025px) {
-  .searchbar-footer span#advancedSearch {
-  }
 }
 
 @media screen and (max-width: 1024px) {
@@ -409,13 +421,19 @@ select {
   padding-top: 20px;
   padding-bottom: 30px;
 }
-.searchBtn {
+.resetSpan {
   padding-left: 30px;
 }
-.button.is-primary {
+.resetButton.is-primary {
+  background-color: #1c007b;
+}
+.resetButton.is-primary:hover {
+  background-color: #1c007b;
+}
+.searchButton.is-primary {
   background-color: #ff447c;
 }
-.button.is-primary:hover {
+.searchButton.is-primary:hover {
   background-color: #ff2567;
   border-color: #000000;
   border-width: 1px;

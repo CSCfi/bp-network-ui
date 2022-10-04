@@ -8,143 +8,76 @@
             class="column"
             title="ELIXIR Beacon Network website internal navigation"
           >
-            <p class="footer-heading">ELIXIR Beacon Network</p>
-            <ul>
-              <li>
-                <router-link
-                  data-testid="quide"
-                  to="/guide"
-                  title="A guide on how to user the Beacon Network user interface"
-                  >How to use Beacon Network</router-link
-                >
-              </li>
-              <li>
-                <router-link
-                  data-testid="join"
-                  to="/join"
-                  title="How to register a new Beacon to ELIXIR Beacon Network"
-                  >Join the Network</router-link
-                >
-              </li>
-              <li>
-                <router-link
-                  data-testid="docs"
-                  to="/docs"
-                  title="Technical documentation for web and API developers"
-                  >For Developers</router-link
-                >
-              </li>
-              <li>
-                <router-link
-                  data-testid="apiDocs"
-                  to="/docsapi"
-                  title="Technical documentation of advanced API usage"
-                  >API Documentation</router-link
-                >
-              </li>
-              <li>
-                <router-link
-                  data-testid="accessibility"
-                  to="/accessibility"
-                  title="Accessibility statement"
-                  >Accessibility Statement</router-link
-                >
-              </li>
-            </ul>
-          </div>
-          <div class="column" title="Affiliated external links">
-            <p class="footer-heading">More About Beacon</p>
-            <ul>
-              <li>
-                <a
-                  data-testid="beaconProject"
-                  href="https://beacon-project.io/"
-                  title="Information regarding the GA4GH/ELIXIR Beacon project"
-                  >Beacon Project</a
-                >
-              </li>
-              <li>
-                <a
-                  data-testid="elixirSite"
-                  href="https://elixir-europe.org/"
-                  title="ELIXIR Europe website"
-                  >ELIXIR Europe</a
-                >
-              </li>
-              <li>
-                <a
-                  data-testid="ga4gh"
-                  href="https://www.ga4gh.org/"
-                  title="GA4GH website"
-                  >GA4GH</a
-                >
-              </li>
-              <li>
-                <a
-                  data-testid="ga4ghDiscovery"
-                  href="https://ga4gh-discovery.github.io/"
-                  title="Information regarding the GA4GH/ELIXIR Beacon Network project"
-                  >GA4GH Discovery</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Lower Footer -->
-    <div class="footerContainer">
-      <div class="content">
-        <div class="columns">
-          <div class="column">
-            <p>
-              <img class="flag" alt="EU Flag" src="../assets/eu-flag-bw.jpg" />
-              ELIXIR is partly funded by the European Commission within the
-              Research Infrastructures programme of Horizon 2020.
-            </p>
-          </div>
-          <div class="column contact">
-            <p class="address">
-              ELIXIR Beacon Network is operated by
-              <a
-                href="http://www.elixir-europe.org/"
-                title="Go to ELIXIR Europe"
-                >ELIXIR Hub</a
-              >
-              |
-              <a
-                href="mailto:bn-contact@elixir-europe.org"
-                title="Contact the ELIXIR Beacon Network operator"
-                >bn-contact@elixir-europe.org</a
-              >
-              <br />
-              ELIXIR Beacon Network is provided by
-              <a
-                href="http://www.elixir-finland.org/en/frontpage/"
-                title="Go to ELIXIR Finland, the ELIXIR Beacon Network provider"
-                >ELIXIR Finland</a
-              >
-              |
-              <a
-                href="https://www.csc.fi/"
-                title="Go to CSC, the ELIXIR Beacon Network provider"
-                >CSC</a
-              >
-            </p>
-            <p class="legal">
-              Copyright © ELIXIR 2019 - {{ new Date().getFullYear() }} |
-              <router-link
-                to="/tos"
-                title="Read the Terms of Service of ELIXIR Beacon Network"
-                >Terms of Service</router-link
-              >
-              |
-              <router-link
-                to="/privacy"
-                title="Read the Privacy Policy of ELIXIR Beacon Network"
-                >Privacy Policy</router-link
-              >
-            </p>
+            <div class="footer_container">
+              <div>
+                <ul class="list">
+                  <li>
+                    <router-link
+                      class="is-underlined"
+                      data-testid="quide"
+                      to="/guide"
+                      title="About us"
+                      >About us</router-link
+                    >
+                  </li>
+                  <li>
+                    <router-link
+                      class="is-underlined"
+                      data-testid="join"
+                      to="/join"
+                      title="Contact"
+                      >Contact</router-link
+                    >
+                  </li>
+                  <li>
+                    <router-link
+                      class="is-underlined"
+                      data-testid="docs"
+                      to="/docs"
+                      title="Help"
+                      >Help</router-link
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="right_container">
+                <ul class="list">
+                  <li>
+                    <router-link
+                      class="is-underlined"
+                      data-testid="apiDocs"
+                      to="/docsapi"
+                      title="Accessibility"
+                      >Accessibility</router-link
+                    >
+                  </li>
+                  <li>
+                    <router-link
+                      class="is-underlined"
+                      data-testid="accessibility"
+                      to="/accessibility"
+                      title="Datasets"
+                      >Datasets</router-link
+                    >
+                  </li>
+                  <li>
+                    <router-link
+                      class="is-underlined"
+                      data-testid="accessibility"
+                      to="/accessibility"
+                      title="Link to webpage"
+                      >Link to webpage</router-link
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="footerText">
+                Bigpicture will set up the first European, ethical- and General
+                Data Protection Regulation-compliant, quality-controlled and
+                community-based platform, in which both large-scale data and
+                Artificial Intelligence (AI) algorithms will coexist.
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -159,17 +92,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.footer {
-  background: #3e3e3e;
-  color: white;
-  padding: 0;
+.footerText {
+  color: #1c007b;
+  padding-left: 300px;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
 
-  margin-top: auto;
+  width: 120px;
+  height: 100px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.footer_container {
+  display: flex;
 }
 .footer .footerContainer.centered h5 {
-  color: white;
+  color: #1c007b;
   padding-bottom: 5px;
-  border-bottom: solid 1px white;
+  border-bottom: solid 1px #1c007b;
   width: 50%;
   min-width: 300px;
 }
@@ -183,13 +132,13 @@ export default {
   padding: 0;
 }
 .footer .footerContainer.centered ul li a {
-  color: white;
+  color: #1c007b;
 }
 .footer .footerContainer.centered ul li a:hover {
-  color: #f47d21;
+  color: #004d8c;
 }
 .footer a {
-  color: #0bf;
+  color: #1c007b;
 }
 .footer a:hover {
   color: #f47d21;
@@ -223,7 +172,7 @@ export default {
   margin: 5px 10px 0 0;
 }
 .footer-heading {
-  color: #fff;
+  color: #1c007b;
   border-bottom: solid 1px #fff;
   font-weight: 700;
   font-size: 16px;

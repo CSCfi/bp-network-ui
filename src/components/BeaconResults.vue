@@ -2,15 +2,9 @@
   <section class="container results-table">
     <div class="column">
       <span class="resultHeader">Search results for:</span>
-      <span v-for="(item, index) in this.$route.query" :key="index">
-        <span class="resultBox" v-if="typeof item == 'string' && item != ''">
+      <span v-for="(item, index) in this.searchValues" :key="index">
+        <span class="resultBox">
           {{ item }}
-        </span>
-        <span
-          class="resultBox"
-          v-else-if="typeof item == 'object' && item != ''"
-        >
-          <span v-for="i in item" :key="i"> {{ i }}</span>
         </span>
       </span>
     </div>
@@ -20,7 +14,6 @@
         <Loading></Loading>
       </div>
       <div v-for="(resp, index) in response" :key="index">
-        <!-- beaconV1 tile -->
         <section v-if="resp.exists">
           <BeaconResultTile
             :title="'Response from Beacon ' + resp.beaconId"
@@ -102,6 +95,7 @@ export default {
       filterValue: [],
       columns: [{ field: "label" }],
       showDetailIcon: true,
+      searchValues: [],
     };
   },
   watch: {
@@ -112,6 +106,45 @@ export default {
     },
   },
   methods: {
+    parseSearchValues: function () {
+      if (this.$route.query.searchTerm != "") {
+        this.searchValues.push(this.$route.query.searchTerm);
+      }
+      if (this.$route.query.anatomicalSite != "") {
+        this.searchValues.push(this.$route.query.anatomicalSite);
+      }
+      if (this.$route.query.sex != "") {
+        this.searchValues.push(this.$route.query.sex);
+      }
+
+      if (this.$route.query.biologicalSpecies != "") {
+        this.searchValues.push(this.$route.query.biologicalSpecies);
+      }
+      if (typeof this.$route.query.age === "object") {
+        if (
+          Object.keys(this.$route.query.age).length > 1 &&
+          this.$route.query.ageOption != ""
+        ) {
+          this.searchValues.push(
+            "Ages between " +
+              this.$route.query.age[0] +
+              " " +
+              this.$route.query.ageOption +
+              " " +
+              this.$route.query.age[1]
+          );
+        } else if (
+          this.$route.query.age != "" &&
+          this.$route.query.ageOption != ""
+        ) {
+          if (this.$route.query.ageOption == "<") {
+            this.searchValues.push("Age less than " + this.$route.query.age);
+          } else {
+            this.searchValues.push("Age higher than " + this.$route.query.age);
+          }
+        }
+      }
+    },
     filterResults: function (filters) {
       var queryParamsObj = Object.assign({}, this.$route.query);
       var filterStrign = "";
@@ -219,7 +252,6 @@ export default {
         // check if a beacon with the same id exists already
         // prevent results appearing 2 times.
         // this can occur when aggregators query the same beacons
-        console.log(JSON.parse(event.data));
         if (JSON.parse(event.data) != null) {
           //checks if response is filteringTerms or not
           if (JSON.parse(event.data).filteringTerms != undefined) {
@@ -265,6 +297,8 @@ export default {
             if (!found && !found_nobeaconid) vm.response.push(nobeaconid);
           }
         }
+        vm.searchValues = [];
+        vm.parseSearchValues();
       };
       websocket.onerror = function () {
         // There was an error with your WebSocket
@@ -368,7 +402,6 @@ export default {
   beforeMount() {
     this.queryAPI();
     this.setSearchToLocaStorage();
-    console.log(this.response);
   },
 };
 </script>
