@@ -3,11 +3,15 @@
     <span class="tile is-child box">
       <article class="media">
         <span class="media-left">
-          <p class="title is-size-6">{{ data.name }}</p>
-          <p class="subtitle is-6">{{ data.organization.name }}</p>
+          <b>{{ data.name }}</b>
+          <p>{{ data.organization.name }}</p>
         </span>
 
         <span class="media-content"> beacon description</span>
+        <span class="media-right">
+          <p>{{ images }}/x</p>
+          <b-button class="accessButton">Apply access</b-button>
+        </span>
       </article>
     </span>
   </span>
@@ -17,7 +21,7 @@
 import axios from "axios";
 
 export default {
-  props: ["beaconId", "exists"],
+  props: ["beaconId", "exists", "images"],
   data() {
     return {
       registry: process.env.VUE_APP_REGISTRY_URL,
@@ -62,12 +66,20 @@ export default {
 </script>
 
 <style scoped>
+.media {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.media-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 a {
   color: #1c007b;
 }
-.media-right {
-  margin-right: 20%;
-}
+
 .accessibility-green-tag {
   background-color: #29852a;
   color: #fff;
@@ -79,5 +91,19 @@ a {
 .accessibility-yellow-tag {
   background-color: #e6e200;
   color: #fff;
+}
+.accessButton {
+  color: #fff;
+  margin-left: 40px;
+  background: #1c007b;
+  border: 1px solid #1c007b;
+  border-radius: 8px;
+}
+.accessButton:hover {
+  color: #1c007b;
+  margin-left: 40px;
+  background: #fff;
+  border: 1px solid #1c007b;
+  border-radius: 8px;
 }
 </style>

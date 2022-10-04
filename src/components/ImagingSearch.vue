@@ -4,7 +4,7 @@
       <section class="searchBarField">
         <form @submit.prevent="onSubmit">
           <div class="stretch searchbar">
-            <label for="searchBar">Search Terms</label>
+            <label for="searchBar">Search from dataset descriptions</label>
             <b-input
               class="stretch searchbar"
               id="searchBar"

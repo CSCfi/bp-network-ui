@@ -26,13 +26,8 @@
             :title="'Response from Beacon ' + resp.beaconId"
             :exists="resp.exists"
             v-bind:beaconId="resp.beaconId"
+            v-bind:images="resp.images"
           ></BeaconResultTile>
-
-          <BeaconResultTileDetails
-            :key="resp.beaconId"
-            v-bind:results="resp.images"
-            :beaconId="resp.beaconId"
-          ></BeaconResultTileDetails>
         </section>
         <section v-if="!checkIfV2(resp) && resp.exists == false && !hits">
           <BeaconResultTile
@@ -66,14 +61,11 @@
 
 <script>
 import BeaconResultTile from "@/components/BeaconResultTile.vue";
-import BeaconResultTileDetails from "@/components/BeaconResultTileDetails.vue";
-import BeaconResultTileDetailsV2 from "@/components/BeaconResultTileDetailsV2.vue";
 import Loading from "vue-material-design-icons/Loading.vue";
 
 export default {
   components: {
     BeaconResultTile,
-    BeaconResultTileDetails,
     Loading,
   },
   data() {
