@@ -122,7 +122,7 @@ export default {
       }
       if (typeof this.$route.query.age === "object") {
         if (
-          typeof Object.keys(this.$route.query.age).length > 1 &&
+          Object.keys(this.$route.query.age).length > 1 &&
           this.$route.query.ageOption != ""
         ) {
           this.searchValues.push(
