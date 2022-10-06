@@ -241,6 +241,20 @@ export default {
         age: age,
       };
 
+      if (age.length == 2) {
+        console.log(age[0]);
+        console.log(age[1]);
+        queryObj = {
+          searchTerm: vm.query,
+          biologicalSpecies: vm.biologicalValue,
+          anatomicalSite: vm.anatomicalValue,
+          sex: sex,
+          ageOption: ageOption,
+          ageStart: age[0],
+          ageEnd: age[1],
+        };
+      }
+
       return queryObj;
     },
     validateInput: function () {
@@ -282,8 +296,8 @@ export default {
         // check if a beacon with the same id exists already
         // prevent results appearing 2 times.
         // this can occur when aggregators query the same beacons
-        if (JSON.parse(event.data).response != undefined) {
-          JSON.parse(event.data).response[0].anatomicalSite.forEach((data) => {
+        if (JSON.parse(event.data).anatomicalSite != undefined) {
+          JSON.parse(event.data).anatomicalSite.forEach((data) => {
             data.specimen.attributes.attribute.forEach((element) => {
               if (element.tag == "anatomical_site") {
                 var exists = false;
@@ -298,8 +312,9 @@ export default {
               }
             });
           });
-
-          JSON.parse(event.data).response[1].biologicalBeing.forEach((data) => {
+        }
+        if (JSON.parse(event.data).biologicalBeing != undefined) {
+          JSON.parse(event.data).biologicalBeing.forEach((data) => {
             data.biologicalBeing.attributes.attribute.forEach((element) => {
               if (element.tag == "animal_species") {
                 var exists = false;
