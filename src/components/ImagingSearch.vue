@@ -5,7 +5,7 @@
       <section class="searchBarField">
         <form @submit.prevent="onSubmit">
           <div class="stretch searchbar">
-            <label for="searchBar">Search Terms</label>
+            <label for="searchBar">Search from dataset descriptions</label>
             <b-input
               class="stretch searchbar"
               id="searchBar"
@@ -191,7 +191,6 @@ export default {
         queryObj.assemblyId = vm.assembly;
         queryObj = Object.assign(queryObj, vm.buildQueryObj());
         // Change view to results and send GET query string
-        console.log(queryObj);
         this.$router.push(
           {
             path: "results",

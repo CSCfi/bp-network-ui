@@ -11,11 +11,7 @@
       </b-button>
       <b-button class="accessButton"> Apply access </b-button>
       <div v-if="display" class="details-rows">
-        <b-table
-          :data="results[0]"
-          :striped="true"
-          class="column details-table"
-        >
+        <b-table :data="results" :striped="true" class="column details-table">
           <b-table-column label="Access">
             placeholder
             <!-- <template v-slot:default="results">
@@ -48,7 +44,7 @@
             title="Amount of corresponding images in dataset"
           >
             <template>
-              {{ results.length }}
+              {{ results }}
             </template>
           </b-table-column>
         </b-table>
