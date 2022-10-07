@@ -1,7 +1,7 @@
 <template>
   <div class="container" style="margin-bottom: 24px">
     <div class="searchComponents">
-      <b class="headerText">Search millions of digital pathology slides</b>
+      <b class="headerText">Discover digital pathology sets</b>
       <section class="searchBarField">
         <form @submit.prevent="onSubmit">
           <div class="stretch searchbar">
