@@ -54,7 +54,7 @@
             </b-dropdown>
           </div>
           <div class="dropDown">
-            <div>Anatomical</div>
+            <div>Anatomical site</div>
             <b-dropdown aria-role="list" v-model="anatomicalValue">
               <template #trigger="{ active }">
                 <b-button
