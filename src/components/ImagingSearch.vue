@@ -242,8 +242,6 @@ export default {
       };
 
       if (age.length == 2) {
-        console.log(age[0]);
-        console.log(age[1]);
         queryObj = {
           searchTerm: vm.query,
           biologicalSpecies: vm.biologicalValue,
