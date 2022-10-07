@@ -14,7 +14,7 @@
       ></ConnectedBeaconTile>
     </div>
     <div class="tile is-ancestor" style="text-align: center" v-if="error">
-      <p style="margin: auto">
+      <p class="error">
         {{ error }}
       </p>
     </div>
@@ -65,4 +65,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.error {
+  margin: auto;
+  padding-bottom: 20px;
+}
+</style>
