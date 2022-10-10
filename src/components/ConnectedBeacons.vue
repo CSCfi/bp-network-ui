@@ -3,12 +3,11 @@
     <div
       class="tile is-ancestor container"
       style="margin: auto"
-      v-for="beacon_pair in beacons"
-      v-bind:key="beacons.indexOf(beacon_pair)"
+      v-for="beacon in beacons"
+      v-bind:key="beacons.indexOf(beacon)"
     >
       <ConnectedBeaconTile
         :title="beacon.name"
-        v-for="beacon in beacon_pair"
         v-bind:key="beacon.url"
         v-bind:beacon="beacon"
       ></ConnectedBeaconTile>
@@ -46,12 +45,9 @@ export default {
       axios
         .get(url)
         .then((response) => {
-          let beacon_list = [];
-          // Re-order as pairs, to make two column tiling with Vue possible
-          for (let i = 0; i < response.data.length; i += 2) {
-            beacon_list.push(response.data.slice(i, i + 2));
-          }
-          this.beacons = beacon_list;
+          response.data.forEach((element) => {
+            this.beacons.push(element);
+          });
         })
         .catch((error) => {
           this.error = "Could not find any Beacons to display.";
