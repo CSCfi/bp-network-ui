@@ -51,6 +51,16 @@ export default {
 };
 </script>
 <style scoped>
+.media {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.media-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 #versionTag {
   margin-right: auto;
 }
