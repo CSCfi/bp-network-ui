@@ -97,7 +97,7 @@
             </b-dropdown>
           </div>
           <div class="dropDown">
-            <div>Age (years)</div>
+            <div>Age at extraction (years)</div>
 
             <component
               :is="ageSelector"

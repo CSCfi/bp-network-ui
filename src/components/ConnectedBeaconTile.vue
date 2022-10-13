@@ -4,15 +4,14 @@
       <article class="media">
         <div class="media-left">
           <div class="content">
-            <p class="title is-size-5">{{ beacon.organization.name }}</p>
+            <p class="title is-size-6">{{ beacon.organization.name }}</p>
             <p class="subtitle is-6">{{ beacon.name }}</p>
-            <p class="subtitle is-6">{{ beacon.description }}</p>
           </div>
         </div>
 
         <div class="media-body">
           <div class="beaconDetail">
-            Beacon API Web Server based on the GA4GH Beacon API
+            <p class="subtitle is-6">{{ beacon.description }}</p>
           </div>
         </div>
         <div class="media-right">
@@ -52,19 +51,26 @@ export default {
 };
 </script>
 <style scoped>
+.media {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.media-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 #versionTag {
   margin-right: auto;
-}
-.beaconDetail {
-  margin-left: 100px;
 }
 a {
   color: #1c007b;
 }
 .links {
-  margin-left: 50px;
+  margin-left: 20px;
 }
 .view_details {
-  margin-left: 50px;
+  margin-left: 40px;
 }
 </style>
