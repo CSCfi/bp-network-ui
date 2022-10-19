@@ -219,9 +219,9 @@ export default {
       var vm = this;
       var sex;
       if (vm.sexOptions == "Male") {
-        sex = "m";
+        sex = "M";
       } else if (vm.sexOptions == "Female") {
-        sex = "w";
+        sex = "F";
       }
       var ageOption = [];
       var age = [];
@@ -296,7 +296,7 @@ export default {
         // this can occur when aggregators query the same beacons
         if (JSON.parse(event.data).anatomicalSite != undefined) {
           JSON.parse(event.data).anatomicalSite.forEach((data) => {
-            data.specimen.attributes.attribute.forEach((element) => {
+            data.specimen.attributes.forEach((element) => {
               if (element.tag == "anatomical_site") {
                 var exists = false;
                 vm.anatomicalOptions.forEach((option) => {
@@ -313,7 +313,7 @@ export default {
         }
         if (JSON.parse(event.data).biologicalBeing != undefined) {
           JSON.parse(event.data).biologicalBeing.forEach((data) => {
-            data.biologicalBeing.attributes.attribute.forEach((element) => {
+            data.biologicalBeing.attributes.forEach((element) => {
               if (element.tag == "animal_species") {
                 var exists = false;
                 vm.biologicalOptions.forEach((option) => {
