@@ -9,7 +9,7 @@
 
         <span class="media-content"> beacon description</span>
         <span class="media-right">
-          <p>{{ images }}/x</p>
+          <p>{{ images[0] }}/ {{ images[1] }}</p>
           <b-button class="accessButton">Apply access</b-button>
         </span>
       </article>
