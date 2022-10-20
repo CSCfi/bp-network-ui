@@ -179,7 +179,8 @@ export default {
       if (
         response.beaconId == undefined &&
         response.meta == undefined &&
-        response.response == undefined
+        response.response == undefined &&
+        response != "No results found."
       ) {
         // Creates the beacon id from the url
         var splitUrl = response.service.split("/");
