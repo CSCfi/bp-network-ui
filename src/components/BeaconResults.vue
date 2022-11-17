@@ -17,6 +17,7 @@
       default-sort="beaconName"
       hoverable
     >
+      {{ combinedResponse }}
       <b-table-column
         field="beaconName"
         sortable
@@ -421,14 +422,16 @@ export default {
               return error;
             });
         });
+      console.log(this.beaconInfoResponse);
     },
     parseBeaconInfo: function () {
       this.response.forEach((resp) => {
         this.beaconInfoResponse.forEach((infoResp) => {
           if (resp.beaconId == infoResp.id) {
-            resp.beaconName = infoResp.beaconName;
+            resp.beaconName = infoResp.name;
             resp.description = infoResp.description;
-            resp.organization = infoResp.decsription;
+            resp.organization = infoResp.organization;
+            resp.access = infoResp.acceess;
           }
         });
       });
