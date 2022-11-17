@@ -17,7 +17,6 @@
       default-sort="beaconName"
       hoverable
     >
-      {{ combinedResponse }}
       <b-table-column
         field="beaconName"
         sortable
