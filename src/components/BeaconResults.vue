@@ -109,7 +109,7 @@ export default {
       if (this.$route.query.searchTerm != "") {
         this.searchValues.push(this.$route.query.searchTerm);
       }
-      if (this.$route.query.anatomicalSite != "") {
+      if (typeof this.$route.query.anatomicalSite === "string") {
         this.searchValues.push(this.$route.query.anatomicalSite);
       }
       if (this.$route.query.sex != "") {
@@ -121,7 +121,7 @@ export default {
       }
       if (typeof this.$route.query.age === "object") {
         if (
-          Object.keys(this.$route.query.age).length > 1 &&
+          Object.keys(this.$route.query.age).length > 3 &&
           this.$route.query.ageOption != ""
         ) {
           this.searchValues.push(
@@ -133,7 +133,7 @@ export default {
               this.$route.query.age[1]
           );
         } else if (
-          this.$route.query.age != "" &&
+          Object.keys(this.$route.query.age).length > 2 &&
           this.$route.query.ageOption != ""
         ) {
           if (this.$route.query.ageOption == "<") {
@@ -143,6 +143,7 @@ export default {
           }
         }
       }
+      console.log(this.searchValues);
     },
     filterResults: function (filters) {
       var queryParamsObj = Object.assign({}, this.$route.query);
@@ -421,7 +422,6 @@ export default {
               return error;
             });
         });
-      console.log(this.beaconInfoResponse);
     },
     parseBeaconInfo: function () {
       this.response.forEach((resp) => {
