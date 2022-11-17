@@ -9,60 +9,65 @@
       </span>
     </div>
 
-    <div class="column">
-      <div v-if="isLoading" class="loading-indicator spinner">
-        <Loading></Loading>
-      </div>
-      <div v-for="(resp, index) in response" :key="index">
-        <section v-if="resp.exists">
-          <BeaconResultTile
-            :title="'Response from Beacon ' + resp.beaconId"
-            :exists="resp.exists"
-            v-bind:beaconId="resp.beaconId"
-            v-bind:images="resp.images"
-          ></BeaconResultTile>
-        </section>
-        <section v-if="!checkIfV2(resp) && resp.exists == false && !hits">
-          <BeaconResultTile
-            :key="resp.beaconId"
-            :exists="resp.exists"
-            v-bind:beaconId="resp.beaconId"
-          ></BeaconResultTile>
-        </section>
-        <section v-if="!checkIfV2(resp) && resp.exists == null && errors">
-          <BeaconResultTile
-            :key="resp.beaconId"
-            :exists="resp.exists"
-            v-bind:beaconId="resp.beaconId"
-          ></BeaconResultTile>
-        </section>
-      </div>
-
-      <div
-        v-if="notFound && !isLoading"
-        class="content has-text-grey has-text-centered"
+    <b-table
+      :data="combinedResponse"
+      :default-sort-direction="defaultSortDirection"
+      :sort-icon="sortIcon"
+      :sort-icon-size="sortIconSize"
+      default-sort="beaconName"
+      hoverable
+    >
+      <b-table-column
+        field="beaconName"
+        sortable
+        label="Beacon name"
+        v-slot="props"
       >
-        <p>
-          <b-icon icon="emoticon-sad" size="is-large" title="No results found">
-          </b-icon>
-        </p>
-        <p>No results found.</p>
-      </div>
+        {{ props.row.beaconName }}</b-table-column
+      >
+      <b-table-column
+        field="beaconDescription"
+        label="Description"
+        sortable
+        v-slot="props"
+      >
+        {{ props.row.description }}</b-table-column
+      >
+      <b-table-column
+        field="accessType"
+        label="Access to images"
+        v-slot="props"
+        sortable
+      >
+        {{ props.row.accessType }}
+      </b-table-column>
+      <b-table-column field="images" , label="Matches" v-slot="props" sortable>
+        {{ props.row.images[0] }} / {{ props.row.images[1] }}
+      </b-table-column>
+      <b-table-column>
+        <b-button class="accessButton">Apply access</b-button>
+      </b-table-column>
+    </b-table>
+    <div v-if="isLoading" class="loading-indicator spinner">
+      <Loading></Loading>
     </div>
   </section>
 </template>
 
 <script>
-import BeaconResultTile from "@/components/BeaconResultTile.vue";
 import Loading from "vue-material-design-icons/Loading.vue";
+import axios from "axios";
 
 export default {
   components: {
-    BeaconResultTile,
     Loading,
   },
   data() {
     return {
+      defaultSortDirection: "asc",
+      sortIcon: "arrow-up",
+      sortIconSize: "is-small",
+
       beaconV2: false,
       notFound: false,
       queryParams: undefined,
@@ -85,9 +90,11 @@ export default {
       aggregator: process.env.VUE_APP_AGGREGATOR_URL,
       filteringTerms: [],
       filterValue: [],
-      columns: [{ field: "label" }],
       showDetailIcon: true,
       searchValues: [],
+      registry: process.env.VUE_APP_REGISTRY_URL,
+      beaconInfoResponse: [],
+      combinedResponse: [],
     };
   },
   watch: {
@@ -200,7 +207,7 @@ export default {
         );
       }
     },
-    queryAPI: function () {
+    queryAPI: async function () {
       var vm = this;
       vm.response = []; // Clear table
       vm.filterValue = [];
@@ -233,10 +240,17 @@ export default {
         // The connection was opened
         vm.isLoading = true;
       };
-      websocket.onclose = function () {
+      websocket.onclose = async function () {
         // The connection was closed
+
         vm.isLoading = false;
         vm.checkResponse();
+
+        for (const i in vm.response) {
+          await vm.getInfo(vm.response[i].beaconId);
+        }
+
+        vm.parseBeaconInfo();
       };
       websocket.onmessage = function (event) {
         // New message arrived
@@ -389,6 +403,37 @@ export default {
         localStorage.setItem("searches", JSON.stringify(searches));
       }
     },
+    getInfo: async function (beaconId) {
+      await axios
+        .get(`${this.registry}services/${beaconId}`)
+        .then((response) => {
+          this.beaconInfoResponse.push(response.data);
+        })
+        .catch(async (error) => {
+          var try_url = beaconId.split(".").reverse().join(".");
+          await axios
+            .get(`https://${try_url}`)
+            .then((response) => {
+              this.beaconInfoResponse.push(response.data);
+            })
+            .catch((error) => {
+              // We could not fetch info for beacon
+              return error;
+            });
+        });
+    },
+    parseBeaconInfo: function () {
+      this.response.forEach((resp) => {
+        this.beaconInfoResponse.forEach((infoResp) => {
+          if (resp.beaconId == infoResp.id) {
+            resp.beaconName = infoResp.beaconName;
+            resp.description = infoResp.description;
+            resp.organization = infoResp.decsription;
+          }
+        });
+      });
+      this.combinedResponse = this.response;
+    },
   },
   beforeMount() {
     this.queryAPI();
@@ -443,5 +488,25 @@ export default {
   100% {
     transform: rotate(360deg);
   }
+}
+.accessButton {
+  color: #fff;
+  margin-left: 40px;
+  background: #1c007b;
+  border: 1px solid #1c007b;
+  border-radius: 8px;
+}
+.accessButton:hover {
+  color: #1c007b;
+  margin-left: 40px;
+  background: #fff;
+  border: 1px solid #1c007b;
+  border-radius: 8px;
+}
+</style>
+<style>
+.b-table .table th {
+  color: #000000;
+  background: #f2f0f7;
 }
 </style>
