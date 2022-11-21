@@ -107,7 +107,6 @@ export default {
 </script>
 <style>
 #app {
-  font-family: "Lato", Helvetica, Arial, sans-serif;
   color: #2c3e50;
   display: flex;
   flex-direction: column;
