@@ -10,12 +10,16 @@
     </div>
 
     <b-table
+      class="responseTable"
       :data="combinedResponse"
       :default-sort-direction="defaultSortDirection"
       :sort-icon="sortIcon"
       :sort-icon-size="sortIconSize"
       default-sort="beaconName"
       hoverable
+      scrollable
+      :sticky-header="true"
+      height="330px"
     >
       <b-table-column
         field="beaconName"
@@ -511,11 +515,5 @@ export default {
   background: #fff;
   border: 1px solid #1c007b;
   border-radius: 8px;
-}
-</style>
-<style>
-.b-table .table th {
-  color: #000000;
-  background: #f2f0f7;
 }
 </style>
