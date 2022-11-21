@@ -107,7 +107,6 @@ export default {
 </script>
 <style>
 #app {
-  font-family: "Lato", Helvetica, Arial, sans-serif;
   color: #2c3e50;
   display: flex;
   flex-direction: column;
@@ -179,9 +178,13 @@ export default {
 <style lang="scss">
 // Import Bulma's core
 @import "~bulma/sass/utilities/_all";
+@import url(https://fonts.googleapis.com/css?family=Inter);
 html,
 body {
   height: 100%;
+}
+#app {
+  font-family: "Inter";
 }
 // Set your colors
 $primary: #047eaa;
@@ -202,5 +205,4 @@ $link-focus-border: $primary;
 
 // Import Bulma and Buefy styles
 @import "~bulma";
-@import "~buefy/src/scss/buefy";
 </style>

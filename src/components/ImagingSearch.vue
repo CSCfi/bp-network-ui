@@ -356,8 +356,6 @@ export default {
 <style scoped>
 .headerText {
   padding-top: 43.5px;
-  font-family: "Inter";
-  font-style: normal;
   font-weight: 800;
   font-size: 29px;
   line-height: 35px;
