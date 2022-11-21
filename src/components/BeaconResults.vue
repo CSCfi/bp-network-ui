@@ -28,7 +28,6 @@
       <b-table-column
         field="beaconDescription"
         label="Description"
-        sortable
         v-slot="props"
       >
         {{ props.row.description }}</b-table-column
@@ -41,7 +40,14 @@
       >
         {{ props.row.accessType }}
       </b-table-column>
-      <b-table-column field="images" , label="Matches" v-slot="props" sortable>
+      <b-table-column
+        field="images"
+        ,
+        label="Matches"
+        v-slot="props"
+        sortable
+        :custom-sort="customSort"
+      >
         {{ props.row.images[0] }} / {{ props.row.images[1] }}
       </b-table-column>
       <b-table-column>
@@ -57,7 +63,6 @@
 <script>
 import Loading from "vue-material-design-icons/Loading.vue";
 import axios from "axios";
-
 export default {
   components: {
     Loading,
@@ -143,7 +148,6 @@ export default {
           }
         }
       }
-      console.log(this.searchValues);
     },
     filterResults: function (filters) {
       var queryParamsObj = Object.assign({}, this.$route.query);
@@ -435,6 +439,9 @@ export default {
         });
       });
       this.combinedResponse = this.response;
+    },
+    customSort: function (a, b, isAsc) {
+      return isAsc ? a.images[0] - b.images[0] : b.images[0] - a.images[0];
     },
   },
   beforeMount() {
