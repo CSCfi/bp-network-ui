@@ -145,7 +145,8 @@ export default {
               this.$route.query.ageEnd
           );
         } else if (
-          this.$route.query.age.length <= 1 &&
+          this.$route.query.age != undefined &&
+          this.$route.query.age != "" &&
           this.$route.query.ageOption != ""
         ) {
           if (this.$route.query.ageOption == "<") {
