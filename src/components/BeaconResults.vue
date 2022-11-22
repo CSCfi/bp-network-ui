@@ -125,24 +125,27 @@ export default {
         this.searchValues.push(this.$route.query.sex);
       }
 
-      if (this.$route.query.biologicalSpecies != "") {
+      if (
+        this.$route.query.biologicalSpecies != "" &&
+        this.$route.query.biologicalSpecies != undefined
+      ) {
         this.searchValues.push(this.$route.query.biologicalSpecies);
       }
-      if (typeof this.$route.query.age === "object") {
+      if (typeof this.$route.query.age != "") {
         if (
-          Object.keys(this.$route.query.age).length > 3 &&
-          this.$route.query.ageOption != ""
+          this.$route.query.ageEnd != null &&
+          this.$route.query.ageOption == "-"
         ) {
           this.searchValues.push(
             "Ages between " +
-              this.$route.query.age[0] +
+              this.$route.query.ageStart +
               " " +
               this.$route.query.ageOption +
               " " +
-              this.$route.query.age[1]
+              this.$route.query.ageEnd
           );
         } else if (
-          Object.keys(this.$route.query.age).length > 2 &&
+          this.$route.query.age.length <= 1 &&
           this.$route.query.ageOption != ""
         ) {
           if (this.$route.query.ageOption == "<") {
