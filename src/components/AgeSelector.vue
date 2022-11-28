@@ -12,6 +12,36 @@
       </b-button>
     </template>
     <b-dropdown-item aria-role="list-item" :focusable="false" custom>
+      <template>
+        <div class="header">
+          <b class="ageText">Age in</b>
+          <b-dropdown
+            v-model="currentMenu"
+            aria-role="list"
+            class="timeSelector"
+          >
+            <template #trigger>
+              <b-button :label="currentMenu" icon-right="menu-down" />
+            </template>
+
+            <b-dropdown-item
+              v-for="(menu, index) in menus"
+              :key="index"
+              :value="menu"
+              aria-role="listitem"
+            >
+              <div class="media">
+                <div class="media-content">
+                  <h3>{{ menu }}</h3>
+                </div>
+              </div>
+            </b-dropdown-item>
+          </b-dropdown>
+        </div>
+      </template>
+    </b-dropdown-item>
+
+    <b-dropdown-item aria-role="list-item" :focusable="false" custom>
       <div class="modal-card" style="width: 335px">
         <section class="modal-card-body">
           <b-switch v-model="toggleAgeLess" @input="toggleSwitch('less')"
@@ -253,6 +283,8 @@ export default {
       toggleAgeLess: false,
       toggleAgeMore: false,
       toggleAgeBetween: false,
+      currentMenu: "Years",
+      menus: ["Years", "Months", "Week"],
     };
   },
   methods: {
@@ -260,16 +292,21 @@ export default {
       if (this.toggleAgeLess) {
         this.ageOpt = [];
         this.ageOpt.push("Less than " + this.ageLess);
-        this.$emit("updateAgeOptions", ["<", this.ageLess]);
+        this.$emit("updateAgeOptions", ["<", this.ageLess], this.currentMenu);
       } else if (this.toggleAgeMore) {
         this.ageOpt = [];
         this.ageOpt.push("More than " + this.ageMore);
-        this.$emit("updateAgeOptions", [">", this.ageMore]);
+        this.$emit("updateAgeOptions", [">", this.ageMore], this.currentMenu);
       } else if (this.toggleAgeBetween) {
         if (this.ageFrom < this.ageTo) {
           this.ageOpt = [];
           this.ageOpt.push("Ages between " + this.ageFrom + " - " + this.ageTo);
-          this.$emit("updateAgeOptions", [this.ageFrom, "-", this.ageTo]);
+          this.$emit("updateAgeOptions", [
+            this.ageFrom,
+            "-",
+            this.ageTo,
+            this.currentMenu,
+          ]);
         }
       } else {
         this.ageOpt = [];
@@ -340,5 +377,16 @@ export default {
 .clearButton:hover {
   color: white !important;
   background-color: #1c007b !important;
+}
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.ageText {
+  padding-left: 22.8px;
+}
+.timeSelector {
+  padding-left: 150px;
 }
 </style>
