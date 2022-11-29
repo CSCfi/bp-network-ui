@@ -68,7 +68,11 @@
               <img class="image" src="../assets/minus.png" />
             </b-button>
 
-            {{ ageLess }}
+            <input
+              class="ageField"
+              v-model="ageLess"
+              :disabled="!toggleAgeLess"
+            />
 
             <b-button
               v-if="toggleAgeLess"
@@ -115,7 +119,11 @@
             >
               <img class="image" src="../assets/minus.png" />
             </b-button>
-            {{ ageMore }}
+            <input
+              class="ageField"
+              v-model="ageMore"
+              :disabled="!toggleAgeMore"
+            />
             <b-button
               v-if="toggleAgeMore"
               type="is-ghost"
@@ -170,8 +178,11 @@
               >
                 <img class="image" src="../assets/minus.png" />
               </b-button>
-              {{ ageFrom }}
-
+              <input
+                class="ageField"
+                v-model="ageFrom"
+                :disabled="!toggleAgeBetween"
+              />
               <b-button
                 v-if="toggleAgeBetween"
                 type="is-ghost"
@@ -217,7 +228,11 @@
               >
                 <img class="image" src="../assets/minus.png" />
               </b-button>
-              {{ ageTo }}
+              <input
+                class="ageField"
+                v-model="ageTo"
+                :disabled="!toggleAgeBetween"
+              />
               <b-button
                 v-if="toggleAgeBetween"
                 type="is-ghost"
@@ -388,5 +403,11 @@ export default {
 }
 .timeSelector {
   padding-left: 150px;
+}
+.ageField {
+  width: 30px;
+}
+.modal-card-body {
+  min-width: 360px;
 }
 </style>
