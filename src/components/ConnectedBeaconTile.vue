@@ -4,8 +4,8 @@
       <article class="media">
         <div class="media-left">
           <div class="content">
-            <p class="title is-size-6">{{ beacon.organization.name }}</p>
-            <p class="subtitle is-6">{{ beacon.name }}</p>
+            <p class="title is-size-6">{{ beacon.name }}</p>
+            <p class="subtitle is-6">{{ beacon.organization.name }}</p>
           </div>
         </div>
 
@@ -72,5 +72,12 @@ a {
 }
 .view_details {
   margin-left: 40px;
+}
+.title {
+  width: 185px;
+  height: 15px;
+
+  line-height: 15px;
+  padding-bottom: 30px;
 }
 </style>

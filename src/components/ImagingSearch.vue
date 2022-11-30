@@ -227,16 +227,16 @@ export default {
       var age = [];
       vm.ageOptions.forEach((option) => {
         if (option == "<" || option == ">" || option == "-") {
-          ageOption.push(option);
+          ageOption = option;
         } else {
-          age.push(option);
+          age += option;
         }
       });
       var queryObj = {
         searchTerm: vm.query,
         biologicalSpecies: vm.biologicalValue,
         anatomicalSite: vm.anatomicalValue,
-        sex: sex,
+        sex: typeof sex === "string" ? sex : "",
         ageOption: ageOption,
         age: age,
       };
@@ -246,7 +246,7 @@ export default {
           searchTerm: vm.query,
           biologicalSpecies: vm.biologicalValue,
           anatomicalSite: vm.anatomicalValue,
-          sex: sex,
+          sex: typeof sex === "string" ? sex : "",
           ageOption: ageOption,
           ageStart: age[0],
           ageEnd: age[1],
