@@ -32,7 +32,9 @@
       <b-table-column
         field="beaconDescription"
         label="Description"
+        sortable
         v-slot="props"
+        :custom-sort="descriptionCustomSort"
       >
         {{ props.row.description }}</b-table-column
       >
@@ -50,7 +52,7 @@
         label="Matches"
         v-slot="props"
         sortable
-        :custom-sort="customSort"
+        :custom-sort="customSortImages"
       >
         {{ props.row.images[0] }} / {{ props.row.images[1] }}
       </b-table-column>
@@ -448,8 +450,13 @@ export default {
       });
       this.combinedResponse = this.response;
     },
-    customSort: function (a, b, isAsc) {
+    customSortImages: function (a, b, isAsc) {
       return isAsc ? a.images[0] - b.images[0] : b.images[0] - a.images[0];
+    },
+    descriptionCustomSort(a, b, isAsc) {
+      return isAsc
+        ? a.description.localeCompare(b.description)
+        : b.description.localeCompare(a.description);
     },
   },
   beforeMount() {
