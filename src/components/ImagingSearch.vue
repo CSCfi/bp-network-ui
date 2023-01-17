@@ -46,14 +46,20 @@
                   <p v-else>{{ biologicalValue }}</p>
                 </b-button>
               </template>
-              <b-dropdown-item custom aria-role="listitem">
-                <b-input
-                  v-model="searchTermBiological"
-                  placeholder="search"
-                  expanded
-                />
-              </b-dropdown-item>
-
+              <div class="list">
+                <b-dropdown-item
+                  custom
+                  aria-role="listitem"
+                  class="search"
+                  postion="is-top-left"
+                >
+                  <b-input
+                    v-model="searchTermBiological"
+                    placeholder="search"
+                    expanded
+                  />
+                </b-dropdown-item>
+              </div>
               <b-dropdown-item
                 v-for="item of filteredDataBiological"
                 :key="item"
@@ -61,7 +67,6 @@
                 :value="item"
                 >{{ item }}</b-dropdown-item
               >
-              ¨
             </b-dropdown>
           </div>
           <div class="dropDown">
@@ -78,15 +83,15 @@
                   <p v-else>{{ anatomicalValue }}</p>
                 </b-button>
               </template>
-
-              <b-dropdown-item custom aria-role="listitem">
-                <b-input
-                  v-model="searchTermAnatomical"
-                  placeholder="search"
-                  expanded
-                />
-              </b-dropdown-item>
-
+              <div class="list">
+                <b-dropdown-item custom aria-role="listitem" class="search">
+                  <b-input
+                    v-model="searchTermAnatomical"
+                    placeholder="search"
+                    expanded
+                  />
+                </b-dropdown-item>
+              </div>
               <b-dropdown-item
                 v-for="item of filteredDataAnatomical"
                 :key="item"
@@ -389,11 +394,18 @@ export default {
 
     this.queryAPI();
     this.biologicalOptions.push("Birb");
+    this.biologicalOptions.push("Birb");
+    this.biologicalOptions.push("Birb");
+    this.biologicalOptions.push("Birb");
+    this.biologicalOptions.push("Birb");
+    this.biologicalOptions.push("Birb");
 
     this.anatomicalOptions.push("heart");
     this.anatomicalOptions.push("Lung left");
     this.anatomicalOptions.push("lung right");
     this.anatomicalOptions.push("kidney left");
+    this.anatomicalOptions.push("leg left");
+    this.anatomicalOptions.push("leg right");
   },
 };
 </script>
@@ -501,5 +513,13 @@ select {
   align-items: center;
   justify-content: center;
   color: aliceblue;
+}
+.search {
+  position: absolute;
+  z-index: 999;
+}
+.list {
+  padding-bottom: 50px;
+  overflow: visible !important;
 }
 </style>
