@@ -34,7 +34,7 @@
         <div class="dropDownButtonGroup">
           <div class="dropDown1">
             <div>Biological species</div>
-            <b-dropdown aria-role="list" v-model="biologicalValue">
+            <b-dropdown aria-role="list" v-model="biologicalValue" scrollable>
               <template #trigger="{ active }">
                 <b-button
                   class="dropdownButton"
@@ -46,16 +46,27 @@
                   <p v-else>{{ biologicalValue }}</p>
                 </b-button>
               </template>
-              <p v-for="item in biologicalOptions" :key="item">
-                <b-dropdown-item :value="item" aria-role="listitem">{{
-                  item
-                }}</b-dropdown-item>
-              </p>
+              <b-dropdown-item custom aria-role="listitem">
+                <b-input
+                  v-model="searchTermBiological"
+                  placeholder="search"
+                  expanded
+                />
+              </b-dropdown-item>
+
+              <b-dropdown-item
+                v-for="item of filteredDataBiological"
+                :key="item"
+                aria-role="listitem"
+                :value="item"
+                >{{ item }}</b-dropdown-item
+              >
+              ¨
             </b-dropdown>
           </div>
           <div class="dropDown">
             <div>Anatomical site</div>
-            <b-dropdown aria-role="list" v-model="anatomicalValue">
+            <b-dropdown aria-role="list" v-model="anatomicalValue" scrollable>
               <template #trigger="{ active }">
                 <b-button
                   class="dropdownButton"
@@ -67,11 +78,22 @@
                   <p v-else>{{ anatomicalValue }}</p>
                 </b-button>
               </template>
-              <p v-for="item in anatomicalOptions" :key="item">
-                <b-dropdown-item :value="item" aria-role="listitem">{{
-                  item
-                }}</b-dropdown-item>
-              </p>
+
+              <b-dropdown-item custom aria-role="listitem">
+                <b-input
+                  v-model="searchTermAnatomical"
+                  placeholder="search"
+                  expanded
+                />
+              </b-dropdown-item>
+
+              <b-dropdown-item
+                v-for="item of filteredDataAnatomical"
+                :key="item"
+                :value="item"
+                aria-role="listitem"
+                >{{ item }}</b-dropdown-item
+              >
             </b-dropdown>
           </div>
           <div class="dropDown">
@@ -144,6 +166,8 @@ export default {
   },
   data() {
     return {
+      searchTermBiological: "",
+      searchTermAnatomical: "",
       ageSelector: ageSelector,
       query: "",
       validated: false,
@@ -157,6 +181,22 @@ export default {
       biologicalValue: [],
       aggregator: process.env.VUE_APP_AGGREGATOR_URL,
     };
+  },
+  computed: {
+    filteredDataBiological() {
+      return this.biologicalOptions.filter(
+        (item) =>
+          item.toLowerCase().indexOf(this.searchTermBiological.toLowerCase()) >=
+          0
+      );
+    },
+    filteredDataAnatomical() {
+      return this.anatomicalOptions.filter(
+        (item) =>
+          item.toLowerCase().indexOf(this.searchTermAnatomical.toLowerCase()) >=
+          0
+      );
+    },
   },
   methods: {
     clearFields: function () {
@@ -348,6 +388,12 @@ export default {
     }
 
     this.queryAPI();
+    this.biologicalOptions.push("Birb");
+
+    this.anatomicalOptions.push("heart");
+    this.anatomicalOptions.push("Lung left");
+    this.anatomicalOptions.push("lung right");
+    this.anatomicalOptions.push("kidney left");
   },
 };
 </script>
