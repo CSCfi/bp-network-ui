@@ -417,18 +417,6 @@ export default {
     }
 
     this.queryAPI();
-    this.biologicalOptions.push("Bird");
-    this.biologicalOptions.push("Moose");
-    this.biologicalOptions.push("Snake");
-    this.biologicalOptions.push("Rabbit");
-    this.biologicalOptions.push("Deer");
-
-    this.anatomicalOptions.push("heart");
-    this.anatomicalOptions.push("Lung left");
-    this.anatomicalOptions.push("lung right");
-    this.anatomicalOptions.push("kidney left");
-    this.anatomicalOptions.push("leg left");
-    this.anatomicalOptions.push("leg right");
   },
 };
 </script>
