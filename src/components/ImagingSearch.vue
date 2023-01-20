@@ -54,9 +54,17 @@
                   postion="is-top-left"
                 >
                   <b-input
+                    class="searchInput"
                     v-model="searchTermBiological"
                     placeholder="search"
                     expanded
+                  />
+                  <b-button
+                    icon-left="refresh"
+                    class="resetButton"
+                    type="is-primary"
+                    @click="clearBiological"
+                    title="Clear selection"
                   />
                 </b-dropdown-item>
               </div>
@@ -71,6 +79,7 @@
           </div>
           <div class="dropDown">
             <div>Anatomical site</div>
+
             <b-dropdown aria-role="list" v-model="anatomicalValue" scrollable>
               <template #trigger="{ active }">
                 <b-button
@@ -90,8 +99,16 @@
                     placeholder="search"
                     expanded
                   />
+                  <b-button
+                    icon-left="refresh"
+                    class="resetButton"
+                    type="is-primary"
+                    @click="clearAnatomical"
+                    title="Clear selection"
+                  />
                 </b-dropdown-item>
               </div>
+
               <b-dropdown-item
                 v-for="item of filteredDataAnatomical"
                 :key="item"
@@ -204,6 +221,12 @@ export default {
     },
   },
   methods: {
+    clearBiological: function () {
+      this.biologicalValue = [];
+    },
+    clearAnatomical: function () {
+      this.anatomicalValue = [];
+    },
     clearFields: function () {
       this.query = "";
       this.sexOptions = [];
@@ -393,12 +416,11 @@ export default {
     }
 
     this.queryAPI();
-    this.biologicalOptions.push("Birb");
-    this.biologicalOptions.push("Birb");
-    this.biologicalOptions.push("Birb");
-    this.biologicalOptions.push("Birb");
-    this.biologicalOptions.push("Birb");
-    this.biologicalOptions.push("Birb");
+    this.biologicalOptions.push("Bird");
+    this.biologicalOptions.push("Moose");
+    this.biologicalOptions.push("Snake");
+    this.biologicalOptions.push("Rabbit");
+    this.biologicalOptions.push("Deer");
 
     this.anatomicalOptions.push("heart");
     this.anatomicalOptions.push("Lung left");
@@ -517,9 +539,24 @@ select {
 .search {
   position: absolute;
   z-index: 999;
+  display: flex;
 }
+
 .list {
   padding-bottom: 50px;
   overflow: visible !important;
+}
+.buttonContainerItem {
+  padding-top: 100px;
+  position: absolute;
+}
+#test {
+  padding-top: 50px;
+
+  position: absolute;
+}
+
+.searchInput {
+  width: 120px;
 }
 </style>
