@@ -95,6 +95,7 @@
               <div class="list">
                 <b-dropdown-item custom aria-role="listitem" class="search">
                   <b-input
+                    class="searchInput"
                     v-model="searchTermAnatomical"
                     placeholder="search"
                     expanded
@@ -552,11 +553,11 @@ select {
 }
 #test {
   padding-top: 50px;
-
   position: absolute;
 }
 
 .searchInput {
   width: 120px;
+  margin-right: 5px;
 }
 </style>
