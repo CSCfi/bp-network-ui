@@ -156,9 +156,19 @@ export default {
           this.$route.query.ageOption != ""
         ) {
           if (this.$route.query.ageOption == "<") {
-            this.searchValues.push("Age less than " + this.$route.query.age);
+            this.searchValues.push(
+              "Age less than " +
+                this.$route.query.age +
+                " " +
+                this.$route.query.ageUnit
+            );
           } else {
-            this.searchValues.push("Age higher than " + this.$route.query.age);
+            this.searchValues.push(
+              "Age higher than " +
+                this.$route.query.age +
+                " " +
+                this.$route.query.ageUnit
+            );
           }
         }
       }

@@ -45,7 +45,7 @@
       <div class="modal-card" style="width: 335px">
         <section class="modal-card-body">
           <b-switch v-model="toggleAgeLess" @input="toggleSwitch('less')"
-            >Age less than
+            >Ages less than
           </b-switch>
           <span class="ageSelector">
             <b-button
@@ -97,7 +97,7 @@
         </section>
         <section class="modal-card-body">
           <b-switch v-model="toggleAgeMore" @input="toggleSwitch('more')"
-            >Ages more than
+            >Ages higher than
           </b-switch>
           <span class="ageSelector">
             <b-button
@@ -298,30 +298,46 @@ export default {
       toggleAgeLess: false,
       toggleAgeMore: false,
       toggleAgeBetween: false,
-      currentMenu: "Years",
-      menus: ["Years", "Months", "Week"],
+      currentMenu: "Year(s)",
+      menus: ["Year(s)", "Month(s)", "Week(s)"],
     };
   },
   methods: {
     saveForm: function () {
       if (this.toggleAgeLess) {
         this.ageOpt = [];
-        this.ageOpt.push("Less than " + this.ageLess);
-        this.$emit("updateAgeOptions", ["<", this.ageLess], this.currentMenu);
+        this.ageOpt.push("Less then " + this.ageLess + " " + this.currentMenu);
+        this.$emit("updateAgeOptions", {
+          ageOption: "<",
+          age: this.ageLess,
+          ageUnit: this.currentMenu,
+        });
       } else if (this.toggleAgeMore) {
         this.ageOpt = [];
-        this.ageOpt.push("More than " + this.ageMore);
-        this.$emit("updateAgeOptions", [">", this.ageMore], this.currentMenu);
+        this.ageOpt.push(
+          "Higher then " + this.ageMore + " " + this.currentMenu
+        );
+        this.$emit("updateAgeOptions", {
+          ageOption: ">",
+          age: this.ageMore,
+          ageUnit: this.currentMenu,
+        });
       } else if (this.toggleAgeBetween) {
         if (this.ageFrom < this.ageTo) {
           this.ageOpt = [];
-          this.ageOpt.push("Ages between " + this.ageFrom + " - " + this.ageTo);
-          this.$emit("updateAgeOptions", [
-            this.ageFrom,
-            "-",
-            this.ageTo,
-            this.currentMenu,
-          ]);
+          this.ageOpt.push(
+            "Ages between " +
+              this.ageFrom +
+              " - " +
+              this.ageTo +
+              " " +
+              this.currentMenu
+          );
+          this.$emit("updateAgeOptions", {
+            ageOption: "-",
+            age: [this.ageFrom, this.ageTo],
+            ageUnit: this.currentMenu,
+          });
         }
       } else {
         this.ageOpt = [];
@@ -356,7 +372,7 @@ export default {
     },
     setAgeOpt: function () {
       this.ageOpt = [];
-      this.ageOpt.push("Less than 3");
+      this.ageOpt.push("Less then 3");
       this.$emit("updateAgeOptions", this.ageOpt);
     },
   },
