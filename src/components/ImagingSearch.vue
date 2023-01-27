@@ -248,7 +248,11 @@ export default {
         age: vm.ageOptionsObject.age,
         ageUnit: ageUnit,
       };
-      if (vm.ageOptionsObject.age.length == 2) {
+
+      if (
+        vm.ageOptionsObject.age != undefined &&
+        vm.ageOptionsObject.age.length == 2
+      ) {
         delete queryObj["ageOption"];
       }
 
