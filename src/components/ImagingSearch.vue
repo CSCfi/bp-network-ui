@@ -34,7 +34,7 @@
         <div class="dropDownButtonGroup">
           <div class="dropDown1">
             <div>Biological species</div>
-            <b-dropdown aria-role="list" v-model="biologicalValue">
+            <b-dropdown aria-role="list" v-model="biologicalValue" scrollable>
               <template #trigger="{ active }">
                 <b-button
                   class="dropdownButton"
@@ -46,16 +46,41 @@
                   <p v-else>{{ biologicalValue }}</p>
                 </b-button>
               </template>
-              <p v-for="item in biologicalOptions" :key="item">
-                <b-dropdown-item :value="item" aria-role="listitem">{{
-                  item
-                }}</b-dropdown-item>
-              </p>
+              <div class="list">
+                <b-dropdown-item
+                  custom
+                  aria-role="listitem"
+                  class="search"
+                  postion="is-top-left"
+                >
+                  <b-input
+                    class="searchInput"
+                    v-model="searchTermBiological"
+                    placeholder="search"
+                    expanded
+                  />
+                  <b-button
+                    icon-left="refresh"
+                    class="resetButton"
+                    type="is-primary"
+                    @click="clearBiological"
+                    title="Clear selection"
+                  />
+                </b-dropdown-item>
+              </div>
+              <b-dropdown-item
+                v-for="item of filteredDataBiological"
+                :key="item"
+                aria-role="listitem"
+                :value="item"
+                >{{ item }}</b-dropdown-item
+              >
             </b-dropdown>
           </div>
           <div class="dropDown">
             <div>Anatomical site</div>
-            <b-dropdown aria-role="list" v-model="anatomicalValue">
+
+            <b-dropdown aria-role="list" v-model="anatomicalValue" scrollable>
               <template #trigger="{ active }">
                 <b-button
                   class="dropdownButton"
@@ -67,11 +92,31 @@
                   <p v-else>{{ anatomicalValue }}</p>
                 </b-button>
               </template>
-              <p v-for="item in anatomicalOptions" :key="item">
-                <b-dropdown-item :value="item" aria-role="listitem">{{
-                  item
-                }}</b-dropdown-item>
-              </p>
+              <div class="list">
+                <b-dropdown-item custom aria-role="listitem" class="search">
+                  <b-input
+                    class="searchInput"
+                    v-model="searchTermAnatomical"
+                    placeholder="search"
+                    expanded
+                  />
+                  <b-button
+                    icon-left="refresh"
+                    class="resetButton"
+                    type="is-primary"
+                    @click="clearAnatomical"
+                    title="Clear selection"
+                  />
+                </b-dropdown-item>
+              </div>
+
+              <b-dropdown-item
+                v-for="item of filteredDataAnatomical"
+                :key="item"
+                :value="item"
+                aria-role="listitem"
+                >{{ item }}</b-dropdown-item
+              >
             </b-dropdown>
           </div>
           <div class="dropDown">
@@ -144,6 +189,8 @@ export default {
   },
   data() {
     return {
+      searchTermBiological: "",
+      searchTermAnatomical: "",
       ageSelector: ageSelector,
       query: "",
       validated: false,
@@ -158,7 +205,29 @@ export default {
       aggregator: process.env.VUE_APP_AGGREGATOR_URL,
     };
   },
+  computed: {
+    filteredDataBiological() {
+      return this.biologicalOptions.filter(
+        (item) =>
+          item.toLowerCase().indexOf(this.searchTermBiological.toLowerCase()) >=
+          0
+      );
+    },
+    filteredDataAnatomical() {
+      return this.anatomicalOptions.filter(
+        (item) =>
+          item.toLowerCase().indexOf(this.searchTermAnatomical.toLowerCase()) >=
+          0
+      );
+    },
+  },
   methods: {
+    clearBiological: function () {
+      this.biologicalValue = [];
+    },
+    clearAnatomical: function () {
+      this.anatomicalValue = [];
+    },
     clearFields: function () {
       this.query = "";
       this.sexOptions = [];
@@ -453,5 +522,28 @@ select {
   align-items: center;
   justify-content: center;
   color: aliceblue;
+}
+.search {
+  position: absolute;
+  z-index: 999;
+  display: flex;
+}
+
+.list {
+  padding-bottom: 50px;
+  overflow: visible !important;
+}
+.buttonContainerItem {
+  padding-top: 100px;
+  position: absolute;
+}
+#test {
+  padding-top: 50px;
+  position: absolute;
+}
+
+.searchInput {
+  width: 120px;
+  margin-right: 5px;
 }
 </style>
