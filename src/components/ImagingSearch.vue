@@ -241,11 +241,16 @@ export default {
 
       var queryObj = {
         searchTerm: vm.query,
-        biologicalSpecies: vm.biologicalValue,
-        anatomicalSite: vm.anatomicalValue,
+        biologicalSpecies:
+          vm.biologicalValue === "string" ? vm.biologicalValue : "",
+        anatomicalSite:
+          typeof vm.anatomicalValue === "string" ? vm.anatomicalValue : "",
         sex: typeof sex === "string" ? sex : "",
         ageOption: vm.ageOptionsObject.ageOption,
-        age: vm.ageOptionsObject.age,
+        age:
+          typeof vm.ageOptionsObject.age === "string"
+            ? vm.ageOptionsObject.age
+            : "",
         ageUnit: ageUnit,
       };
 
@@ -270,6 +275,7 @@ export default {
       vm.biologicalOptions = [];
       vm.filterValue = [];
       vm.filteringTerms = [];
+      vm.anatomicalOptions.push("test");
       if (process.env.VUE_APP_DEVELOPMENT) {
         var wss = vm.aggregator.replace("http", "ws"); // change aggregator http url to ws
       } else {
