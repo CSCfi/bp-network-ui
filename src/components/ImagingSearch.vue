@@ -307,7 +307,6 @@ export default {
       } else {
         ageUnit = "Y";
       }
-
       var queryObj = {
         searchTerm: vm.query,
         biologicalSpecies:
@@ -317,7 +316,7 @@ export default {
         sex: typeof sex === "string" ? sex : "",
         ageOption: vm.ageOptionsObject.ageOption,
         age:
-          typeof vm.ageOptionsObject.age === "string"
+          typeof vm.ageOptionsObject.age === "number"
             ? vm.ageOptionsObject.age
             : "",
         ageUnit: ageUnit,
