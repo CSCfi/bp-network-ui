@@ -307,17 +307,20 @@ export default {
       } else {
         ageUnit = "Y";
       }
-
+      console.log(typeof vm.ageOptionsObject.age);
+      if (typeof vm.ageOptionsObject.age === "string") {
+        vm.ageOptionsObject.age = Number(vm.ageOptionsObject.age);
+      }
       var queryObj = {
         searchTerm: vm.query,
         biologicalSpecies:
-          vm.biologicalValue === "string" ? vm.biologicalValue : "",
+          typeof vm.biologicalValue === "string" ? vm.biologicalValue : "",
         anatomicalSite:
           typeof vm.anatomicalValue === "string" ? vm.anatomicalValue : "",
         sex: typeof sex === "string" ? sex : "",
         ageOption: vm.ageOptionsObject.ageOption,
         age:
-          typeof vm.ageOptionsObject.age === "string"
+          typeof vm.ageOptionsObject.age === "number"
             ? vm.ageOptionsObject.age
             : "",
         ageUnit: ageUnit,
@@ -329,7 +332,7 @@ export default {
       ) {
         delete queryObj["ageOption"];
       }
-
+      console.log(queryObj);
       return queryObj;
     },
     validateInput: function () {
@@ -343,6 +346,8 @@ export default {
       vm.biologicalOptions = [];
       vm.filterValue = [];
       vm.filteringTerms = [];
+      vm.anatomicalOptions.push("lung structure");
+      vm.biologicalOptions.push("homo sapiens");
       if (process.env.VUE_APP_DEVELOPMENT) {
         var wss = vm.aggregator.replace("http", "ws"); // change aggregator http url to ws
       } else {
@@ -371,6 +376,7 @@ export default {
         // check if a beacon with the same id exists already
         // prevent results appearing 2 times.
         // this can occur when aggregators query the same beacons
+        console.log(JSON.parse(event.data));
         if (JSON.parse(event.data).anatomicalSite != undefined) {
           JSON.parse(event.data).anatomicalSite.forEach((data) => {
             data.specimen.attributes.forEach((element) => {
@@ -417,7 +423,6 @@ export default {
     // Check searchType
 
     // Continue to parse the object into a string
-
     if (this.$route.query != undefined) {
       if (!Object.keys(this.$route.query).length === 0) {
         this.query = this.$route.query.searchTerm;

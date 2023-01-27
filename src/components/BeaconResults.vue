@@ -106,6 +106,7 @@ export default {
       registry: process.env.VUE_APP_REGISTRY_URL,
       beaconInfoResponse: [],
       combinedResponse: [],
+      responses: [],
     };
   },
   watch: {
@@ -274,77 +275,90 @@ export default {
       var websocket = new WebSocket(`${wss}query?${queryParamsString}`);
       websocket.onopen = function () {
         // The connection was opened
+        vm.responses = [];
         vm.isLoading = true;
       };
       websocket.onclose = async function () {
         // The connection was closed
 
-        vm.isLoading = false;
-        vm.checkResponse();
+        // vm.isLoading = false;
+        // vm.checkResponse();
 
-        for (const i in vm.response) {
-          await vm.getInfo(vm.response[i].beaconId);
-        }
+        // for (const i in vm.response) {
+        //   await vm.getInfo(vm.response[i].beaconId);
+        // }
 
-        vm.parseBeaconInfo();
+        // vm.parseBeaconInfo();
+        vm.combinedResponse = [];
+        vm.combinedResponse.push({
+          beaconName: "Imaging beacon",
+          description: "bp test beacon",
+          accessType: "Users/Algorithms",
+          images: [vm.responses.length, 20],
+        });
       };
       websocket.onmessage = function (event) {
         // New message arrived
         // check if a beacon with the same id exists already
         // prevent results appearing 2 times.
         // this can occur when aggregators query the same beacons
-        if (JSON.parse(event.data) != null) {
-          //checks if response is filteringTerms or not
-          if (JSON.parse(event.data).filteringTerms != undefined) {
-            if (vm.filteringTerms.length == 0) {
-              vm.filteringTerms.push(JSON.parse(event.data).filteringTerms);
-            } else {
-              // check if filtering term exists and add ids to it
-              JSON.parse(event.data).filteringTerms.forEach((newObject) => {
-                var exists = false;
-                vm.filteringTerms.forEach((object) => {
-                  if (object.label == newObject.label) {
-                    object.id.push(newObject.id);
-                    exists = true;
-                  }
-                });
-                if (!exists) {
-                  vm.filteringTerms.push(newObject);
-                }
-              });
-            }
-          } else {
-            if (JSON.parse(event.data).meta != undefined) {
-              vm.beaconV2 = true;
-            }
-            const found = vm.response.some((resp) => {
-              if (JSON.parse(event.data).meta == undefined) {
-                resp.beaconId == JSON.parse(event.data).beaconId;
-              } else {
-                resp.beaconId == JSON.parse(event.data).meta.beaconId;
-              }
-            });
-            // checks if filter result and adds to filteringTerms
 
-            var nobeaconid = vm.getErrorBeaconId(JSON.parse(event.data));
-
-            const found_nobeaconid = vm.response.some((resp) => {
-              if (nobeaconid.meta == undefined) {
-                resp.beaconId === nobeaconid.beaconId;
-              } else {
-                resp.beaconId === nobeaconid.meta.beaconId;
-              }
-            });
-            if (!found && !found_nobeaconid) vm.response.push(nobeaconid);
-          }
+        if (JSON.parse(event.data).biologicalBeing != null) {
+          vm.responses.push(JSON.parse(event.data));
         }
-        vm.searchValues = [];
-        vm.parseSearchValues();
-      };
-      websocket.onerror = function () {
-        // There was an error with your WebSocket
-        vm.isLoading = false;
-        vm.checkResponse();
+
+        // if (JSON.parse(event.data) != null) {
+        //   //checks if response is filteringTerms or not
+        //   if (JSON.parse(event.data).filteringTerms != undefined) {
+        //     if (vm.filteringTerms.length == 0) {
+        //       vm.filteringTerms.push(JSON.parse(event.data).filteringTerms);
+        //     } else {
+        //       // check if filtering term exists and add ids to it
+        //       JSON.parse(event.data).filteringTerms.forEach((newObject) => {
+        //         var exists = false;
+        //         vm.filteringTerms.forEach((object) => {
+        //           if (object.label == newObject.label) {
+        //             object.id.push(newObject.id);
+        //             exists = true;
+        //           }
+        //         });
+        //         if (!exists) {
+        //           vm.filteringTerms.push(newObject);
+        //         }
+        //       });
+        //     }
+        //   } else {
+        //     if (JSON.parse(event.data).meta != undefined) {
+        //       vm.beaconV2 = true;
+        //     }
+        //     const found = vm.response.some((resp) => {
+        //       if (JSON.parse(event.data).meta == undefined) {
+        //         resp.beaconId == JSON.parse(event.data).beaconId;
+        //       } else {
+        //         resp.beaconId == JSON.parse(event.data).meta.beaconId;
+        //       }
+        // });
+        // checks if filter result and adds to filteringTerms
+
+        // var nobeaconid = vm.getErrorBeaconId(JSON.parse(event.data));
+
+        // const found_nobeaconid = vm.response.some((resp) => {
+        //   if (nobeaconid.meta == undefined) {
+        //     resp.beaconId === nobeaconid.beaconId;
+        //   } else {
+        //     resp.beaconId === nobeaconid.meta.beaconId;
+        //   }
+        // });
+        // if (!found && !found_nobeaconid) vm.response.push(nobeaconid);
+        //     }
+        //   }
+        //   vm.searchValues = [];
+        //   vm.parseSearchValues();
+        // };
+        // websocket.onerror = function () {
+        //   // There was an error with your WebSocket
+        //   vm.isLoading = false;
+        //   vm.checkResponse();
       };
     },
     checkResponse: function () {
