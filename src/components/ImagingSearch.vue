@@ -261,7 +261,6 @@ export default {
         delete queryObj["ageOption"];
       }
 
-      console.log(queryObj);
       return queryObj;
     },
     validateInput: function () {
@@ -275,7 +274,6 @@ export default {
       vm.biologicalOptions = [];
       vm.filterValue = [];
       vm.filteringTerms = [];
-      vm.anatomicalOptions.push("test");
       if (process.env.VUE_APP_DEVELOPMENT) {
         var wss = vm.aggregator.replace("http", "ws"); // change aggregator http url to ws
       } else {
