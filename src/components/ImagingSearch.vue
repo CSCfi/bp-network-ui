@@ -229,8 +229,6 @@ export default {
       } else if (vm.sexOptions == "Female") {
         sex = "F";
       }
-      var ageOption = [];
-      var age = [];
 
       var ageUnit;
       if (vm.ageOptionsObject.ageUnit == "Week(s)") {
@@ -240,6 +238,7 @@ export default {
       } else {
         ageUnit = "Y";
       }
+
       var queryObj = {
         searchTerm: vm.query,
         biologicalSpecies: vm.biologicalValue,
@@ -249,18 +248,11 @@ export default {
         age: vm.ageOptionsObject.age,
         ageUnit: ageUnit,
       };
-
-      if (age.length == 2) {
-        queryObj = {
-          searchTerm: vm.query,
-          biologicalSpecies: vm.biologicalValue,
-          anatomicalSite: vm.anatomicalValue,
-          sex: typeof sex === "string" ? sex : "",
-          ageOption: ageOption,
-          ageStart: age[0],
-          ageEnd: age[1],
-        };
+      if (vm.ageOptionsObject.age.length == 2) {
+        delete queryObj["ageOption"];
       }
+
+      console.log(queryObj);
       return queryObj;
     },
     validateInput: function () {
