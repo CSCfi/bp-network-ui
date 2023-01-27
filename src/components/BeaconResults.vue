@@ -294,7 +294,7 @@ export default {
           beaconName: "Imaging beacon",
           description: "bp test beacon",
           accessType: "Users/Algorithms",
-          images: [vm.responses.length, 20],
+          images: [vm.responses.length, 49],
         });
       };
       websocket.onmessage = function (event) {
