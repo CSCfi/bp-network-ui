@@ -162,9 +162,16 @@ export default {
                 " " +
                 this.$route.query.ageUnit
             );
-          } else {
+          } else if (this.$route.query.ageOption == ">") {
             this.searchValues.push(
               "Age higher than " +
+                this.$route.query.age +
+                " " +
+                this.$route.query.ageUnit
+            );
+          } else {
+            this.searchValues.push(
+              "Ages between " +
                 this.$route.query.age +
                 " " +
                 this.$route.query.ageUnit
