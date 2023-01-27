@@ -306,7 +306,7 @@ export default {
     saveForm: function () {
       if (this.toggleAgeLess) {
         this.ageOpt = [];
-        this.ageOpt.push("Less then " + this.ageLess + " " + this.currentMenu);
+        this.ageOpt.push("Less than " + this.ageLess + " " + this.currentMenu);
         this.$emit("updateAgeOptions", {
           ageOption: "<",
           age: this.ageLess,
@@ -315,7 +315,7 @@ export default {
       } else if (this.toggleAgeMore) {
         this.ageOpt = [];
         this.ageOpt.push(
-          "Higher then " + this.ageMore + " " + this.currentMenu
+          "Higher than " + this.ageMore + " " + this.currentMenu
         );
         this.$emit("updateAgeOptions", {
           ageOption: ">",
@@ -369,11 +369,6 @@ export default {
       this.ageMore = 0;
       this.ageTo = 0;
       this.ageFrom = 0;
-    },
-    setAgeOpt: function () {
-      this.ageOpt = [];
-      this.ageOpt.push("Less then 3");
-      this.$emit("updateAgeOptions", this.ageOpt);
     },
   },
 };
