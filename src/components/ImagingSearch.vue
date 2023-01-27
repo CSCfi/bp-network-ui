@@ -142,7 +142,7 @@
             </b-dropdown>
           </div>
           <div class="dropDown">
-            <div>Age at extraction (years)</div>
+            <div>Age at extraction</div>
 
             <component
               :is="ageSelector"
@@ -203,6 +203,7 @@ export default {
       biologicalOptions: [],
       biologicalValue: [],
       aggregator: process.env.VUE_APP_AGGREGATOR_URL,
+      ageOptionsObject: {},
     };
   },
   computed: {
@@ -236,8 +237,13 @@ export default {
       this.anatomicalValue = [];
       this.$refs.ageSelector.clearAgeForm();
     },
-    setAgeOptions: function (ageOptionsArray) {
-      this.ageOptions = ageOptionsArray;
+    setAgeOptions: function (ageOptionsObject) {
+      this.ageOptionsObject = ageOptionsObject;
+      this.ageOptions = [
+        ageOptionsObject.ageOption,
+        ageOptionsObject.age,
+        ageOptionsObject.ageUnit,
+      ];
     },
     changeFormToA: function () {
       this.$emit("changeFormToA");
@@ -292,34 +298,36 @@ export default {
       } else if (vm.sexOptions == "Female") {
         sex = "F";
       }
-      var ageOption = [];
-      var age = [];
-      vm.ageOptions.forEach((option) => {
-        if (option == "<" || option == ">" || option == "-") {
-          ageOption = option;
-        } else {
-          age += option;
-        }
-      });
+
+      var ageUnit;
+      if (vm.ageOptionsObject.ageUnit == "Week(s)") {
+        ageUnit = "W";
+      } else if (vm.ageOptionsObject.ageUnit == "Month(s)") {
+        ageUnit = "M";
+      } else {
+        ageUnit = "Y";
+      }
+
       var queryObj = {
         searchTerm: vm.query,
-        biologicalSpecies: vm.biologicalValue,
-        anatomicalSite: vm.anatomicalValue,
+        biologicalSpecies:
+          vm.biologicalValue === "string" ? vm.biologicalValue : "",
+        anatomicalSite:
+          typeof vm.anatomicalValue === "string" ? vm.anatomicalValue : "",
         sex: typeof sex === "string" ? sex : "",
-        ageOption: ageOption,
-        age: age,
+        ageOption: vm.ageOptionsObject.ageOption,
+        age:
+          typeof vm.ageOptionsObject.age === "string"
+            ? vm.ageOptionsObject.age
+            : "",
+        ageUnit: ageUnit,
       };
 
-      if (age.length == 2) {
-        queryObj = {
-          searchTerm: vm.query,
-          biologicalSpecies: vm.biologicalValue,
-          anatomicalSite: vm.anatomicalValue,
-          sex: typeof sex === "string" ? sex : "",
-          ageOption: ageOption,
-          ageStart: age[0],
-          ageEnd: age[1],
-        };
+      if (
+        vm.ageOptionsObject.age != undefined &&
+        vm.ageOptionsObject.age.length == 2
+      ) {
+        delete queryObj["ageOption"];
       }
 
       return queryObj;
@@ -449,7 +457,7 @@ h2 {
   margin-top: 100px;
 } */
 .stretch {
-  width: 182.426%;
+  width: 179.8%;
 }
 .searchbar-footer {
   margin-top: 10px;
