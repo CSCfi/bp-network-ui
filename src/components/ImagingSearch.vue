@@ -380,7 +380,7 @@ h2 {
   margin-top: 100px;
 } */
 .stretch {
-  width: 182.426%;
+  width: 179.8%;
 }
 .searchbar-footer {
   margin-top: 10px;
