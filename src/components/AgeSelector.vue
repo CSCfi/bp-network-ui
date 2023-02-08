@@ -309,7 +309,7 @@ export default {
         this.ageOpt.push("Less than " + this.ageLess + " " + this.currentMenu);
         this.$emit("updateAgeOptions", {
           ageOption: "<",
-          age: Number(this.ageLess),
+          age: this.ageLess,
           ageUnit: this.currentMenu,
         });
       } else if (this.toggleAgeMore) {
@@ -319,7 +319,7 @@ export default {
         );
         this.$emit("updateAgeOptions", {
           ageOption: ">",
-          age: Number(this.ageMore),
+          age: this.ageMore,
           ageUnit: this.currentMenu,
         });
       } else if (this.toggleAgeBetween) {
@@ -335,7 +335,7 @@ export default {
           );
           this.$emit("updateAgeOptions", {
             ageOption: "-",
-            age: [Number(this.ageFrom), Number(this.ageTo)],
+            age: [this.ageFrom, this.ageTo],
             ageUnit: this.currentMenu,
           });
         }
