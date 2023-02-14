@@ -290,6 +290,16 @@ export default {
       document.getElementById("searchBar").focus();
       this.ageOptions = ["<", "3"];
     },
+    parseAgeBetween: function (ageTimeUnit) {
+      this.ageOptionsObject.age =
+        "P" +
+        this.ageOptionsObject.age[0] +
+        ageTimeUnit +
+        "," +
+        "P" +
+        this.ageOptionsObject.age[1] +
+        ageTimeUnit;
+    },
     buildQueryObj: function () {
       var vm = this;
       var sex;
@@ -298,16 +308,26 @@ export default {
       } else if (vm.sexOptions == "Female") {
         sex = "F";
       }
-
-      var ageUnit;
+      var ageNumber = vm.ageOptionsObject.age;
       if (vm.ageOptionsObject.ageUnit == "Week(s)") {
-        ageUnit = "W";
+        if (vm.ageOptionsObject.age.length == undefined) {
+          vm.ageOptionsObject.age = "P" + vm.ageOptionsObject.age + "W";
+        } else {
+          this.parseAgeBetween("W");
+        }
       } else if (vm.ageOptionsObject.ageUnit == "Month(s)") {
-        ageUnit = "M";
+        if (vm.ageOptionsObject.age.length == undefined) {
+          vm.ageOptionsObject.age = "P" + vm.ageOptionsObject.age + "M";
+        } else {
+          this.parseAgeBetween("M");
+        }
       } else {
-        ageUnit = "Y";
+        if (vm.ageOptionsObject.age.length == undefined) {
+          vm.ageOptionsObject.age = "P" + vm.ageOptionsObject.age + "Y";
+        } else {
+          this.parseAgeBetween("Y");
+        }
       }
-
       var queryObj = {
         searchTerm: vm.query,
         biologicalSpecies:
@@ -320,13 +340,9 @@ export default {
           typeof vm.ageOptionsObject.age === "string"
             ? vm.ageOptionsObject.age
             : "",
-        ageUnit: ageUnit,
       };
 
-      if (
-        vm.ageOptionsObject.age != undefined &&
-        vm.ageOptionsObject.age.length == 2
-      ) {
+      if (ageNumber != undefined && ageNumber.length == 2) {
         delete queryObj["ageOption"];
       }
 
