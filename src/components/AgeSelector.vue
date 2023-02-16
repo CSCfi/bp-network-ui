@@ -265,7 +265,8 @@
             <b-button
               class="clearButton"
               label="Clear"
-              type="is-secondary"
+              type="is-primary"
+              outlined
               @click="clearAgeForm"
             />
           </b-dropdown-item>
@@ -386,24 +387,13 @@ export default {
 .dropdownButton {
   min-width: 188px;
 }
-.saveButton {
-  color: white !important;
-  background-color: #1c007b !important;
-}
+
 .saveButton:hover {
   color: #1c007b !important;
   background-color: white !important;
   border-color: #1c007b !important;
 }
-.clearButton {
-  color: #1c007b !important;
-  background-color: white !important;
-  border-color: #1c007b !important;
-}
-.clearButton:hover {
-  color: white !important;
-  background-color: #1c007b !important;
-}
+
 .header {
   display: flex;
   flex-direction: row;
