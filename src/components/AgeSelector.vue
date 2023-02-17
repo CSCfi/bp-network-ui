@@ -300,7 +300,7 @@ export default {
       toggleAgeMore: false,
       toggleAgeBetween: false,
       currentMenu: "Year(s)",
-      menus: ["Year(s)", "Month(s)", "Week(s)"],
+      menus: ["Year(s)", "Month(s)", "Day(s)"],
     };
   },
   methods: {

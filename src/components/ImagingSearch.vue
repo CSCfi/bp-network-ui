@@ -309,11 +309,11 @@ export default {
         sex = "F";
       }
       var ageNumber = vm.ageOptionsObject.age;
-      if (vm.ageOptionsObject.ageUnit == "Week(s)") {
+      if (vm.ageOptionsObject.ageUnit == "Day(s)") {
         if (vm.ageOptionsObject.age.length == undefined) {
           vm.ageOptionsObject.age = "P" + vm.ageOptionsObject.age + "W";
         } else {
-          this.parseAgeBetween("W");
+          this.parseAgeBetween("D");
         }
       } else if (vm.ageOptionsObject.ageUnit == "Month(s)") {
         if (vm.ageOptionsObject.age.length == undefined) {
