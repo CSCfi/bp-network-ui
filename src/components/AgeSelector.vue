@@ -44,9 +44,9 @@
     <b-dropdown-item aria-role="list-item" :focusable="false" custom>
       <div class="modal-card" style="width: 335px">
         <section class="modal-card-body">
-          <b-switch v-model="toggleAgeLess" @input="toggleSwitch('less')"
+          <b-checkbox v-model="toggleAgeLess" @input="toggleSwitch('less')"
             >Ages less than
-          </b-switch>
+          </b-checkbox>
           <span class="ageSelector">
             <b-button
               type="is-ghost"
@@ -96,9 +96,9 @@
           </span>
         </section>
         <section class="modal-card-body">
-          <b-switch v-model="toggleAgeMore" @input="toggleSwitch('more')"
+          <b-checkbox v-model="toggleAgeMore" @input="toggleSwitch('more')"
             >Ages higher than
-          </b-switch>
+          </b-checkbox>
           <span class="ageSelector">
             <b-button
               type="is-ghost"
@@ -147,11 +147,11 @@
         </section>
         <section class="modal-card-body">
           <span>
-            <b-switch
+            <b-checkbox
               v-model="toggleAgeBetween"
               @input="toggleSwitch('between')"
               >Ages between
-            </b-switch>
+            </b-checkbox>
           </span>
         </section>
         <section class="modal-card-body">
