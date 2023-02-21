@@ -315,6 +315,12 @@ export default {
         } else {
           this.parseAgeBetween("D");
         }
+      } else if (vm.ageOptionsObject.ageUnit == "Week(s)") {
+        if (vm.ageOptionsObject.age.length == undefined) {
+          vm.ageOptionsObject.age = "P" + vm.ageOptionsObject.age + "W";
+        } else {
+          this.parseAgeBetween("W");
+        }
       } else if (vm.ageOptionsObject.ageUnit == "Month(s)") {
         if (vm.ageOptionsObject.age.length == undefined) {
           vm.ageOptionsObject.age = "P" + vm.ageOptionsObject.age + "M";
