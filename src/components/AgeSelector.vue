@@ -40,225 +40,69 @@
         </div>
       </template>
     </b-dropdown-item>
-
+    <hr class="dropdown-divider" aria-role="menuitem" />
     <b-dropdown-item aria-role="list-item" :focusable="false" custom>
       <div class="modal-card" style="width: 335px">
         <section class="modal-card-body">
-          <b-checkbox v-model="toggleAgeLess" @input="toggleSwitch('less')"
-            >Ages less than
-          </b-checkbox>
+          <input
+            type="radio"
+            v-model="radio"
+            :value="'less'"
+            @click="checkRadioStatus('less')"
+          />
+          Ages less than
+
           <span class="ageSelector">
-            <b-button
-              type="is-ghost"
-              class="buttonWithImage"
-              v-if="ageLess == 0"
-              rounded
-              size="is-small"
-            >
-              <img class="image" src="../assets/minus.png" />
-            </b-button>
-            <b-button
-              type="is-ghost"
-              class="buttonWithImage"
-              v-if="ageLess > 0"
-              @click="ageLess--"
-              rounded
-              size="is-small"
-            >
-              <img class="image" src="../assets/minus.png" />
-            </b-button>
-
-            <input
-              class="ageField"
+            <b-input
               v-model="ageLess"
-              :disabled="!toggleAgeLess"
+              :disabled="radio != 'less'"
+              class="ageField"
             />
-
-            <b-button
-              v-if="toggleAgeLess"
-              type="is-ghost"
-              class="buttonWithImage"
-              @click="ageLess++"
-              rounded
-              size="is-small"
-            >
-              <img class="image" src="../assets/plus.png" />
-            </b-button>
-            <b-button
-              v-else
-              type="is-ghost"
-              class="buttonWithImage"
-              rounded
-              size="is-small"
-            >
-              <img class="image" src="../assets/plus.png" />
-            </b-button>
           </span>
         </section>
+        <hr class="dropdown-divider" aria-role="menuitem" />
         <section class="modal-card-body">
-          <b-checkbox v-model="toggleAgeMore" @input="toggleSwitch('more')"
-            >Ages higher than
-          </b-checkbox>
+          <input
+            type="radio"
+            v-model="radio"
+            :value="'more'"
+            @click="checkRadioStatus('more')"
+          />
+          Ages higher than
+
           <span class="ageSelector">
-            <b-button
-              type="is-ghost"
-              class="buttonWithImage"
-              v-if="ageMore == 0"
-              rounded
-              size="is-small"
-            >
-              <img class="image" src="../assets/minus.png" />
-            </b-button>
-            <b-button
-              type="is-ghost"
-              class="buttonWithImage"
-              v-if="ageMore > 0"
-              @click="ageMore--"
-              rounded
-              size="is-small"
-            >
-              <img class="image" src="../assets/minus.png" />
-            </b-button>
-            <input
+            <b-input
               class="ageField"
               v-model="ageMore"
-              :disabled="!toggleAgeMore"
+              :disabled="radio != 'more'"
             />
-            <b-button
-              v-if="toggleAgeMore"
-              type="is-ghost"
-              class="buttonWithImage"
-              @click="ageMore++"
-              rounded
-              size="is-small"
-            >
-              <img class="image" src="../assets/plus.png" />
-            </b-button>
-            <b-button
-              v-else
-              type="is-ghost"
-              class="buttonWithImage"
-              rounded
-              size="is-small"
-            >
-              <img class="image" src="../assets/plus.png" />
-            </b-button>
           </span>
         </section>
+        <hr class="dropdown-divider" aria-role="menuitem" />
         <section class="modal-card-body">
-          <span>
-            <b-checkbox
-              v-model="toggleAgeBetween"
-              @input="toggleSwitch('between')"
-              >Ages between
-            </b-checkbox>
+          <span class="ageBetweenContainer">
+            <input
+              type="radio"
+              v-model="radio"
+              :value="'between'"
+              @click="checkRadioStatus('between')"
+            />
+            Ages between
+
+            <b-input
+              class="ageField"
+              v-model="ageFrom"
+              :disabled="radio != 'between'"
+            />
+            <b-input
+              class="ageField"
+              v-model="ageTo"
+              :disabled="radio != 'between'"
+            />
           </span>
-        </section>
-        <section class="modal-card-body">
-          <span>
-            <span class="ageSelector">
-              <b-button
-                type="is-ghost"
-                class="buttonWithImage"
-                v-if="ageFrom == 0"
-                rounded
-                size="is-small"
-                style="padding-bottom: 10px"
-              >
-                <img class="image" src="../assets/minus.png" />
-              </b-button>
-              <b-button
-                type="is-ghost"
-                class="buttonWithImage"
-                v-if="ageFrom > 0"
-                @click="ageFrom--"
-                rounded
-                size="is-small"
-                style="padding-bottom: 10px"
-              >
-                <img class="image" src="../assets/minus.png" />
-              </b-button>
-              <input
-                class="ageField"
-                v-model="ageFrom"
-                :disabled="!toggleAgeBetween"
-              />
-              <b-button
-                v-if="toggleAgeBetween"
-                type="is-ghost"
-                class="buttonWithImage"
-                @click="ageFrom++"
-                rounded
-                size="is-small"
-                style="padding-bottom: 10px"
-              >
-                <img class="image" src="../assets/plus.png" />
-              </b-button>
-              <b-button
-                v-else
-                type="is-ghost"
-                class="buttonWithImage"
-                rounded
-                size="is-small"
-                style="padding-bottom: 10px"
-              >
-                <img class="image" src="../assets/plus.png" />
-              </b-button>
-            </span>
-            to
-            <span class="ageSelector">
-              <b-button
-                type="is-ghost"
-                class="buttonWithImage"
-                v-if="ageTo == 0"
-                rounded
-                size="is-small"
-                style="padding-bottom: 10px"
-              >
-                <img class="image" src="../assets/minus.png" />
-              </b-button>
-              <b-button
-                type="is-ghost"
-                class="buttonWithImage"
-                v-if="ageTo > 0"
-                @click="ageTo--"
-                rounded
-                size="is-small"
-                style="padding-bottom: 10px"
-              >
-                <img class="image" src="../assets/minus.png" />
-              </b-button>
-              <input
-                class="ageField"
-                v-model="ageTo"
-                :disabled="!toggleAgeBetween"
-              />
-              <b-button
-                v-if="toggleAgeBetween"
-                type="is-ghost"
-                class="buttonWithImage"
-                @click="ageTo++"
-                rounded
-                size="is-small"
-                style="padding-bottom: 10px"
-              >
-                <img class="image" src="../assets/plus.png" />
-              </b-button>
-              <b-button
-                v-else
-                type="is-ghost"
-                class="buttonWithImage"
-                rounded
-                size="is-small"
-                style="padding-bottom: 10px"
-              >
-                <img class="image" src="../assets/plus.png" />
-              </b-button>
-              <p v-if="ageFrom >= ageTo && toggleAgeBetween">
-                Starting age needs to be less than max age
-              </p>
-            </span>
-          </span>
+          <p v-if="ageFrom >= ageTo && radio == 'between'">
+            Starting age needs to be less than max age
+          </p>
         </section>
         <b-dropdown-item class="modal-card-foot" custom>
           <b-dropdown-item :focusable="false" custom>
@@ -301,11 +145,12 @@ export default {
       toggleAgeBetween: false,
       currentMenu: "Year(s)",
       menus: ["Year(s)", "Month(s)", "Week(s)", "Day(s)"],
+      radio: "",
     };
   },
   methods: {
     saveForm: function () {
-      if (this.toggleAgeLess) {
+      if (this.radio == "less") {
         this.ageOpt = [];
         this.ageOpt.push("Less than " + this.ageLess + " " + this.currentMenu);
         this.$emit("updateAgeOptions", {
@@ -313,7 +158,8 @@ export default {
           age: this.ageLess,
           ageUnit: this.currentMenu,
         });
-      } else if (this.toggleAgeMore) {
+      } else if (this.radio == "more") {
+        console.log("here");
         this.ageOpt = [];
         this.ageOpt.push(
           "Higher than " + this.ageMore + " " + this.currentMenu
@@ -323,7 +169,7 @@ export default {
           age: this.ageMore,
           ageUnit: this.currentMenu,
         });
-      } else if (this.toggleAgeBetween) {
+      } else if (this.radio == "between") {
         if (this.ageFrom < this.ageTo) {
           this.ageOpt = [];
           this.ageOpt.push(
@@ -351,38 +197,42 @@ export default {
       this.ageLess = 0;
       this.ageMore = 0;
       this.ageTo = 0;
-      this.toggleAgeLess = false;
-      this.toggleAgeMore = false;
-      this.toggleAgeBetween = false;
+      this.radio = "";
     },
-    toggleSwitch: function (toggle) {
-      if (toggle == "less") {
-        this.toggleAgeMore = false;
-        this.toggleAgeBetween = false;
-      } else if (toggle == "more") {
-        this.toggleAgeLess = false;
-        this.toggleAgeBetween = false;
-      } else if (toggle == "between") {
-        this.toggleAgeLess = false;
-        this.toggleAgeMore = false;
+    checkRadioStatus: function (toggle) {
+      console.log(toggle + " r " + this.radio);
+      if (toggle == this.radio) {
+        this.radio = "";
+      } else {
+        this.radio = toggle;
       }
+
+      this.ageFrom = 0;
       this.ageLess = 0;
       this.ageMore = 0;
       this.ageTo = 0;
-      this.ageFrom = 0;
     },
   },
 };
 </script>
 
 <style>
+.test {
+}
+.ageBetweenContainer {
+  display: inline-flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
 .ageSelector {
-  width: 100px;
-  height: 43px;
-  padding-top: 10px;
-  padding-bottom: 10px;
   background: #f2f0f7;
   border-radius: 8px;
+  display: inline-flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+#buttonWithImage {
+  flex-grow: 4;
 }
 .dropdownButton {
   min-width: 188px;
@@ -406,9 +256,12 @@ export default {
   padding-left: 150px;
 }
 .ageField {
-  width: 30px;
+  width: 90px;
 }
 .modal-card-body {
-  min-width: 360px;
+  min-width: 410px;
+}
+.dropdown-content {
+  min-width: 410px;
 }
 </style>
