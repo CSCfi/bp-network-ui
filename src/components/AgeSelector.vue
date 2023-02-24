@@ -217,8 +217,6 @@ export default {
 </script>
 
 <style>
-.test {
-}
 .ageBetweenContainer {
   display: inline-flex;
   flex-flow: row wrap;
