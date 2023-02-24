@@ -187,10 +187,12 @@ body {
   font-family: "Inter";
 }
 // Set your colors
-$primary: #047eaa;
+$primary: #1c007b;
 $primary-invert: findColorInvert($primary);
 $snackbar-background-color: #ffcc00;
 $snackbar-color: #000;
+$primary-dark: findDarkColor($primary);
+$primary-invert: findColorInvert($primary);
 $colors: (
   "primary": (
     $primary,
@@ -205,4 +207,5 @@ $link-focus-border: $primary;
 
 // Import Bulma and Buefy styles
 @import "~bulma";
+@import "~buefy/src/scss/buefy";
 </style>

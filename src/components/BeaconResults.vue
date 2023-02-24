@@ -157,24 +157,16 @@ export default {
         ) {
           if (this.$route.query.ageOption == "<") {
             this.searchValues.push(
-              "Age less than " +
-                this.$route.query.age +
-                " " +
-                this.$route.query.ageUnit
+              "Age less than " + this.$route.query.age.replace("P", "")
             );
           } else if (this.$route.query.ageOption == ">") {
             this.searchValues.push(
-              "Age higher than " +
-                this.$route.query.age +
-                " " +
-                this.$route.query.ageUnit
+              "Age higher than " + this.$route.query.age.replace("P", "")
             );
           } else {
             this.searchValues.push(
               "Ages between " +
-                this.$route.query.age +
-                " " +
-                this.$route.query.ageUnit
+                this.$route.query.age.replace("P", "").replace("P", "")
             );
           }
         }
