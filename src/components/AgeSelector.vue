@@ -53,7 +53,8 @@
           Ages less than
 
           <span class="ageSelector">
-            <b-input
+            <b-numberinput
+              :controls="false"
               v-model="ageLess"
               :disabled="radio != 'less'"
               class="ageField"
@@ -71,7 +72,8 @@
           Ages higher than
 
           <span class="ageSelector">
-            <b-input
+            <b-numberinput
+              :controls="false"
               class="ageField"
               v-model="ageMore"
               :disabled="radio != 'more'"
@@ -89,12 +91,15 @@
             />
             Ages between
 
-            <b-input
+            <b-numberinput
+              :controls="false"
               class="ageField"
               v-model="ageFrom"
               :disabled="radio != 'between'"
             />
-            <b-input
+
+            <b-numberinput
+              :controls="false"
               class="ageField"
               v-model="ageTo"
               :disabled="radio != 'between'"
