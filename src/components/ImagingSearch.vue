@@ -311,7 +311,7 @@ export default {
       var ageNumber = vm.ageOptionsObject.age;
       if (vm.ageOptionsObject.ageUnit == "Day(s)") {
         if (vm.ageOptionsObject.age.length == undefined) {
-          vm.ageOptionsObject.age = "P" + vm.ageOptionsObject.age + "W";
+          vm.ageOptionsObject.age = "P" + vm.ageOptionsObject.age + "D";
         } else {
           this.parseAgeBetween("D");
         }
