@@ -11,7 +11,12 @@
         <p v-else>{{ ageOpt[0] }}</p>
       </b-button>
     </template>
-    <b-dropdown-item aria-role="list-item" :focusable="false" custom>
+    <b-dropdown-item
+      aria-role="list-item"
+      :focusable="false"
+      custom
+      class="ageSelector"
+    >
       <template>
         <div class="header">
           <b class="ageText">Age in</b>
@@ -21,7 +26,11 @@
             class="timeSelector"
           >
             <template #trigger>
-              <b-button :label="currentMenu" icon-right="menu-down" />
+              <b-button
+                :label="currentMenu"
+                icon-right="menu-down"
+                class="timeSelectorButton"
+              />
             </template>
 
             <b-dropdown-item
@@ -41,40 +50,46 @@
       </template>
     </b-dropdown-item>
     <hr class="dropdown-divider" aria-role="menuitem" />
-    <b-dropdown-item aria-role="list-item" :focusable="false" custom>
+    <b-dropdown-item
+      aria-role="list-item"
+      :focusable="false"
+      custom
+      class="cardBody"
+    >
       <div class="modal-card" style="width: 335px">
         <section class="modal-card-body">
-          <input
-            type="radio"
-            v-model="radio"
-            :value="'less'"
-            @click="checkRadioStatus('less')"
-          />
-          Ages less than
-
           <span class="ageSelector">
+            <input
+              type="radio"
+              v-model="radio"
+              :value="'less'"
+              @click="checkRadioStatus('less')"
+            />
+            <p class="ageTextRadio">Ages less than</p>
+
             <b-numberinput
               :controls="false"
               v-model="ageLess"
               :disabled="radio != 'less'"
-              class="ageField"
+              class="ageField1"
             />
           </span>
         </section>
         <hr class="dropdown-divider" aria-role="menuitem" />
         <section class="modal-card-body">
-          <input
-            type="radio"
-            v-model="radio"
-            :value="'more'"
-            @click="checkRadioStatus('more')"
-          />
-          Ages higher than
-
           <span class="ageSelector">
+            <input
+              type="radio"
+              v-model="radio"
+              :value="'more'"
+              @click="checkRadioStatus('more')"
+            />
+            <p class="ageTextRadio">Ages higher than</p>
+
             <b-numberinput
+              outlined
               :controls="false"
-              class="ageField"
+              class="ageField2"
               v-model="ageMore"
               :disabled="radio != 'more'"
             />
@@ -89,18 +104,17 @@
               :value="'between'"
               @click="checkRadioStatus('between')"
             />
-            Ages between
+            <p class="ageTextRadio">Ages between</p>
 
             <b-numberinput
               :controls="false"
-              class="ageField"
+              class="ageFieldBetween"
               v-model="ageFrom"
               :disabled="radio != 'between'"
             />
-
             <b-numberinput
               :controls="false"
-              class="ageField"
+              class="ageFieldBetween"
               v-model="ageTo"
               :disabled="radio != 'between'"
             />
@@ -222,13 +236,15 @@ export default {
 </script>
 
 <style>
+.ageTextRadio {
+  margin-left: 5px;
+}
 .ageBetweenContainer {
   display: inline-flex;
   flex-flow: row wrap;
   align-items: center;
 }
 .ageSelector {
-  background: #f2f0f7;
   border-radius: 8px;
   display: inline-flex;
   flex-flow: row wrap;
@@ -243,7 +259,7 @@ export default {
 
 .saveButton:hover {
   color: #1c007b !important;
-  background-color: white !important;
+  background-color: transparent !important;
   border-color: #1c007b !important;
 }
 
@@ -253,18 +269,35 @@ export default {
   align-items: center;
 }
 .ageText {
-  padding-left: 22.8px;
+  margin-left: 22.8px;
+}
+.timeSelectorButton {
+  width: 289px;
+  margin-left: 10px;
+  border-color: #1c007b;
 }
 .timeSelector {
-  padding-left: 150px;
+  padding-left: 10px;
 }
-.ageField {
+.ageFieldBetween {
   width: 90px;
+  margin-left: 10px;
+  border-color: #1c007b !important;
+}
+.ageField1 {
+  width: 90px;
+  margin-left: 110px;
+  border-color: #1c007b !important;
+}
+.ageField2 {
+  width: 90px;
+  margin-left: 93px;
 }
 .modal-card-body {
   min-width: 410px;
 }
-.dropdown-content {
+
+.cardBody {
   min-width: 410px;
 }
 </style>
