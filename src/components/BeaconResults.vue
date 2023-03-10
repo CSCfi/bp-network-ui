@@ -44,7 +44,7 @@
         v-slot="props"
         sortable
       >
-        {{ props.row.accessType }}
+        {{ props.row.response.images }}
       </b-table-column>
       <b-table-column
         field="images"
@@ -54,7 +54,8 @@
         sortable
         :custom-sort="customSortImages"
       >
-        {{ props.row.images[0] }} / {{ props.row.images[1] }}
+        {{ props.row.response[0].images.hits }} /
+        {{ props.row.response[0].images.total }}
       </b-table-column>
       <b-table-column>
         <b-button class="accessButton">Apply access</b-button>
@@ -285,6 +286,7 @@ export default {
         // check if a beacon with the same id exists already
         // prevent results appearing 2 times.
         // this can occur when aggregators query the same beacons
+
         if (JSON.parse(event.data) != null) {
           //checks if response is filteringTerms or not
           if (JSON.parse(event.data).filteringTerms != undefined) {
