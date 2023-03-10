@@ -27,6 +27,13 @@
           >
             <template #trigger>
               <b-button
+                v-if="currentMenu == false"
+                :label="'Select unit of time'"
+                icon-right="menu-down"
+                class="timeSelectorButton"
+              />
+              <b-button
+                v-else
                 :label="currentMenu"
                 icon-right="menu-down"
                 class="timeSelectorButton"
@@ -56,92 +63,92 @@
       custom
       class="cardBody"
     >
-      <div class="modal-card" style="width: 335px">
-        <section class="modal-card-body">
-          <span class="ageSelector">
-            <input
-              type="radio"
-              v-model="radio"
-              :value="'less'"
-              @click="checkRadioStatus('less')"
-            />
-            <p class="ageTextRadio">Ages less than</p>
+      <div class="modal-card" style="width: 409px">
+        <span class="ageSelector">
+          <input
+            id="moreRadio"
+            type="radio"
+            v-model="radio"
+            :value="'more'"
+            @click="checkRadioStatus('more')"
+          />
+          <label for="moreRadio" class="ageTextRadio"><b>More than</b></label>
 
-            <b-numberinput
-              :controls="false"
-              v-model="ageLess"
-              :disabled="radio != 'less'"
-              class="ageField1"
-            />
-          </span>
-        </section>
+          <b-numberinput
+            outlined
+            :controls="false"
+            class="ageField2"
+            v-model="ageMore"
+            :disabled="radio != 'more'"
+          />
+        </span>
+
         <hr class="dropdown-divider" aria-role="menuitem" />
-        <section class="modal-card-body">
-          <span class="ageSelector">
-            <input
-              type="radio"
-              v-model="radio"
-              :value="'more'"
-              @click="checkRadioStatus('more')"
-            />
-            <p class="ageTextRadio">Ages higher than</p>
+        <span class="ageSelector">
+          <input
+            id="lessRadio"
+            type="radio"
+            v-model="radio"
+            :value="'less'"
+            @click="checkRadioStatus('less')"
+          />
+          <label for="lessRadio" class="ageTextRadio"><b>Less than</b></label>
 
-            <b-numberinput
-              outlined
-              :controls="false"
-              class="ageField2"
-              v-model="ageMore"
-              :disabled="radio != 'more'"
-            />
-          </span>
-        </section>
+          <b-numberinput
+            :controls="false"
+            v-model="ageLess"
+            :disabled="radio != 'less'"
+            class="ageField1"
+          />
+        </span>
+
         <hr class="dropdown-divider" aria-role="menuitem" />
-        <section class="modal-card-body">
-          <span class="ageBetweenContainer">
-            <input
-              type="radio"
-              v-model="radio"
-              :value="'between'"
-              @click="checkRadioStatus('between')"
-            />
-            <p class="ageTextRadio">Ages between</p>
 
-            <b-numberinput
-              :controls="false"
-              class="ageFieldBetween"
-              v-model="ageFrom"
-              :disabled="radio != 'between'"
-            />
-            <b-numberinput
-              :controls="false"
-              class="ageFieldBetween"
-              v-model="ageTo"
-              :disabled="radio != 'between'"
-            />
-          </span>
-          <p v-if="ageFrom >= ageTo && radio == 'between'">
-            Starting age needs to be less than max age
-          </p>
-        </section>
-        <b-dropdown-item class="modal-card-foot" custom>
-          <b-dropdown-item :focusable="false" custom>
-            <b-button
-              class="clearButton"
-              label="Clear"
-              type="is-primary"
-              outlined
-              @click="clearAgeForm"
-            />
-          </b-dropdown-item>
-          <b-dropdown-item :focusable="false">
-            <b-button
-              class="saveButton"
-              label="Save"
-              type="is-primary"
-              @click="saveForm"
-            />
-          </b-dropdown-item>
-        </b-dropdown-item>
+        <span class="ageSelector">
+          <input
+            id="betweenRadio"
+            type="radio"
+            v-model="radio"
+            :value="'between'"
+            @click="checkRadioStatus('between')"
+          />
+          <label for="betweenRadio" class="ageTextRadio"><b>Between</b></label>
+
+          <b-numberinput
+            :controls="false"
+            class="ageFieldBetween"
+            v-model="ageFrom"
+            :disabled="radio != 'between'"
+          />
+          <b-numberinput
+            :controls="false"
+            class="ageFieldBetween1"
+            v-model="ageTo"
+            :disabled="radio != 'between'"
+          />
+        </span>
+        <p v-if="ageFrom >= ageTo && radio == 'between'">
+          Starting age needs to be less than max age
+        </p>
+
+        <hr class="dropdown-divider" aria-role="menuitem" />
+
+        <span class="ageSelectorFooter">
+          <b-button
+            class="clearButton"
+            label="Clear"
+            type="is-primary"
+            outlined
+            @click="clearAgeForm"
+          />
+
+          <b-button
+            class="saveButton"
+            label="Save"
+            type="is-primary"
+            @click="saveForm"
+          />
+        </span>
       </div>
     </b-dropdown-item>
   </b-dropdown>
@@ -162,52 +169,55 @@ export default {
       toggleAgeLess: false,
       toggleAgeMore: false,
       toggleAgeBetween: false,
-      currentMenu: "Year(s)",
+      currentMenu: false,
       menus: ["Year(s)", "Month(s)", "Week(s)", "Day(s)"],
       radio: "",
     };
   },
   methods: {
     saveForm: function () {
-      if (this.radio == "less") {
-        this.ageOpt = [];
-        this.ageOpt.push("Less than " + this.ageLess + " " + this.currentMenu);
-        this.$emit("updateAgeOptions", {
-          ageOption: "<",
-          age: this.ageLess,
-          ageUnit: this.currentMenu,
-        });
-      } else if (this.radio == "more") {
-        console.log("here");
-        this.ageOpt = [];
-        this.ageOpt.push(
-          "Higher than " + this.ageMore + " " + this.currentMenu
-        );
-        this.$emit("updateAgeOptions", {
-          ageOption: ">",
-          age: this.ageMore,
-          ageUnit: this.currentMenu,
-        });
-      } else if (this.radio == "between") {
-        if (this.ageFrom < this.ageTo) {
+      if (this.currentMenu != false) {
+        if (this.radio == "less") {
           this.ageOpt = [];
           this.ageOpt.push(
-            "Ages between " +
-              this.ageFrom +
-              " - " +
-              this.ageTo +
-              " " +
-              this.currentMenu
+            "Less than " + this.ageLess + " " + this.currentMenu
           );
           this.$emit("updateAgeOptions", {
-            ageOption: "-",
-            age: [this.ageFrom, this.ageTo],
+            ageOption: "<",
+            age: this.ageLess,
             ageUnit: this.currentMenu,
           });
+        } else if (this.radio == "more") {
+          this.ageOpt = [];
+          this.ageOpt.push(
+            "Higher than " + this.ageMore + " " + this.currentMenu
+          );
+          this.$emit("updateAgeOptions", {
+            ageOption: ">",
+            age: this.ageMore,
+            ageUnit: this.currentMenu,
+          });
+        } else if (this.radio == "between") {
+          if (this.ageFrom < this.ageTo) {
+            this.ageOpt = [];
+            this.ageOpt.push(
+              "Ages between " +
+                this.ageFrom +
+                " - " +
+                this.ageTo +
+                " " +
+                this.currentMenu
+            );
+            this.$emit("updateAgeOptions", {
+              ageOption: "-",
+              age: [this.ageFrom, this.ageTo],
+              ageUnit: this.currentMenu,
+            });
+          }
+        } else {
+          this.ageOpt = [];
+          this.$emit("updateAgeOptions", this.ageOpt);
         }
-      } else {
-        this.ageOpt = [];
-        this.$emit("updateAgeOptions", this.ageOpt);
       }
     },
     clearAgeForm: function () {
@@ -217,9 +227,9 @@ export default {
       this.ageMore = 0;
       this.ageTo = 0;
       this.radio = "";
+      this.currentMenu = false;
     },
     checkRadioStatus: function (toggle) {
-      console.log(toggle + " r " + this.radio);
       if (toggle == this.radio) {
         this.radio = "";
       } else {
@@ -236,23 +246,26 @@ export default {
 </script>
 
 <style>
+.ageText {
+  margin-right: 26px;
+}
 .ageTextRadio {
   margin-left: 5px;
+  width: 115px;
 }
 .ageBetweenContainer {
   display: inline-flex;
   flex-flow: row wrap;
   align-items: center;
+  margin-left: 20px;
 }
 .ageSelector {
-  border-radius: 8px;
   display: inline-flex;
   flex-flow: row wrap;
   align-items: center;
+  margin-left: 20px;
 }
-#buttonWithImage {
-  flex-grow: 4;
-}
+
 .dropdownButton {
   min-width: 188px;
 }
@@ -262,42 +275,58 @@ export default {
   background-color: transparent !important;
   border-color: #1c007b !important;
 }
-
+.saveButton {
+  margin-left: 23px;
+  width: 167px;
+}
+.clearButton {
+  width: 167px;
+}
 .header {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.ageText {
-  margin-left: 22.8px;
-}
+
 .timeSelectorButton {
   width: 289px;
-  margin-left: 10px;
   border-color: #1c007b;
 }
-.timeSelector {
-  padding-left: 10px;
-}
+
 .ageFieldBetween {
+  width: 90px;
+  margin-left: 35px;
+  border-color: #1c007b !important;
+}
+
+.ageFieldBetween1 {
   width: 90px;
   margin-left: 10px;
   border-color: #1c007b !important;
 }
 .ageField1 {
   width: 90px;
-  margin-left: 110px;
+  margin-left: 135px;
   border-color: #1c007b !important;
 }
 .ageField2 {
   width: 90px;
-  margin-left: 93px;
+  margin-left: 135px;
+  border-color: #1c007b !important;
 }
 .modal-card-body {
-  min-width: 410px;
+  max-width: 409px;
 }
-
 .cardBody {
-  min-width: 410px;
+  max-width: 409px;
+}
+.ageSelectorFooter {
+  display: inline-flex;
+  flex-flow: row wrap;
+  align-items: center;
+  margin-left: 20px;
+}
+.dropdown-time {
+  color: #1d1d1b !important;
 }
 </style>
