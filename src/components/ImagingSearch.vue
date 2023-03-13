@@ -393,38 +393,32 @@ export default {
         // check if a beacon with the same id exists already
         // prevent results appearing 2 times.
         // this can occur when aggregators query the same beacons
+
         if (JSON.parse(event.data).anatomicalSite != undefined) {
           JSON.parse(event.data).anatomicalSite.forEach((data) => {
-            data.specimen.attributes.forEach((element) => {
-              if (element.tag == "anatomical_site") {
-                var exists = false;
-                vm.anatomicalOptions.forEach((option) => {
-                  if (option == element.value) {
-                    exists = true;
-                  }
-                });
-                if (!exists) {
-                  vm.anatomicalOptions.push(element.value);
-                }
+            var exists = false;
+            vm.anatomicalOptions.forEach((option) => {
+              if (option == data) {
+                exists = true;
               }
             });
+            if (!exists) {
+              vm.anatomicalOptions.push(data);
+            }
           });
         }
-        if (JSON.parse(event.data).biologicalBeing != undefined) {
-          JSON.parse(event.data).biologicalBeing.forEach((data) => {
-            data.biologicalBeing.attributes.forEach((element) => {
-              if (element.tag == "animal_species") {
-                var exists = false;
-                vm.biologicalOptions.forEach((option) => {
-                  if (option == element.value) {
-                    exists = true;
-                  }
-                });
-                if (!exists) {
-                  vm.biologicalOptions.push(element.value);
-                }
+
+        if (JSON.parse(event.data).biologicalSpecies != undefined) {
+          JSON.parse(event.data).biologicalSpecies.forEach((data) => {
+            var exists = false;
+            vm.biologicalOptions.forEach((option) => {
+              if (option == data) {
+                exists = true;
               }
             });
+            if (!exists) {
+              vm.biologicalOptions.push(data);
+            }
           });
         }
       };
@@ -498,7 +492,7 @@ h2 {
   display: inline-block;
 }
 .dropdownButton {
-  width: 188px;
+  min-width: 188px;
 }
 
 @media screen and (max-width: 1024px) {
