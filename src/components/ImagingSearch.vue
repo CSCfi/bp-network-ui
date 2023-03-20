@@ -235,6 +235,7 @@ export default {
       this.ageOptions = [];
       this.biologicalValue = [];
       this.anatomicalValue = [];
+      this.ageOptionsObject = [];
       this.$refs.ageSelector.clearAgeForm();
     },
     setAgeOptions: function (ageOptionsObject) {
@@ -310,36 +311,37 @@ export default {
       }
       var ageNumber = vm.ageOptionsObject.age;
       if (vm.ageOptionsObject.ageUnit == "Day(s)") {
-        if (vm.ageOptionsObject.age.length == undefined) {
+        if (typeof vm.ageOptionsObject.age == "number") {
           vm.ageOptionsObject.age = "P" + vm.ageOptionsObject.age + "D";
-        } else {
+        } else if (typeof vm.ageOptionsObject.age == "object") {
           this.parseAgeBetween("D");
         }
       } else if (vm.ageOptionsObject.ageUnit == "Week(s)") {
-        if (vm.ageOptionsObject.age.length == undefined) {
+        if (typeof vm.ageOptionsObject.age == "number") {
           vm.ageOptionsObject.age = "P" + vm.ageOptionsObject.age + "W";
-        } else {
+        } else if (typeof vm.ageOptionsObject.age == "object") {
           this.parseAgeBetween("W");
         }
       } else if (vm.ageOptionsObject.ageUnit == "Month(s)") {
-        if (vm.ageOptionsObject.age.length == undefined) {
+        if (typeof vm.ageOptionsObject.age == "number") {
           vm.ageOptionsObject.age = "P" + vm.ageOptionsObject.age + "M";
-        } else {
+        } else if (typeof vm.ageOptionsObject.age == "object") {
           this.parseAgeBetween("M");
         }
-      } else {
-        if (vm.ageOptionsObject.age.length == undefined) {
+      } else if (vm.ageOptionsObject.ageUnit == "Year(s)") {
+        if (typeof vm.ageOptionsObject.age == "number") {
           vm.ageOptionsObject.age = "P" + vm.ageOptionsObject.age + "Y";
-        } else {
+        } else if (typeof vm.ageOptionsObject.age == "object") {
           this.parseAgeBetween("Y");
         }
+      } else {
+        vm.ageOptionsObject.ageUnit = "";
+        vm.ageOptionsObject.age = "";
       }
       var queryObj = {
         searchTerm: vm.query,
-        biologicalSpecies:
-          vm.biologicalValue === "string" ? vm.biologicalValue : "",
-        anatomicalSite:
-          typeof vm.anatomicalValue === "string" ? vm.anatomicalValue : "",
+        biologicalSpecies: vm.biologicalValue,
+        anatomicalSite: vm.anatomicalValue,
         sex: typeof sex === "string" ? sex : "",
         ageOption: vm.ageOptionsObject.ageOption,
         age:

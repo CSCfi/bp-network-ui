@@ -227,7 +227,15 @@ export default {
       this.ageMore = 0;
       this.ageTo = 0;
       this.radio = "";
+      this.toggleAgeLess = false;
+      this.toggleAgeMore = false;
+      this.toggleAgeBetween = false;
       this.currentMenu = false;
+      this.$emit("updateAgeOptions", {
+        ageOption: "",
+        age: "",
+        ageUnit: "",
+      });
     },
     checkRadioStatus: function (toggle) {
       if (toggle == this.radio) {

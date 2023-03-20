@@ -121,7 +121,7 @@ export default {
       if (this.$route.query.searchTerm != "") {
         this.searchValues.push(this.$route.query.searchTerm);
       }
-      if (typeof this.$route.query.anatomicalSite === "string") {
+      if (this.$route.query.anatomicalSite != "") {
         this.searchValues.push(this.$route.query.anatomicalSite);
       }
       if (this.$route.query.sex != "") {
