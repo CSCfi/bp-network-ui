@@ -353,7 +353,9 @@ export default {
       if (ageNumber != undefined && ageNumber.length == 2) {
         delete queryObj["ageOption"];
       }
-
+      if (queryObj.sex == "") {
+        delete queryObj["sex"];
+      }
       return queryObj;
     },
     validateInput: function () {

@@ -124,7 +124,7 @@ export default {
       if (this.$route.query.anatomicalSite != "") {
         this.searchValues.push(this.$route.query.anatomicalSite);
       }
-      if (this.$route.query.sex != "") {
+      if (this.$route.query.sex != undefined) {
         if (this.$route.query.sex == "F") {
           this.searchValues.push("Female");
         } else {
