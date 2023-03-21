@@ -57,8 +57,10 @@
         {{ props.row.response[0].images.hits }} /
         {{ props.row.response[0].images.total }}
       </b-table-column>
-      <b-table-column>
-        <b-button class="accessButton">Apply access</b-button>
+      <b-table-column v-slot="props">
+        <a class="button is-primary" v-bind:href="props.row.response[0].rems"
+          >Apply access</a
+        >
       </b-table-column>
     </b-table>
     <div v-if="isLoading" class="loading-indicator spinner">
@@ -286,7 +288,7 @@ export default {
         // check if a beacon with the same id exists already
         // prevent results appearing 2 times.
         // this can occur when aggregators query the same beacons
-
+        console.log(JSON.parse(event.data));
         if (JSON.parse(event.data) != null) {
           //checks if response is filteringTerms or not
           if (JSON.parse(event.data).filteringTerms != undefined) {
@@ -535,11 +537,9 @@ export default {
   border: 1px solid #1c007b;
   border-radius: 8px;
 }
-.accessButton:hover {
+.button:hover {
   color: #1c007b;
-  margin-left: 40px;
   background: #fff;
   border: 1px solid #1c007b;
-  border-radius: 8px;
 }
 </style>
