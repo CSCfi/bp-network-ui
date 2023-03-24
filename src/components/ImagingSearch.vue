@@ -17,17 +17,6 @@
               title="Variant search term"
             ></b-input>
           </div>
-
-          <b-message
-            v-if="errorTooltip"
-            type="is-danger"
-            aria-close-label="Close notification"
-            role="alert"
-            >{{ errorMessage }}
-            <router-link to="/guide" style="color: blue"
-              >How to make a query?</router-link
-            ></b-message
-          >
         </form>
       </section>
       <div class="searchbar-footer">
@@ -176,6 +165,13 @@
           </b-button>
         </span>
       </div>
+      <b-message
+        v-if="errorTooltip"
+        type="is-danger"
+        aria-close-label="Close notification"
+        role="alert"
+        >{{ errorMessage }}
+      </b-message>
     </div>
   </div>
 </template>
@@ -260,12 +256,12 @@ export default {
       var vm = this;
       vm.errorTooltip = false;
       // Validate user input with regex
-      vm.validateInput();
+      var queryObj = {};
+      queryObj = Object.assign(queryObj, vm.buildQueryObj());
+      vm.validateInput(queryObj);
       if (vm.validated) {
         // Query string
-        var queryObj = {};
-        queryObj.assemblyId = vm.assembly;
-        queryObj = Object.assign(queryObj, vm.buildQueryObj());
+
         // Change view to results and send GET query string
         this.$router.push(
           {
@@ -276,7 +272,7 @@ export default {
           () => {}
         );
       } else {
-        vm.errorMessage = "Search term is malformed, please try again.";
+        vm.errorMessage = "Search should contain at least one value";
         vm.errorTooltip = true;
       }
     },
@@ -353,15 +349,41 @@ export default {
       if (ageNumber != undefined && ageNumber.length == 2) {
         delete queryObj["ageOption"];
       }
+
+      if (queryObj.age == "") {
+        delete queryObj["age"];
+      }
+      if (queryObj.ageOption == undefined || queryObj.ageOption == "") {
+        delete queryObj["ageOption"];
+      }
       if (queryObj.sex == "") {
         delete queryObj["sex"];
       }
+      if (queryObj.searchTerm == "") {
+        delete queryObj["searchTerm"];
+      }
+      if (typeof queryObj.anatomicalSite == "object") {
+        delete queryObj["anatomicalSite"];
+      }
+      if (typeof queryObj.biologicalSpecies == "object") {
+        delete queryObj["biologicalSpecies"];
+      }
       return queryObj;
     },
-    validateInput: function () {
+    validateInput: function (queryObj) {
       var vm = this;
-
-      vm.validated = true;
+      if (
+        queryObj.age == undefined &&
+        queryObj.sex == undefined &&
+        queryObj.ageOption == undefined &&
+        queryObj.ageOption == undefined &&
+        queryObj.biologicalSpecies == undefined &&
+        queryObj.anatomicalSite == undefined
+      ) {
+        vm.validated = false;
+      } else {
+        vm.validated = true;
+      }
     },
     queryAPI: function () {
       var vm = this;

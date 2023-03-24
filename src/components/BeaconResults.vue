@@ -120,10 +120,10 @@ export default {
   },
   methods: {
     parseSearchValues: function () {
-      if (this.$route.query.searchTerm != "") {
+      if (this.$route.query.searchTerm != undefined) {
         this.searchValues.push(this.$route.query.searchTerm);
       }
-      if (this.$route.query.anatomicalSite != "") {
+      if (this.$route.query.anatomicalSite != undefined) {
         this.searchValues.push(this.$route.query.anatomicalSite);
       }
       if (this.$route.query.sex != undefined) {
@@ -134,13 +134,10 @@ export default {
         }
       }
 
-      if (
-        this.$route.query.biologicalSpecies != "" &&
-        this.$route.query.biologicalSpecies != undefined
-      ) {
+      if (this.$route.query.biologicalSpecies != undefined) {
         this.searchValues.push(this.$route.query.biologicalSpecies);
       }
-      if (typeof this.$route.query.age != "") {
+      if (this.$route.query.age != undefined) {
         if (
           this.$route.query.ageEnd != null &&
           this.$route.query.ageOption == "-"
@@ -288,7 +285,6 @@ export default {
         // check if a beacon with the same id exists already
         // prevent results appearing 2 times.
         // this can occur when aggregators query the same beacons
-
         if (JSON.parse(event.data) != null) {
           //checks if response is filteringTerms or not
           if (JSON.parse(event.data).filteringTerms != undefined) {
