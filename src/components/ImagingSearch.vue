@@ -172,7 +172,7 @@
             type="is-primary"
             size="is-medium"
             data-testid="clearButton"
-            >Clear Fields
+            >Clear fields
           </b-button>
         </span>
       </div>
