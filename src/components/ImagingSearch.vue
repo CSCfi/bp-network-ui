@@ -13,7 +13,7 @@
               size="is-medium"
               type="search"
               placeholder="Type here"
-              v-model="query"
+              v-model="searchTerm"
               title="Variant search term"
             ></b-input>
           </div>
@@ -192,7 +192,7 @@ export default {
       searchTermBiological: "",
       searchTermAnatomical: "",
       ageSelector: ageSelector,
-      query: "",
+      searchTerm: "",
       validated: false,
       errorMessage: "",
       errorTooltip: false,
@@ -263,7 +263,6 @@ export default {
       if (vm.validated) {
         // Query string
         var queryObj = {};
-        queryObj.assemblyId = vm.assembly;
         queryObj = Object.assign(queryObj, vm.buildQueryObj());
         // Change view to results and send GET query string
         this.$router.push(
@@ -335,7 +334,7 @@ export default {
         }
       }
       var queryObj = {
-        searchTerm: vm.query,
+        searchTerm: vm.searchTerm,
         biologicalSpecies:
           vm.biologicalValue === "string" ? vm.biologicalValue : "",
         anatomicalSite:
