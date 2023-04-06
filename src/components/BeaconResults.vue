@@ -57,8 +57,10 @@
         {{ props.row.response[0].images.hits }} /
         {{ props.row.response[0].images.total }}
       </b-table-column>
-      <b-table-column>
-        <b-button class="accessButton">Apply access</b-button>
+      <b-table-column v-slot="props">
+        <a class="button is-primary" v-bind:href="props.row.response[0].rems"
+          >Apply access</a
+        >
       </b-table-column>
     </b-table>
     <div v-if="isLoading" class="loading-indicator spinner">
@@ -118,13 +120,13 @@ export default {
   },
   methods: {
     parseSearchValues: function () {
-      if (this.$route.query.searchTerm != "") {
+      if (this.$route.query.searchTerm != undefined) {
         this.searchValues.push(this.$route.query.searchTerm);
       }
-      if (typeof this.$route.query.anatomicalSite === "string") {
+      if (this.$route.query.anatomicalSite != undefined) {
         this.searchValues.push(this.$route.query.anatomicalSite);
       }
-      if (this.$route.query.sex != "") {
+      if (this.$route.query.sex != undefined) {
         if (this.$route.query.sex == "F") {
           this.searchValues.push("Female");
         } else {
@@ -132,13 +134,10 @@ export default {
         }
       }
 
-      if (
-        this.$route.query.biologicalSpecies != "" &&
-        this.$route.query.biologicalSpecies != undefined
-      ) {
+      if (this.$route.query.biologicalSpecies != undefined) {
         this.searchValues.push(this.$route.query.biologicalSpecies);
       }
-      if (typeof this.$route.query.age != "") {
+      if (this.$route.query.age != undefined) {
         if (
           this.$route.query.ageEnd != null &&
           this.$route.query.ageOption == "-"
@@ -286,7 +285,6 @@ export default {
         // check if a beacon with the same id exists already
         // prevent results appearing 2 times.
         // this can occur when aggregators query the same beacons
-
         if (JSON.parse(event.data) != null) {
           //checks if response is filteringTerms or not
           if (JSON.parse(event.data).filteringTerms != undefined) {
@@ -535,11 +533,9 @@ export default {
   border: 1px solid #1c007b;
   border-radius: 8px;
 }
-.accessButton:hover {
+.button:hover {
   color: #1c007b;
-  margin-left: 40px;
   background: #fff;
   border: 1px solid #1c007b;
-  border-radius: 8px;
 }
 </style>

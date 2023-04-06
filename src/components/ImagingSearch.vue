@@ -17,17 +17,6 @@
               title="Variant search term"
             ></b-input>
           </div>
-
-          <b-message
-            v-if="errorTooltip"
-            type="is-danger"
-            aria-close-label="Close notification"
-            role="alert"
-            >{{ errorMessage }}
-            <router-link to="/guide" style="color: blue"
-              >How to make a query?</router-link
-            ></b-message
-          >
         </form>
       </section>
       <div class="searchbar-footer">
@@ -176,6 +165,13 @@
           </b-button>
         </span>
       </div>
+      <b-message
+        v-if="errorTooltip"
+        type="is-danger"
+        aria-close-label="Close notification"
+        role="alert"
+        >{{ errorMessage }}
+      </b-message>
     </div>
   </div>
 </template>
@@ -235,6 +231,7 @@ export default {
       this.ageOptions = [];
       this.biologicalValue = [];
       this.anatomicalValue = [];
+      this.ageOptionsObject = [];
       this.$refs.ageSelector.clearAgeForm();
     },
     setAgeOptions: function (ageOptionsObject) {
@@ -259,12 +256,12 @@ export default {
       var vm = this;
       vm.errorTooltip = false;
       // Validate user input with regex
-      vm.validateInput();
+      var queryObj = {};
+      queryObj = Object.assign(queryObj, vm.buildQueryObj());
+      vm.validateInput(queryObj);
       if (vm.validated) {
         // Query string
-        var queryObj = {};
-        queryObj.assemblyId = vm.assembly;
-        queryObj = Object.assign(queryObj, vm.buildQueryObj());
+
         // Change view to results and send GET query string
         this.$router.push(
           {
@@ -275,7 +272,7 @@ export default {
           () => {}
         );
       } else {
-        vm.errorMessage = "Search term is malformed, please try again.";
+        vm.errorMessage = "Search should contain at least one value";
         vm.errorTooltip = true;
       }
     },
@@ -310,36 +307,37 @@ export default {
       }
       var ageNumber = vm.ageOptionsObject.age;
       if (vm.ageOptionsObject.ageUnit == "Day(s)") {
-        if (vm.ageOptionsObject.age.length == undefined) {
+        if (typeof vm.ageOptionsObject.age == "number") {
           vm.ageOptionsObject.age = "P" + vm.ageOptionsObject.age + "D";
-        } else {
+        } else if (typeof vm.ageOptionsObject.age == "object") {
           this.parseAgeBetween("D");
         }
       } else if (vm.ageOptionsObject.ageUnit == "Week(s)") {
-        if (vm.ageOptionsObject.age.length == undefined) {
+        if (typeof vm.ageOptionsObject.age == "number") {
           vm.ageOptionsObject.age = "P" + vm.ageOptionsObject.age + "W";
-        } else {
+        } else if (typeof vm.ageOptionsObject.age == "object") {
           this.parseAgeBetween("W");
         }
       } else if (vm.ageOptionsObject.ageUnit == "Month(s)") {
-        if (vm.ageOptionsObject.age.length == undefined) {
+        if (typeof vm.ageOptionsObject.age == "number") {
           vm.ageOptionsObject.age = "P" + vm.ageOptionsObject.age + "M";
-        } else {
+        } else if (typeof vm.ageOptionsObject.age == "object") {
           this.parseAgeBetween("M");
         }
-      } else {
-        if (vm.ageOptionsObject.age.length == undefined) {
+      } else if (vm.ageOptionsObject.ageUnit == "Year(s)") {
+        if (typeof vm.ageOptionsObject.age == "number") {
           vm.ageOptionsObject.age = "P" + vm.ageOptionsObject.age + "Y";
-        } else {
+        } else if (typeof vm.ageOptionsObject.age == "object") {
           this.parseAgeBetween("Y");
         }
+      } else {
+        vm.ageOptionsObject.ageUnit = "";
+        vm.ageOptionsObject.age = "";
       }
       var queryObj = {
         searchTerm: vm.query,
-        biologicalSpecies:
-          vm.biologicalValue === "string" ? vm.biologicalValue : "",
-        anatomicalSite:
-          typeof vm.anatomicalValue === "string" ? vm.anatomicalValue : "",
+        biologicalSpecies: vm.biologicalValue,
+        anatomicalSite: vm.anatomicalValue,
         sex: typeof sex === "string" ? sex : "",
         ageOption: vm.ageOptionsObject.ageOption,
         age:
@@ -352,12 +350,40 @@ export default {
         delete queryObj["ageOption"];
       }
 
+      if (queryObj.age == "") {
+        delete queryObj["age"];
+      }
+      if (queryObj.ageOption == undefined || queryObj.ageOption == "") {
+        delete queryObj["ageOption"];
+      }
+      if (queryObj.sex == "") {
+        delete queryObj["sex"];
+      }
+      if (queryObj.searchTerm == "") {
+        delete queryObj["searchTerm"];
+      }
+      if (typeof queryObj.anatomicalSite == "object") {
+        delete queryObj["anatomicalSite"];
+      }
+      if (typeof queryObj.biologicalSpecies == "object") {
+        delete queryObj["biologicalSpecies"];
+      }
       return queryObj;
     },
-    validateInput: function () {
+    validateInput: function (queryObj) {
       var vm = this;
-
-      vm.validated = true;
+      if (
+        queryObj.age == undefined &&
+        queryObj.sex == undefined &&
+        queryObj.ageOption == undefined &&
+        queryObj.ageOption == undefined &&
+        queryObj.biologicalSpecies == undefined &&
+        queryObj.anatomicalSite == undefined
+      ) {
+        vm.validated = false;
+      } else {
+        vm.validated = true;
+      }
     },
     queryAPI: function () {
       var vm = this;
