@@ -230,7 +230,7 @@ export default {
       this.anatomicalValue = [];
     },
     clearFields: function () {
-      this.query = "";
+      this.searchTerm = "";
       this.sexOptions = [];
       this.ageOptions = [];
       this.biologicalValue = [];
