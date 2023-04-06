@@ -22,9 +22,9 @@
       height="330px"
     >
       <b-table-column
-        field="beaconName"
+        field="Dataset title"
         sortable
-        label="Beacon name"
+        label="Dataset title"
         v-slot="props"
       >
         {{ props.row.beaconName }}</b-table-column
@@ -36,15 +36,11 @@
         v-slot="props"
         :custom-sort="descriptionCustomSort"
       >
-        {{ props.row.description }}</b-table-column
-      >
-      <b-table-column
-        field="accessType"
-        label="Access to images"
-        v-slot="props"
-        sortable
-      >
-        {{ props.row.response.images }}
+        {{ props.row.response[0].description | truncate(80) }}
+        <a @click="showMore(props.row.response[0].description)">Show more</a>
+      </b-table-column>
+      <b-table-column field="accessType" label="Access to images" sortable>
+        placeholder
       </b-table-column>
       <b-table-column
         field="images"
@@ -117,6 +113,9 @@ export default {
     },
   },
   methods: {
+    showMore(text) {
+      this.$buefy.dialog.alert(text);
+    },
     parseSearchValues: function () {
       if (this.$route.query.searchTerm != "") {
         this.searchValues.push(this.$route.query.searchTerm);
@@ -286,7 +285,6 @@ export default {
         // check if a beacon with the same id exists already
         // prevent results appearing 2 times.
         // this can occur when aggregators query the same beacons
-
         if (JSON.parse(event.data) != null) {
           //checks if response is filteringTerms or not
           if (JSON.parse(event.data).filteringTerms != undefined) {
@@ -472,6 +470,11 @@ export default {
       return isAsc
         ? a.description.localeCompare(b.description)
         : b.description.localeCompare(a.description);
+    },
+  },
+  filters: {
+    truncate(value, length) {
+      return value.length > length ? value.substr(0, length) + "..." : value;
     },
   },
   beforeMount() {
