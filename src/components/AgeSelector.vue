@@ -275,7 +275,7 @@ export default {
 }
 
 .dropdownButton {
-  min-width: 188px;
+  min-width: 350px;
 }
 
 .saveButton:hover {

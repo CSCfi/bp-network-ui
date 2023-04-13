@@ -26,7 +26,7 @@
             <b-dropdown aria-role="list" v-model="biologicalValue" scrollable>
               <template #trigger="{ active }">
                 <b-button
-                  class="dropdownButton"
+                  class="dropdownButtonSpecies"
                   size="is-medium"
                   type="is-secondary"
                   :icon-right="active ? 'menu-up' : 'menu-down'"
@@ -499,7 +499,7 @@ h2 {
   margin-top: 100px;
 } */
 .stretch {
-  width: 179.8%;
+  width: 212.65%;
 }
 .searchbar-footer {
   margin-top: 10px;
@@ -519,6 +519,9 @@ h2 {
 }
 .dropdownButton {
   min-width: 188px;
+}
+.dropdownButtonSpecies {
+  min-width: 350px;
 }
 
 @media screen and (max-width: 1024px) {
