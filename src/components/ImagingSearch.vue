@@ -336,7 +336,6 @@ export default {
         vm.ageOptionsObject.age = "";
       }
       var queryObj = {
-
         searchTerm: vm.searchTerm,
         biologicalSpecies:
           vm.biologicalValue === "string" ? vm.biologicalValue : "",
