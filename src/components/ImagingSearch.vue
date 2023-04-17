@@ -13,7 +13,7 @@
               size="is-medium"
               type="search"
               placeholder="Type here"
-              v-model="query"
+              v-model="searchTerm"
               title="Variant search term"
             ></b-input>
           </div>
@@ -161,7 +161,7 @@
             type="is-primary"
             size="is-medium"
             data-testid="clearButton"
-            >Clear Fields
+            >Clear fields
           </b-button>
         </span>
       </div>
@@ -188,7 +188,7 @@ export default {
       searchTermBiological: "",
       searchTermAnatomical: "",
       ageSelector: ageSelector,
-      query: "",
+      searchTerm: "",
       validated: false,
       errorMessage: "",
       errorTooltip: false,
@@ -226,7 +226,7 @@ export default {
       this.anatomicalValue = [];
     },
     clearFields: function () {
-      this.query = "";
+      this.searchTerm = "";
       this.sexOptions = [];
       this.ageOptions = [];
       this.biologicalValue = [];
@@ -261,7 +261,8 @@ export default {
       vm.validateInput(queryObj);
       if (vm.validated) {
         // Query string
-
+        var queryObj = {};
+        queryObj = Object.assign(queryObj, vm.buildQueryObj());
         // Change view to results and send GET query string
         this.$router.push(
           {
@@ -335,9 +336,11 @@ export default {
         vm.ageOptionsObject.age = "";
       }
       var queryObj = {
-        searchTerm: vm.query,
-        biologicalSpecies: vm.biologicalValue,
-        anatomicalSite: vm.anatomicalValue,
+        searchTerm: vm.searchTerm,
+        biologicalSpecies:
+          vm.biologicalValue === "string" ? vm.biologicalValue : "",
+        anatomicalSite:
+          typeof vm.anatomicalValue === "string" ? vm.anatomicalValue : "",
         sex: typeof sex === "string" ? sex : "",
         ageOption: vm.ageOptionsObject.ageOption,
         age:

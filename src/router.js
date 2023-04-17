@@ -18,7 +18,6 @@ export default new Router({
         {
           path: "",
           name: "home",
-          component: () => import("./components/ConnectedBeacons.vue"),
           meta: { hideSmallLogo: true },
         },
         {
