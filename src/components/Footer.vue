@@ -6,7 +6,7 @@
         <div class="columns">
           <div
             class="column"
-            title="ELIXIR Beacon Network website internal navigation"
+            title="Bigpicture Beacon Network website internal navigation"
           >
             <div class="footer_container">
               <div>
@@ -15,7 +15,7 @@
                     <router-link
                       class="is-underlined"
                       data-testid="quide"
-                      to="/guide"
+                      to="/"
                       title="About us"
                       >About us</router-link
                     >
@@ -24,7 +24,7 @@
                     <router-link
                       class="is-underlined"
                       data-testid="join"
-                      to="/join"
+                      to="/"
                       title="Contact"
                       >Contact</router-link
                     >
@@ -33,7 +33,7 @@
                     <router-link
                       class="is-underlined"
                       data-testid="docs"
-                      to="/docs"
+                      to="/"
                       title="Help"
                       >Help</router-link
                     >
@@ -46,7 +46,7 @@
                     <router-link
                       class="is-underlined"
                       data-testid="apiDocs"
-                      to="/docsapi"
+                      to="/"
                       title="Accessibility"
                       >Accessibility</router-link
                     >
@@ -55,7 +55,7 @@
                     <router-link
                       class="is-underlined"
                       data-testid="accessibility"
-                      to="/accessibility"
+                      to="/"
                       title="Datasets"
                       >Datasets</router-link
                     >
@@ -64,7 +64,7 @@
                     <router-link
                       class="is-underlined"
                       data-testid="accessibility"
-                      to="/accessibility"
+                      to="/"
                       title="Link to webpage"
                       >Link to webpage</router-link
                     >
