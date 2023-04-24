@@ -337,10 +337,8 @@ export default {
       }
       var queryObj = {
         searchTerm: vm.searchTerm,
-        biologicalSpecies:
-          vm.biologicalValue === "string" ? vm.biologicalValue : "",
-        anatomicalSite:
-          typeof vm.anatomicalValue === "string" ? vm.anatomicalValue : "",
+        biologicalSpecies: vm.biologicalValue,
+        anatomicalSite: vm.anatomicalValue,
         sex: typeof sex === "string" ? sex : "",
         ageOption: vm.ageOptionsObject.ageOption,
         age:
