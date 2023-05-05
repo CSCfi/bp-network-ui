@@ -1,5 +1,5 @@
 <template>
-  <b-dropdown>
+  <b-dropdown ref="dropdown">
     <template #trigger="{ active }">
       <b-button
         class="dropdownButton"
@@ -134,6 +134,8 @@
         <hr class="dropdown-divider" aria-role="menuitem" />
 
         <span class="ageSelectorFooter">
+          <!-- has link is needed to disable background color change when hovering on item -->
+
           <b-button
             class="clearButton"
             label="Clear"
@@ -141,13 +143,14 @@
             outlined
             @click="clearAgeForm"
           />
-
-          <b-button
-            class="saveButton"
-            label="Save"
-            type="is-primary"
-            @click="saveForm"
-          />
+          <b-dropdown-item :focusable="false" :has-link="true">
+            <b-button
+              class="saveButton"
+              label="Save"
+              type="is-primary"
+              @click="saveForm"
+            />
+          </b-dropdown-item>
         </span>
       </div>
     </b-dropdown-item>
@@ -218,6 +221,7 @@ export default {
           this.ageOpt = [];
           this.$emit("updateAgeOptions", this.ageOpt);
         }
+        this.$refs.dropdown.toggle();
       }
     },
     clearAgeForm: function () {
@@ -284,10 +288,10 @@ export default {
   border-color: #1c007b !important;
 }
 .saveButton {
-  margin-left: 23px;
   width: 167px;
 }
 .clearButton {
+  margin-right: 23px;
   width: 167px;
 }
 .header {
