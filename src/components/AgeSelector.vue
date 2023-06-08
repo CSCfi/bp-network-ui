@@ -258,6 +258,16 @@ export default {
 </script>
 
 <style>
+.dropdownButton {
+  min-width: 350px;
+}
+@media screen and (max-width: 1024px) {
+  .dropdown-content {
+    width: 460px;
+  }
+  .dropdownButton {
+  }
+}
 .ageText {
   margin-right: 26px;
 }
@@ -276,10 +286,6 @@ export default {
   flex-flow: row wrap;
   align-items: center;
   margin-left: 20px;
-}
-
-.dropdownButton {
-  min-width: 350px;
 }
 
 .saveButton:hover {

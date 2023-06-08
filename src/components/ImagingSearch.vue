@@ -531,6 +531,9 @@ h2 {
   #example {
     order: 2;
   }
+  .dropdownButtonSpecies {
+    width: 100%;
+  }
 }
 form {
   width: 100%;

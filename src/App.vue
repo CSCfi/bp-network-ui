@@ -9,6 +9,7 @@
       ]"
       :spaced="true"
       transparent
+      :mobile-burger="false"
     >
       <template #brand>
         <router-link to="/" class="logoImage">
