@@ -9,68 +9,71 @@
             title="Bigpicture Beacon Network website internal navigation"
           >
             <div class="footer_container">
-              <div>
-                <ul class="list">
-                  <li>
-                    <router-link
-                      class="is-underlined"
-                      data-testid="quide"
-                      to="/"
-                      title="About us"
-                      >About us</router-link
-                    >
-                  </li>
-                  <li>
-                    <router-link
-                      class="is-underlined"
-                      data-testid="join"
-                      to="/"
-                      title="Contact"
-                      >Contact</router-link
-                    >
-                  </li>
-                  <li>
-                    <router-link
-                      class="is-underlined"
-                      data-testid="docs"
-                      to="/"
-                      title="Help"
-                      >Help</router-link
-                    >
-                  </li>
-                </ul>
+              <div class="linkContainer">
+                <div>
+                  <ul class="list">
+                    <li>
+                      <router-link
+                        class="is-underlined"
+                        data-testid="quide"
+                        to="/"
+                        title="About us"
+                        >About us</router-link
+                      >
+                    </li>
+                    <li>
+                      <router-link
+                        class="is-underlined"
+                        data-testid="join"
+                        to="/"
+                        title="Contact"
+                        >Contact</router-link
+                      >
+                    </li>
+                    <li>
+                      <router-link
+                        class="is-underlined"
+                        data-testid="docs"
+                        to="/"
+                        title="Help"
+                        >Help</router-link
+                      >
+                    </li>
+                  </ul>
+                </div>
+                <div class="right_container">
+                  <ul class="list">
+                    <li>
+                      <router-link
+                        class="is-underlined"
+                        data-testid="apiDocs"
+                        to="/"
+                        title="Accessibility"
+                        >Accessibility</router-link
+                      >
+                    </li>
+                    <li>
+                      <router-link
+                        class="is-underlined"
+                        data-testid="accessibility"
+                        to="/"
+                        title="Datasets"
+                        >Datasets</router-link
+                      >
+                    </li>
+                    <li>
+                      <router-link
+                        class="is-underlined"
+                        data-testid="accessibility"
+                        to="/"
+                        title="Link to webpage"
+                        >Link to webpage</router-link
+                      >
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <div class="right_container">
-                <ul class="list">
-                  <li>
-                    <router-link
-                      class="is-underlined"
-                      data-testid="apiDocs"
-                      to="/"
-                      title="Accessibility"
-                      >Accessibility</router-link
-                    >
-                  </li>
-                  <li>
-                    <router-link
-                      class="is-underlined"
-                      data-testid="accessibility"
-                      to="/"
-                      title="Datasets"
-                      >Datasets</router-link
-                    >
-                  </li>
-                  <li>
-                    <router-link
-                      class="is-underlined"
-                      data-testid="accessibility"
-                      to="/"
-                      title="Link to webpage"
-                      >Link to webpage</router-link
-                    >
-                  </li>
-                </ul>
-              </div>
+
               <div class="footerText">
                 Bigpicture will set up the first European, ethical- and General
                 Data Protection Regulation-compliant, quality-controlled and
@@ -94,7 +97,13 @@ export default {
 <style lang="scss" scoped>
 .footerText {
   color: #1c007b;
-  padding-left: 300px;
+}
+@media screen and (max-width: 1024px) {
+  .footer_container {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+  }
 }
 .list {
   display: flex;
@@ -113,6 +122,9 @@ export default {
   flex-grow: 0;
 }
 .footer_container {
+  display: flex;
+}
+.linkContainer {
   display: flex;
 }
 .footer .footerContainer.centered h5 {

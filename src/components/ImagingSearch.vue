@@ -2,144 +2,140 @@
   <div class="container" style="margin-bottom: 24px">
     <div class="searchComponents">
       <b class="headerText">Discover digital pathology sets</b>
-      <section class="searchBarField">
+      <div class="searchBarField">
         <form @submit.prevent="onSubmit">
-          <div class="stretch searchbar">
-            <label for="searchBar">Search from dataset descriptions</label>
-            <b-input
-              class="stretch searchbar"
-              id="searchBar"
-              data-testid="testBar"
-              size="is-medium"
-              type="search"
-              placeholder="Type here"
-              v-model="searchTerm"
-              title="Variant search term"
-            ></b-input>
-          </div>
+          <label for="searchBar">Search from dataset descriptions</label>
+          <b-input
+            class="searchbar"
+            id="searchBar"
+            data-testid="testBar"
+            type="search"
+            placeholder="Type here"
+            v-model="searchTerm"
+            title="Variant search term"
+            size="is-medium"
+          ></b-input>
         </form>
-      </section>
+      </div>
       <div class="searchbar-footer">
-        <div class="dropDownButtonGroup">
-          <div class="dropDown1">
-            <div>Biological species</div>
-            <b-dropdown aria-role="list" v-model="biologicalValue" scrollable>
-              <template #trigger="{ active }">
-                <b-button
-                  class="dropdownButtonSpecies"
-                  size="is-medium"
-                  type="is-secondary"
-                  :icon-right="active ? 'menu-up' : 'menu-down'"
-                >
-                  <p v-if="biologicalValue.length == 0">All</p>
-                  <p v-else>{{ biologicalValue }}</p>
-                </b-button>
-              </template>
-              <div class="list">
-                <b-dropdown-item
-                  custom
-                  aria-role="listitem"
-                  class="search"
-                  postion="is-top-left"
-                >
-                  <b-input
-                    class="searchInput"
-                    v-model="searchTermBiological"
-                    placeholder="search"
-                    expanded
-                  />
-                  <b-button
-                    icon-left="refresh"
-                    class="resetButton"
-                    type="is-primary"
-                    @click="clearBiological"
-                    title="Clear selection"
-                  />
-                </b-dropdown-item>
-              </div>
+        <div class="dropDown1">
+          <div>Biological species</div>
+          <b-dropdown aria-role="list" v-model="biologicalValue" scrollable>
+            <template #trigger="{ active }">
+              <b-button
+                class="dropdownButtonSpecies"
+                size="is-medium"
+                type="is-secondary"
+                :icon-right="active ? 'menu-up' : 'menu-down'"
+              >
+                <p v-if="biologicalValue.length == 0">All</p>
+                <p v-else>{{ biologicalValue }}</p>
+              </b-button>
+            </template>
+            <div class="list">
               <b-dropdown-item
-                v-for="item of filteredDataBiological"
-                :key="item"
+                custom
                 aria-role="listitem"
-                :value="item"
-                >{{ item }}</b-dropdown-item
+                class="search"
+                postion="is-top-left"
               >
-            </b-dropdown>
-          </div>
-          <div class="dropDown">
-            <div>Anatomical site</div>
-
-            <b-dropdown aria-role="list" v-model="anatomicalValue" scrollable>
-              <template #trigger="{ active }">
+                <b-input
+                  class="searchInput"
+                  v-model="searchTermBiological"
+                  placeholder="search"
+                  expanded
+                />
                 <b-button
-                  class="dropdownButton"
-                  size="is-medium"
-                  type="is-secondary"
-                  :icon-right="active ? 'menu-up' : 'menu-down'"
-                >
-                  <p v-if="anatomicalValue.length == 0">All</p>
-                  <p v-else>{{ anatomicalValue }}</p>
-                </b-button>
-              </template>
-              <div class="list">
-                <b-dropdown-item custom aria-role="listitem" class="search">
-                  <b-input
-                    class="searchInput"
-                    v-model="searchTermAnatomical"
-                    placeholder="search"
-                    expanded
-                  />
-                  <b-button
-                    icon-left="refresh"
-                    class="resetButton"
-                    type="is-primary"
-                    @click="clearAnatomical"
-                    title="Clear selection"
-                  />
-                </b-dropdown-item>
-              </div>
+                  icon-left="refresh"
+                  class="resetButton"
+                  type="is-primary"
+                  @click="clearBiological"
+                  title="Clear selection"
+                />
+              </b-dropdown-item>
+            </div>
+            <b-dropdown-item
+              v-for="item of filteredDataBiological"
+              :key="item"
+              aria-role="listitem"
+              :value="item"
+              >{{ item }}</b-dropdown-item
+            >
+          </b-dropdown>
+        </div>
+        <div class="dropDown">
+          <div>Anatomical site</div>
 
-              <b-dropdown-item
-                v-for="item of filteredDataAnatomical"
-                :key="item"
-                :value="item"
-                aria-role="listitem"
-                >{{ item }}</b-dropdown-item
+          <b-dropdown aria-role="list" v-model="anatomicalValue" scrollable>
+            <template #trigger="{ active }">
+              <b-button
+                class="dropdownButton"
+                size="is-medium"
+                type="is-secondary"
+                :icon-right="active ? 'menu-up' : 'menu-down'"
               >
-            </b-dropdown>
-          </div>
-          <div class="dropDown">
-            <div>Sex</div>
-            <b-dropdown aria-role="list" v-model="sexOptions">
-              <template #trigger="{ active }">
+                <p v-if="anatomicalValue.length == 0">All</p>
+                <p v-else>{{ anatomicalValue }}</p>
+              </b-button>
+            </template>
+            <div class="list">
+              <b-dropdown-item custom aria-role="listitem" class="search">
+                <b-input
+                  class="searchInput"
+                  v-model="searchTermAnatomical"
+                  placeholder="search"
+                  expanded
+                />
                 <b-button
-                  class="dropdownButton"
-                  size="is-medium"
-                  type="is-secondary"
-                  :icon-right="active ? 'menu-up' : 'menu-down'"
-                >
-                  <p v-if="sexOptions.length == 0">All</p>
-                  <p v-else>{{ sexOptions }}</p>
-                </b-button>
-              </template>
-              <b-dropdown-item value="Male" aria-role="listitem"
-                >Male</b-dropdown-item
-              >
-              <b-dropdown-item value="Female" aria-role="listitem"
-                >Female</b-dropdown-item
-              >
-            </b-dropdown>
-          </div>
-          <div class="dropDown">
-            <div>Age at extraction</div>
+                  icon-left="refresh"
+                  class="resetButton"
+                  type="is-primary"
+                  @click="clearAnatomical"
+                  title="Clear selection"
+                />
+              </b-dropdown-item>
+            </div>
 
-            <component
-              :is="ageSelector"
-              :ageOptions="ageOptions"
-              @updateAgeOptions="setAgeOptions"
-              ref="ageSelector"
-            ></component>
-          </div>
+            <b-dropdown-item
+              v-for="item of filteredDataAnatomical"
+              :key="item"
+              :value="item"
+              aria-role="listitem"
+              >{{ item }}</b-dropdown-item
+            >
+          </b-dropdown>
+        </div>
+        <div class="dropDown">
+          <div>Sex</div>
+          <b-dropdown aria-role="list" v-model="sexOptions">
+            <template #trigger="{ active }">
+              <b-button
+                class="dropdownButton"
+                size="is-medium"
+                type="is-secondary"
+                :icon-right="active ? 'menu-up' : 'menu-down'"
+              >
+                <p v-if="sexOptions.length == 0">All</p>
+                <p v-else>{{ sexOptions }}</p>
+              </b-button>
+            </template>
+            <b-dropdown-item value="Male" aria-role="listitem"
+              >Male</b-dropdown-item
+            >
+            <b-dropdown-item value="Female" aria-role="listitem"
+              >Female</b-dropdown-item
+            >
+          </b-dropdown>
+        </div>
+        <div class="dropDown">
+          <div>Age at extraction</div>
+
+          <component
+            :is="ageSelector"
+            :ageOptions="ageOptions"
+            @updateAgeOptions="setAgeOptions"
+            ref="ageSelector"
+          ></component>
         </div>
       </div>
       <div class="searchButtonField">
@@ -374,6 +370,7 @@ export default {
     validateInput: function (queryObj) {
       var vm = this;
       if (
+        queryObj.searchTerm == undefined &&
         queryObj.age == undefined &&
         queryObj.sex == undefined &&
         queryObj.ageOption == undefined &&
@@ -397,7 +394,6 @@ export default {
       } else {
         var wss = vm.aggregator.replace("https", "wss"); // change aggregator https url to wss
       }
-
       // Query params parsing from string https://stackoverflow.com/a/6566471/8166034
       // Copy the query object and remove the unwanted keys, so that we can use
       // the pristine query object in BasicSearch and AdvancedSearch
@@ -420,7 +416,6 @@ export default {
         // check if a beacon with the same id exists already
         // prevent results appearing 2 times.
         // this can occur when aggregators query the same beacons
-
         if (JSON.parse(event.data).anatomicalSite != undefined) {
           JSON.parse(event.data).anatomicalSite.forEach((data) => {
             var exists = false;
@@ -499,21 +494,21 @@ h2 {
 /* section {
   margin-top: 100px;
 } */
-.stretch {
-  width: 212.65%;
-}
+
 .searchbar-footer {
   margin-top: 10px;
   font-size: 0.9em;
   display: flex;
+  gap: 10px;
 }
+
 .searchComponents {
   display: flex;
   flex-flow: column wrap;
+  justify-content: space-between;
 }
 .dropDown {
   display: inline-block;
-  padding-left: 20px;
 }
 .dropDown1 {
   display: inline-block;
@@ -536,11 +531,14 @@ h2 {
   #example {
     order: 2;
   }
+  .dropdownButtonSpecies {
+    width: 100%;
+  }
 }
-.searchBar {
-  display: flex;
-  border-radius: 0;
+form {
+  width: 100%;
 }
+
 .searchBarField {
   display: flex;
   padding-top: 20px;
